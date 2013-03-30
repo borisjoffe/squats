@@ -233,7 +233,7 @@ Usage:\t./plates [space separated list of weights] [either 'kg' or 'lbs']\n\
 
 	# Last arg is lbs or kg
 	lastarg = sys.argv[len(sys.argv)-1]
-	if check_sys(lastarg, True): # return error if no valid lastarg
+	if check_sys(lastarg, True) == -1: # return error if no valid lastarg
 		NO_MEAS_SPECIFIED = True;
 
 	if set_program( check_sys(string.lower(lastarg), True) ) == -1:
