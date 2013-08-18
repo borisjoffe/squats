@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-import sys, os, re, datetime, types
+import sys, os, re, datetime, types, string
 from utils import Err, ErrF, Dbg, check_sys
 
 
@@ -16,7 +16,7 @@ filename = 'sl5x5.txt';
 main_file = os.path.join(dir, filename);
 
 date_regexp = '\d{4}/\d{2}/\d{2}';
-max_read_lines = 150; max_lines_workout = 30; max_future_days = 2;
+max_read_lines = 250; max_lines_workout = 50; max_future_days = 3;
 next_days = []; workout = []; workout_meas = DEFAULT_MEAS;
 
 # Create list of next days from today (inclusive) to max_future_days ahead
@@ -27,7 +27,7 @@ def make_list_of_next_days(max_future_days=max_future_days):
 	day_of_month = int(datetime.date.today().strftime('%d')); # TODO - fix BUG - won't work at month boundaries
 
 	for i in range(max_future_days): # make array of next few dates (formatted)
-		next_days.append(year_month + str(day_of_month + i));
+		next_days.append(year_month + str(day_of_month + i).zfill(2)); # use zfill to keep leading zero
 	return next_days;
 
 # Get workout date from first line of workout
@@ -60,8 +60,10 @@ def get_next_workout(filename=main_file, Verbose=False):
 
 			for j in range(max_lines_workout): # every line of workout
 				nextline = f.readline();
-				if j == 0 and nextline == '\n':
+				if j == 0 and string.replace(nextline, '\t', '') == '\n':
 					if Verbose: print "'workoutlog.py' - No sets or weights found for your next workout on", workout_date + ".\n\nIt looks like you began writing your workout but haven't added any exercises yet. \nPlease add some exercises with corresponding weights such as: \n\tsquat\t1x5:405\nThis means one set of five reps of squats at a weight of 405.\nOnce we see this, we will calculate what plates to load for each weight.\nThanks!";
+					if DBG:
+						Dbg('nextline was newline', nextline)
 					f.close()
 					return -1
 				if nextline == '\n':

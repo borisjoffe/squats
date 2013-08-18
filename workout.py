@@ -290,13 +290,13 @@ def round5(x):
 
 # Remove very light weights in array - less than or equal to cutoff
 # Returns number of weights removed
+# TODO - Use filter()
 def remove_very_light_weights(weightarr, cutoff):
 	iarr = []
 	for i in xrange(len(weightarr)):
 		if float(weightarr[i]) <= cutoff:
 			iarr.append(weightarr[i])		# creates a list of weights i have to remove
 	
-	# Removes those bitches
 	for i in xrange(len(iarr)):
 		weightarr.remove(iarr[i])
 		
