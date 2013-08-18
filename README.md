@@ -8,7 +8,7 @@ These scripts are pretty limited and hacked together right now but I plan to add
 
 plates.py
 ------
-`plates` calculates the breakdown of what plates to load on the bar depending on what weights you are lifting for each set. You can either pass it whitespace delimited arguments directly on the command line inserting the word `BREAK` when you are switching exercises, or you can let it automatically find your workout file and calculate the plates breakdow for all sets. The default workout file is set to `/home/boris/fitness/sl5x5.txt` in the file `workoutlog.py` which you can change manually. Additionally, the `--auto` option only looks 2 days ahead. Change `max_future_days` in `workoutlog.py` to modify this and related behavior.
+`plates` calculates the breakdown of what plates to load on the bar depending on what weights you are lifting for each set. You can either pass it whitespace delimited arguments directly on the command line inserting the word `BREAK` when you are switching exercises, or you can let it automatically find your workout file and calculate the plates breakdown for all sets. The default workout file is set to `/home/boris/fitness/sl5x5.txt` in the file `workoutlog.py` which you can change manually. Additionally, the `--auto` option only looks 2 days ahead. Change `max_future_days` in `workoutlog.py` to modify this and related behavior.
 
 You can pass this script several types of arguments:
 
@@ -80,7 +80,7 @@ or specify multiple exercises:
 
 workout.py
 ---------
-This calculates workouts for the [Madcow Linear Intermediate Program](http://stronglifts.com/madcow/5x5_Program/Linear_5x5.htm). Barbell rows are substituted with power cleans (can be reversed by changing `MC_PCLEANS`) and certain cutoffs for minimum weights to be used on military press, power cleans, and barbell rows exist.
+This calculates workouts for the [Madcow 5x5 Intermediate Program (Linear)](http://stronglifts.com/madcow/5x5_Program/Linear_5x5.htm). Barbell rows are substituted with power cleans (can be reversed by changing `MC_PCLEANS`) and certain cutoffs for minimum weights to be used on military press, power cleans, and barbell rows exist.
 
 
 	Usage: ./workout.py [OPTIONS] or python workout.py [OPTIONS]
