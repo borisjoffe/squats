@@ -184,9 +184,9 @@ Usage:\t./plates [space separated list of weights] [either 'kg' or 'lbs']\n\
 		my_workout = workoutlog.get_next_workout();
 
 		if my_workout == -1:
-			workout_date = workoutlog.get_workout_date( my_workout[0] )
+			#workout_date = workoutlog.get_workout_date( my_workout[0] )
 
-			print "No weights found for your next workout on", workout_date + ".\n\nIt looks like you began writing your workout but have not added any weights for your exercises. \nPlease add some weights for each exercise such as this example: \n\tsquat\t1x5:405\nThis means one set of five reps of squats at a weight of 405.\nOnce we see this, we will calculate what plates to load for each weight.\nThanks!" 
+			print "No weights found for your next workout.\n\nIt looks like you began writing your workout but have not added any weights for your exercises. \nPlease add some weights for each exercise such as this example: \n\tsquat\t1x5:405\nThis means one set of five reps of squats at a weight of 405.\nOnce we see this, we will calculate what plates to load for each weight.\nThanks!" 
 		elif my_workout == -2:
 			print "Sorry, no workouts found in the beginning of", workoutlog.main_file, "within the next", workoutlog.max_future_days, "days\nPlease update your workout file and try again"
 		else:
