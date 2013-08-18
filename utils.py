@@ -19,9 +19,9 @@ DEFAULT_MEAS = IMPERIAL
 # If none specified AND ReturnError=True, return -1
 def check_sys(desc, ReturnError=False):
     desc = string.lower(desc)
-    if string.find(desc, "oly") != -1 or string.find(desc, "kg") != -1 or string.find(desc, "kgs") != -1: 
+    if string.find(desc, "kg") != -1 or string.find(desc, "kgs") != -1: 
         return METRIC
-    elif string.find(desc, "pl") != -1 or string.find(desc, "lb") != -1 or string.find(desc, "lbs") != -1: 
+    elif string.find(desc, "lb") != -1 or string.find(desc, "lbs") != -1: 
         return IMPERIAL
     else:
         if DBG: Dbg("plates.py/check_sys() - Could not check if you wanted to use the Oly or PL system. You specified", desc) # delete this???
