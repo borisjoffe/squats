@@ -123,3 +123,7 @@ This takes no arguments as of now and just finds your next workout in the next 2
 		dead/l	1x5:185, 1x5:245, 1x5:295 (FOCUS: straight back, weight evenly distributed on heels)
 		fsquat	1x3:155, 1x3:165 (optional)
 
+License
+-------
+Copyright Boris Joffe 2011-2015
+Licensed under the AGPL Version 3.0
