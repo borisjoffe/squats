@@ -1,0 +1,99 @@
+doctype html
+html(lang='en')
+	head
+		- var production = true
+		- var debug = false
+		- var pageTitle = 'Squats'
+		- var seoDescription = ''
+		//- change to https when possible
+		- var canonicalURL = 'http://DOMAIN'
+
+		//-
+			- var ogImage = canonicalURL + ''
+			- var emailAddressObfuscated = ''
+			- var emailAddress = ''
+			- var phoneNumber = ''
+			- var fbURL = ''
+			- var gplusURL = ''
+			- var paymentAccepted = 'credit card'
+
+		if production
+			// PRODUCTION TEMPLATE
+		else
+			// DEV TEMPLATE
+
+		if debug
+			// DEBUGGING ON
+		else
+			// DEBUGGING OFF
+
+		meta(charset='utf-8')
+		meta(http-equiv='X-UA-Compatible', content='IE=edge,chrome=1')
+		meta(name='viewport', content='width=device-width, initial-scale=1.0')
+		meta(name='keywords', content='')
+		
+		//- =============== Schema.org stuff
+		//- use schema.org/Person - google rich snippets -
+		//- https://support.google.com/webmasters/answer/146646?hl=en&ref_topic=1088474
+		meta(itemscope itemtype="http://schema.org/LocalBusiness", content='')
+		meta(itemprop='name', content=pageTitle)
+		meta(itemprop='description', content=seoDescription)
+		meta(itemprop='url', content=canonicalURL)
+		meta(itemprop='email', content=emailAddressObfuscated)
+		meta(itemprop='map', content=mapURL)
+		meta(itemprop='legalName', content=pageTitle)
+		meta(itemprop='paymentAccepted', content=paymentAccepted)
+		meta(itemprop='currenciesAccepted', content='USD')
+
+		title= pageTitle
+		//- TODO: add more SEO stuff, social media, og tags, apple icons, favicon, address, phone, etc
+		//-
+			Verify domain on Google Web Master Tools to learn about any future SEO problems
+		meta(name='description', content=seoDescription)
+		meta(name='robots', content='index,follow')
+
+		// Me
+		meta(name='author', content='Boris Joffe - boris.joff3.com' href='http://boris.joff3.com')
+		//meta(name='creator', content='Boris Joffe - boris.joff3.com' href='http://boris.joff3.com')
+		link(type='text/plain' rel='author' href='/humans.txt')
+
+		// OGP
+		//- LATER: maybe add other objects - http://ogp.me/
+		meta(property='og:title', content=pageTitle)
+		meta(property='og:type', content='website')
+		meta(property='og:image', content=ogImage)
+		meta(property='og:url', content=canonicalURL)
+		meta#meta-tag-description(property='og:description', content=seoDescription)
+
+		// LATER: Fav and touch icons
+		// http://iconogen.com/
+		//-
+			link(rel='apple-touch-icon-precomposed', sizes='144x144', href='../ico/apple-touch-icon-144-precomposed.png')
+			link(rel='apple-touch-icon-precomposed', sizes='114x114', href='../ico/apple-touch-icon-114-precomposed.png')
+			link(rel='apple-touch-icon-precomposed', sizes='72x72', href='../ico/apple-touch-icon-72-precomposed.png')
+			link(rel='apple-touch-icon-precomposed', href='../ico/apple-touch-icon-57-precomposed.png')
+			link(rel='shortcut icon', href='../ico/favicon.png')
+
+		// Bootstrap CSS
+		//- link(href='css/bootstrap.min.css', rel='stylesheet', media='screen')
+			link(href='//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css', rel='stylesheet')
+
+		<!--[if lt IE 9]>
+		script(src='//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.js')
+		<![endif]-->
+
+		//-
+			if production
+				style
+					include static/css/custom.css
+			else
+				link(rel='stylesheet', href='css/custom.css')
+
+		block extrahead
+
+		// Scripts
+		script(src='js/jquery.min.js')
+
+	body
+		block content
+
