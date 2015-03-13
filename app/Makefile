@@ -1,20 +1,22 @@
 SRC=$(CURDIR)
 TEMPLATE_DIR=$(SRC)/templates
 PUB_DIR=$(SRC)/pub
-SCRIPT_DIR=$(PUB)
+SCRIPT_DIR=$(PUB_DIR)
 
 all: jade coffee
 
 # Programs and flags
+JADE=jade
+JADE_ARGS=--pretty $(FLAGS)
+COFFEE=coffee
+COFFEE_ARGS=--compile $(FLAGS) --join app.js --output $(PUB_DIR)/
 FLAGS=
-JADE_ARGS=-P $(FLAGS)
-COFFEE_ARGS=-c $(FLAGS)
 
 jade: $(TEMPLATE_DIR)/*.jade
-	jade $(JADE_ARGS) $^
+	$(JADE) $(JADE_ARGS) $^
 
 coffee: $(SCRIPT_DIR)/*.coffee
-	coffee $(COFFEE_ARGS) $^
+	$(COFFEE) $(COFFEE_ARGS) $^
 
 watch: jade coffee
 
