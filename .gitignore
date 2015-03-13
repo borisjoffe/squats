@@ -1,0 +1,14 @@
+*.pyc
+*.html
+
+# Config
+.env
+*.env
+
+# Logs
+*.log
+
+# Temp
+*.swp
+*.*~
+nohup.out

@@ -1,6 +1,7 @@
 SRC=$(CURDIR)
 TEMPLATE_DIR=$(SRC)/templates
-SCRIPT_DIR=$(SRC)/js
+PUB_DIR=$(SRC)/pub
+SCRIPT_DIR=$(PUB)
 
 all: jade coffee
 

@@ -40,11 +40,11 @@ def f(filename):
 	return x
 
 # Static stuff - move to nginx
-@app.route('/js/jquery.min.js')
-def js1(): return f('js/jquery.min.js')
+@app.route('/lib/jquery.min.js')
+def js1(): return f('pub/lib/jquery.min.js')
 
-@app.route('/js/app.js')
-def js2(): return f('js/app.js')
+@app.route('/app.js')
+def js2(): return f('pub/app.js')
 
 def main():
 	app.run()
