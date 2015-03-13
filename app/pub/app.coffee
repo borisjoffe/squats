@@ -1,4 +1,8 @@
+"use strict"
+
 workouts = $.get('/workouts', (data) ->
-	console.log arguments
-	$('#workouts').append data
+	workouts = new Workouts(data)
+	view = new WorkoutsView(workouts)
+
+	$('#workouts').append view.render()
 )
