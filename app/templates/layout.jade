@@ -1,8 +1,8 @@
 doctype html
 html(lang='en')
 	head
-		- var production = true
-		- var debug = false
+		- var production = false
+		- var debug = true
 		- var pageTitle = 'Squats'
 		- var seoDescription = ''
 		//- change to https when possible
@@ -82,12 +82,11 @@ html(lang='en')
 		script(src='//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.js')
 		<![endif]-->
 
-		//-
-			if production
-				style
-					include static/css/custom.css
-			else
-				link(rel='stylesheet', href='css/custom.css')
+		if production
+			link(rel='stylesheet', href='main.css')
+		else
+			style
+				include ../pub/main.css
 
 		block extrahead
 

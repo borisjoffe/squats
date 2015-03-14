@@ -46,6 +46,9 @@ def js1(): return f('pub/lib/jquery.min.js')
 @app.route('/app.js')
 def js2(): return f('pub/app.js')
 
+@app.route('/main.css')
+def css(): return f('pub/main.css')
+
 def main():
 	app.run()
 	return 0

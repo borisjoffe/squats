@@ -14,7 +14,7 @@ WorkoutsView = (workouts) ->
 	for workout in workouts.getAll()
 		html +=
 			'<div class="workout">' +
-				workout + '<br><br>' +
+				workout +
 			'</div>'
 
 	this._html = html
