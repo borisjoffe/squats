@@ -62,7 +62,7 @@ Workout.prototype.render = () ->
 	'</div>'
 
 WorkoutHeader = (headerText) ->
-	DATE_REGEXP = /^(\d+\/\d+\/\d+)\s/
+	DATE_REGEXP = /(\d+\/\d+\/\d+)\s/
 	this._text = headerText
 	this._workoutDate = headerText.match(DATE_REGEXP)?[1]
 	this
