@@ -3,11 +3,16 @@ WORKOUT_SEPARATOR = '\n\n'
 Workouts = (text) ->
 	this._chunks = text.split(WORKOUT_SEPARATOR)
 	meta = this._meta = new WorkoutsMeta()
+	lastMetaIdx = -1
 	this._workouts = this._chunks.reduce((workouts, workoutChunk, idx) ->
 		w = new Workout(workoutChunk)
 		if w.isValid()
 			workouts.push(w)
 		else
+			if lastMetaIdx + 1 is not idx
+				console.warn 'Meta section found after a valid workout. Meta idx was', idx
+			else
+				lastMetaIdx += 1
 			meta.add(workoutChunk)
 
 		workouts
