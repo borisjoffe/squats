@@ -43,7 +43,7 @@ WorkoutsMeta.prototype.render = () ->
 		this._meta.map((metaSection) ->
 			'<div class="meta-section">' +
 				metaSection +
-			'</div>') +
+			'</div>').join('') +
 	'</div>'
 
 Workout = (workoutText) ->
@@ -82,8 +82,8 @@ WorkoutsView = (workouts) ->
 
 	html.push workouts.renderMeta()
 
-	html.push workouts.getAll().map (workout) ->
-		workout.render()
+	workouts.getAll().forEach (workout) ->
+		html.push workout.render()
 
 	this._html = html.join('')
 	this
