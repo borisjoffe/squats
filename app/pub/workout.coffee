@@ -1,49 +1,34 @@
 WORKOUT_SEPARATOR = '\n\n'
 
+
+toHtml = (text) ->
+	text.replace(/\n/g, '<br>')
+
 Workouts = (text) ->
 	this._chunks = text.split(WORKOUT_SEPARATOR)
-	meta = this._meta = new WorkoutsMeta()
-	lastMetaIdx = -1
-	this._workouts = this._chunks.reduce((workouts, workoutChunk, idx) ->
-		w = new Workout(workoutChunk)
+	this._sections = this._chunks.reduce((sections, section, idx) ->
+		# TODO: add workout validator static method
+		# TODO: abstract this logic out to allow for more types of content
+		w = new Workout(section)
 		if w.isValid()
-			workouts.push(w)
+			sections.push(w)
 		else
-			if lastMetaIdx + 1 is not idx
-				console.warn 'Meta section found after a valid workout. Meta idx was', idx
-			else
-				lastMetaIdx += 1
-			meta.add(workoutChunk)
-
-		workouts
+			m = new MetaSection(section)
+			sections.push(m)
+		sections
 	, [])
 	this
 
 Workouts.prototype.getAll = () ->
-	this._workouts.slice()
+	this._sections.slice()
 
-Workouts.prototype.getAllMeta = () ->
-	this._meta.getAll()
-
-Workouts.prototype.renderMeta = () ->
-	this._meta.render()
-
-WorkoutsMeta = (textChunks) ->
-	this._meta = []
+MetaSection = (sectionText) ->
+	this._meta = sectionText
 	this
 
-WorkoutsMeta.prototype.add = (metaText) ->
-	this._meta.push(metaText)
-
-WorkoutsMeta.prototype.getAll = () ->
-	this._meta.slice()
-
-WorkoutsMeta.prototype.render = () ->
-	'<div class="meta">' +
-		this._meta.map((metaSection) ->
-			'<div class="meta-section">' +
-				metaSection +
-			'</div>').join('') +
+MetaSection.prototype.render = () ->
+	'<div class="meta-section">' +
+		toHtml(this._meta) +
 	'</div>'
 
 Workout = (workoutText) ->
@@ -72,7 +57,7 @@ WorkoutHeader.prototype.isValid = () ->
 
 WorkoutHeader.prototype.render = () ->
 	'<div class="workout-header">' +
-		this._text +
+		toHtml(this._text) +
 	'</div>'
 
 Exercises = (exercises) -> this
@@ -80,10 +65,8 @@ Exercises = (exercises) -> this
 WorkoutsView = (workouts) ->
 	html = []
 
-	html.push workouts.renderMeta()
-
-	workouts.getAll().forEach (workout) ->
-		html.push workout.render()
+	workouts.getAll().forEach (section) ->
+		html.push section.render()
 
 	this._html = html.join('')
 	this
