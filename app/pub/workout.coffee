@@ -2,7 +2,10 @@ WORKOUT_SEPARATOR = '\n\n'
 
 
 toHtml = (text) ->
-	text.replace(/\n/g, '<br>')
+	if Array.isArray text
+		text.join '<br>'
+	else
+		text.replace(/\n/g, '<br>')
 
 Workouts = (text) ->
 	this._chunks = text.split(WORKOUT_SEPARATOR)
@@ -43,7 +46,7 @@ Workout.prototype.isValid = () ->
 Workout.prototype.render = () ->
 	'<div class="workout">' +
 		this._header.render() +
-		this._exercises.join('') +
+		toHtml(this._exercises) +
 	'</div>'
 
 WorkoutHeader = (headerText) ->
