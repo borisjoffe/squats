@@ -1,2 +1,5 @@
 cfg =
-	units: 'lbs'
+	unitOfWeight:
+		DEFAULT: 'lbs'
+		kilos: 'kg'
+		pounds: 'lbs'
