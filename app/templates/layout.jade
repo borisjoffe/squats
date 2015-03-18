@@ -82,11 +82,7 @@ html(lang='en')
 		script(src='//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.js')
 		<![endif]-->
 
-		if production
-			link(rel='stylesheet', href='main.css')
-		else
-			style
-				include ../pub/main.css
+		link(rel='stylesheet', href='main.css')
 
 		block extrahead
 
