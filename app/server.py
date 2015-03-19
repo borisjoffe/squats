@@ -4,8 +4,10 @@ import sys
 import string
 #from future import *
 
-from flask import Flask, render_template, url_for, request, redirect, session, g
+from flask import Flask, Blueprint, render_template, url_for, request, redirect, session, g
+pub = Blueprint('pub', __name__, static_folder='pub')
 app = Flask(__name__)
+app.register_blueprint(pub)
 
 app.debug = True
 if app.debug:
@@ -33,21 +35,13 @@ def index():
 	else:
 		return "ERROR: NOT LOGGED IN"
 
-def f(filename):
-	f = open(filename, 'r')
-	x = f.read()
+# Static server - move to nginx
+@app.route('/pub/<staticFile>')
+def pub_resource(staticFile):
+	f = pub.open_resource('pub/' + staticFile)
+	content = f.read()
 	f.close()
-	return x
-
-# Static stuff - move to nginx
-@app.route('/lib/jquery.min.js')
-def js1(): return f('pub/lib/jquery.min.js')
-
-@app.route('/app.js')
-def js2(): return f('pub/app.js')
-
-@app.route('/main.css')
-def css(): return f('pub/main.css')
+	return content
 
 def main():
 	app.run()
