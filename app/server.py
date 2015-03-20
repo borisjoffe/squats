@@ -6,7 +6,7 @@ import json
 from hashlib import sha512
 #from future import *
 
-from flask import Flask, Blueprint, render_template, url_for, request, redirect, session, g
+from flask import Flask, Blueprint, render_template, url_for, request, redirect, session, g, Response
 pub = Blueprint('pub', __name__, static_folder='pub')
 app = Flask(__name__)
 app.register_blueprint(pub)
@@ -46,7 +46,9 @@ def pub_resource(staticFile):
 	f = pub.open_resource('pub/' + staticFile)
 	content = f.read()
 	f.close()
-	return content
+	mimetype = 'text/' + staticFile.split('.')[-1]
+	resp = Response(content, mimetype=mimetype)
+	return resp
 
 def main():
 	app.run()
