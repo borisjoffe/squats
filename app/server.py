@@ -2,6 +2,8 @@
 
 import sys
 import string
+import json
+from hashlib import sha512
 #from future import *
 
 from flask import Flask, Blueprint, render_template, url_for, request, redirect, session, g
@@ -19,7 +21,10 @@ from workoutlist import WorkoutList
 @app.route('/workouts', methods=['GET'])
 def workouts():
 	workoutlist = WorkoutList(0)
-	return '\n'.join(workoutlist.take(50))
+	data = '\n'.join(workoutlist.take(50))
+	hashcode = sha512(data).hexdigest()
+	# figure out how to return json
+	return json.dumps({ "workouts": data, "hashcode": hashcode })
 
 # ==== Helpers ====
 
