@@ -1,5 +1,5 @@
 WORKOUT_SEPARATOR = '\n\n'
-
+WHITESPACE = '\s'
 
 toHtml = (text) ->
 	if Array.isArray text
@@ -37,6 +37,12 @@ getUnitOfWeight = (text, context) ->
 	else
 		cfg.unitOfWeight.DEFAULT
 
+getExerciseName = (text) -> text
+
+# TODO: partition text / comments somehow
+splitComments = (text) ->
+	[text]
+
 Workouts = (text) ->
 	this._chunks = text.split(WORKOUT_SEPARATOR)
 	this._sections = this._chunks.reduce((sections, section, idx) ->
@@ -65,38 +71,37 @@ MetaSection.prototype.render = () ->
 	'</div>'
 
 Workout = (workoutText) ->
-	this._chunks = workoutText.split('\n')
-	this._header = new WorkoutHeader(this._chunks[0])
-	this._exercises = this._chunks.slice(1)
+	EXERCISE_SEPARATOR = '\n'
+	@_chunks = workoutText.split(EXERCISE_SEPARATOR)
+	@_header = new WorkoutHeader(@_chunks[0])
+	@_exercises = []
+	for exerciseText in @_chunks[1..]
+		@_exercises.push(new Exercise(exerciseText))
 	this
 
-Workout.prototype.isValid = () ->
-	this._header.isValid()
+Workout::isValid = () -> this._header.isValid()
 
-Workout.prototype.render = () ->
+Workout::render = () ->
 	'<div class="workout">' +
-		this._header.render() +
-		toHtml(this._exercises) +
+		@_header.render() +
+		toHtml(@_exercises.map((exercise) -> exercise.render())) +
 	'</div>'
 
 WorkoutHeader = (headerText) ->
 	txt = headerText
-	this._text = txt
+	@_text = txt
 
-	this._workoutDate = getDate(txt)
+	@_workoutDate = getDate(txt)
 
-	this._workoutUnitOfWeight = getUnitOfWeight(txt)
-	console.log @_workoutUnitOfWeight
+	@_workoutUnitOfWeight = getUnitOfWeight(txt)
 
-	this._meta = WorkoutHeader.getMeta(txt)
-	console.log @_meta
+	@_meta = WorkoutHeader.getMeta(txt)
 
 	this
 
-WorkoutHeader.prototype.isValid = () ->
-	!!this._workoutDate
+WorkoutHeader::isValid = () -> !!this._workoutDate
 
-WorkoutHeader.prototype.render = () ->
+WorkoutHeader::render = () ->
 	'<div class="workout-header">' +
 		toHtml(this._text) +
 	'</div>'
@@ -104,7 +109,17 @@ WorkoutHeader.prototype.render = () ->
 WorkoutHeader.getMeta = (text) ->
 	text.match(/\(([^\)]*)\)/)?[1]
 
-Exercises = (exercises) -> this
+Exercise = (exerciseText) ->
+	# TEXT FORMAT: EXERCISE_NAME COMMA_SEPARATED_SETS OPTIONAL COMMENT
+	@_text = exerciseText
+	@_sections = exerciseText.split(WHITESPACE)
+	@_name = getExerciseName @_sections[0]
+	@_sets = @_sections[1..]
+	@_comments = ''
+	this
+
+Exercise::render -> @_text
+Exercise::isValid -> !!@_name and !!@_sets
 
 WorkoutsView = (workouts) ->
 	html = []

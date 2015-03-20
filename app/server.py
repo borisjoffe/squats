@@ -24,7 +24,7 @@ def workouts():
 	data = '\n'.join(workoutlist.take(50))
 	hashcode = sha512(data).hexdigest()
 	# figure out how to return json
-	return json.dumps({ "workouts": data, "hashcode": hashcode })
+	return Response(json.dumps({ "workouts": data, "hashcode": hashcode }), mimetype='text/json')
 
 # ==== Helpers ====
 
