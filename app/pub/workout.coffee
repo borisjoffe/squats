@@ -114,12 +114,21 @@ Exercise = (exerciseText) ->
 	@_text = exerciseText
 	@_sections = exerciseText.split(WHITESPACE)
 	@_name = getExerciseName @_sections[0]
-	@_sets = @_sections[1..]
+	@_sets = @_sections[1..].join('') # TODO: parse into sets and comments
 	@_comments = ''
 	this
 
-Exercise::render -> @_text
-Exercise::isValid -> !!@_name and !!@_sets
+Exercise::render = -> toHtml(@_text)
+Exercise::isValid = -> !!@_name and !!@_sets
+
+ExerciseSet = (setArray) ->
+	# TEXT FORMAT: NUM_SETSxREP:WEIGHT
+	SET_SEPARATOR = ','
+	@_chunks = setArray
+	this
+
+ExerciseSet::render = -> toHtml(@_chunks)
+ExerciseSet::isValid = -> true
 
 WorkoutsView = (workouts) ->
 	html = []
