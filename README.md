@@ -1,8 +1,8 @@
 Squats 
 =====
-Create, Track, and Analyze Powerlifting and Olympic-lifting style workouts
+Create, Track, and Analyze Powerlifting and Olympic Weightlifting workouts
 -----
-These scripts are pretty limited and hacked together right now but I plan to add more functionality in the future. You can create symbolic links in a directory in your `$PATH` pointing to these scripts to avoid typing the `.py` file extension all the time. For example, use `ln -s -T /your/directory/with/these/scripts/plates.py /a/directory/in/your/path/plates` to use `plates` to execute the script instead of `plates.py`
+These Python scripts are being transitioned into a web app. To use them now, you should create symbolic links in a directory in your `$PATH` pointing to these scripts to avoid typing the `.py` file extension all the time. For example, use `ln -s -T /your/directory/with/these/scripts/plates.py /a/directory/in/your/path/plates` to use `plates` to execute the script instead of `plates.py`
 
 
 
@@ -126,4 +126,5 @@ This takes no arguments as of now and just finds your next workout in the next 2
 License
 -------
 Copyright Boris Joffe 2011-2015
+
 Licensed under the AGPL Version 3.0
