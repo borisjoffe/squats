@@ -1,8 +1,9 @@
 const WORKOUT_SEPARATOR = '\n\n';
 const WHITESPACE = '\s';
+var cfg = window.cfg;
 
 function toHtml(text) {
-	return (Array.isArray(text)) ?
+	return Array.isArray(text) ?
 		text.join('<br>') :
 		text.replace(/\n/g, '<br>');
 }
@@ -45,7 +46,7 @@ function getDate(text, context) {
 	}
 }
 
-/*
+/**
  * Takes in text containing unit of weight
  * returns first unit of weight found
  * returns user's default unit of weight if no date found
@@ -70,6 +71,7 @@ class Workouts {
 	constructor(text) {
 		this._chunks = text.split(WORKOUT_SEPARATOR);
 		this._sections = this._chunks.reduce(function (sections, section, idx) {
+			var w, m;
 			// TODO: add workout validator static method
 			// TODO: abstract this logic out to allow for more types of content
 			w = new Workout(section);
@@ -107,8 +109,8 @@ class Workout {
 		this._chunks = workoutText.split(EXERCISE_SEPARATOR);
 		this._header = new WorkoutHeader(this._chunks[0]);
 		this._exercises = [];
-		for (var exerciseText in this._chunks.slice(1))
-			this._exercises.push(new Exercise(exerciseText));
+		this._chunks.slice(1).forEach(exerciseText =>
+			this._exercises.push(new Exercise(exerciseText)));
 	}
 
 	isValid() { return this._header.isValid(); }
@@ -174,8 +176,12 @@ class ExerciseSet {
 	isValid() { return true; }
 }
 
-class WorkoutsView {
+window.WorkoutsView = class WorkoutsView {
 	constructor(workouts) {
+		if (!(workouts instanceof Workouts)) {
+			workouts = new Workouts(workouts);
+		}
+
 		var html = [];
 
 		workouts.getAll().forEach(function (section) {
@@ -186,6 +192,6 @@ class WorkoutsView {
 	}
 
 	render() { return this._html; }
-}
+};
 
-export {Workouts, WorkoutsView};
+//export {Workouts, WorkoutsView};

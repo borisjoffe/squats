@@ -1,10 +1,8 @@
-import 'Workouts';
-import 'WorkoutsView';
+//import WorkoutsView from 'WorkoutsView';
 
 $.get('/workouts', function (data) {
 	var hash = data.hashcode,
-		workouts = new Workouts(data.workouts),
-		view = new WorkoutsView(workouts);
+		view = new WorkoutsView(data.workouts);
 
 	$('#workouts').append(view.render());
 });

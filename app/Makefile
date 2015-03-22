@@ -12,7 +12,8 @@ JADE_ARGS=--pretty $(FLAGS)
 COFFEE=coffee
 COFFEE_ARGS=--compile $(FLAGS) --join app.js --output $(PUB_DIR)/
 BABEL=babel
-BABEL_ARGS=--modules common $(FLAGS) --out-file $(PUB_DIR)/app.js
+BABEL_ARGS=--modules common --experimental $(FLAGS) --out-file $(PUB_DIR)/app.js
+# --source-maps
 STYLUS=stylus
 STYLUS_ARGS=$(FLAGS)
 FLAGS=
@@ -23,8 +24,11 @@ jade: $(TEMPLATE_DIR)/*.jade
 coffee: $(SCRIPT_DIR)/*.coffee
 	$(COFFEE) $(COFFEE_ARGS) $^
 
+# TODO: Replace with webpack loaders
 babel: $(SCRIPT_DIR)/*.es6
-	$(BABEL) $(BABEL_ARGS) $^
+	#$(BABEL) $(BABEL_ARGS) $^
+	cd $(PUB_DIR); \
+	$(BABEL) $(BABEL_ARGS) config.es6 workout.es6 app.es6
 
 stylus: $(STYLES_DIR)/*.styl
 	$(STYLUS) $(STYLUS_ARGS) $^
