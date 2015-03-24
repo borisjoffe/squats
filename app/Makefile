@@ -28,7 +28,7 @@ coffee: $(SCRIPT_DIR)/*.coffee
 babel: $(SCRIPT_DIR)/*.es6
 	#$(BABEL) $(BABEL_ARGS) $^
 	cd $(PUB_DIR); \
-	$(BABEL) $(BABEL_ARGS) config.es6 workout.es6 app.es6
+	$(BABEL) $(BABEL_ARGS) config.es6 workout.es6 program-generator.es6 app.es6
 
 stylus: $(STYLES_DIR)/*.styl
 	$(STYLUS) $(STYLUS_ARGS) $^
