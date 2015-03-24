@@ -56,3 +56,11 @@ programs.omcadv = {
 
 // Input
 
+
+// View
+var ProgramGeneratorView = React.createClass({
+	render: function () {
+		var text = "World";
+		return <p>Hello {text}</p>
+	}
+});

@@ -6,3 +6,8 @@ $.get('/workouts', function (data) {
 
 	$('#workouts').append(view.render());
 });
+
+React.render(
+	<ProgramGeneratorView />,
+	document.getElementById('generator')
+);
