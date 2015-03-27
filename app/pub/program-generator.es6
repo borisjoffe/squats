@@ -109,7 +109,8 @@ class ProgramGenerator {
 					if (!isFinite(lastPr)) {
 						warn('lastPr is not finite. It is', lastPr);
 					}
-					console.log('exercise:', exercise, '| sxr:', sxr, '| lastPr:', lastPr);
+
+					log('exercise:', exercise, '| sxr:', sxr, '| lastPr:', lastPr);
 
 					// 0 to numWeeks - 1
 					var weights = _.range(numWeeks).map(week => {
@@ -122,7 +123,7 @@ class ProgramGenerator {
 					})
 					.map(round);
 
-					console.log(weights);
+					log(weights);
 
 				});
 			});

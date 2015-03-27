@@ -6,6 +6,10 @@ function round(x) {
 	return Math.round(x / roundTo) * roundTo;
 }
 
+function log() {
+	console.log(...arguments);
+}
+
 function warn() {
 	debugger;
 	console.warn(...arguments);
