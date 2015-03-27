@@ -174,6 +174,28 @@ class ExerciseSet {
 
 	render() { return toHtml(this._chunks); }
 	isValid() { return true; }
+
+	toString(sets, reps) {
+		if (this instanceof ExerciseSet) {
+			sets = this._sets;
+			reps = this._reps;
+		}
+
+		return sets + cfg.setsByRepsDelim + reps;
+	}
+
+	static toShortString(sets, reps) {
+		if (this instanceof ExerciseSet) {
+			sets = this._sets;
+			reps = this._reps;
+		}
+
+		if (sets === 1) {
+			return reps;
+		} else {
+			return sets + cfg.setsByRepsDelim + reps;
+		}
+	}
 }
 
 window.WorkoutsView = class WorkoutsView {

@@ -11,3 +11,5 @@ React.render(
 	<ProgramGeneratorView />,
 	document.getElementById('generator')
 );
+
+var myProgram = new ProgramGenerator(programs.omcadv, user);

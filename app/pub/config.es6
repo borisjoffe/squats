@@ -6,7 +6,9 @@
 			DEFAULT: 'lbs',
 			kilos: 'kg',
 			pounds: 'lbs'
-		}
+		},
+
+		setsByRepsDelim: 'x'
 	};
 
 }());

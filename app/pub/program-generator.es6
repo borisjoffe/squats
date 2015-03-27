@@ -50,7 +50,7 @@ programs.omcadv = {
 		// loading
 		{
 			numWeeks: 4,
-			currentPrsInWeek: 3, // VALIDATE: x < numWeeks
+			weekOfCurrentPrs: 3, // VALIDATE: x < numWeeks
 			weekOnePercentOfPr: 0.8, // VALIDATE: 0 < x < 1
 			prJumpPercent: 0.05, // VALIDATE: percent
 			days: [DAYS.MON, DAYS.WED, DAYS.FRI, DAYS.SAT, DAYS.SUN],
@@ -68,14 +68,70 @@ programs.omcadv = {
 			]
 		},
 		// intensity option 1 - Deload and Peak 3x3
-		{}
+		//{}
 	]
 };
 
 // Input
+class ProgramGenerator {
+	constructor(program, user) {
+		this.maxes = user.maxes;
+		this.program = program;
+		this.isValid = ProgramGenerator.validate(program);
 
+		this.phases = this.makePhases();
+	}
+
+	static validate(program) {
+		return true;
+	}
+
+	render() {
+		return toHtml(this.phases);
+	}
+
+	makePhases() {
+		var maxes = this.maxes;
+
+		return this.program.phases.map(phase => {
+			var numWeeks = phase.numWeeks,
+				weekOfCurrentPrs = phase.weekOfCurrentPrs;
+
+			return phase.workouts.map(workout => {
+				workout.map(exercise => {
+					var
+						sxr = ExerciseSet.toShortString(exercise.sets, exercise.reps),
+						lastPr = maxes[exercise.ex][sxr],
+						weekOnePct = phase.weekOnePercentOfPr,
+						weeklyPctJumps = (1 - weekOnePct) / (weekOfCurrentPrs - 1),
+						prJumpPct = phase.prJumpPercent;
+
+					if (!isFinite(lastPr)) {
+						warn('lastPr is not finite. It is', lastPr);
+					}
+					console.log('exercise:', exercise, '| sxr:', sxr, '| lastPr:', lastPr);
+
+					// 0 to numWeeks - 1
+					var weights = _.range(numWeeks).map(week => {
+						if (week <= weekOfCurrentPrs) {
+							// e.g. week 1 is 0.8 + (0 * .10) * 300lbs
+							return (weekOnePct + (week * weeklyPctJumps)) * lastPr;
+						} else {
+							return lastPr * (1 + prJumpPercent * week);
+						}
+					})
+					.map(round);
+
+					console.log(weights);
+
+				});
+			});
+		});
+	}
+}
 
 // View
+//var ProgramGeneratorView = React.createClass(ProgramGenerator);
 var ProgramGeneratorView = React.createClass({
 	render: function () {
 		var text = "World";
