@@ -33,13 +33,13 @@ window.users = [];
 window.user = {};
 users.push(user);
 
-user.max = _.zipObject([
+user.maxes = _.zipObject([
 	// Format: [ex, { X RM : WEIGHT}, ...],
 	// 5x5RM = ~7.5% less than 1x5RM
-	[ex.squat, {'5': 400}, {'5x5': 325}],
-	[ex.bench, {'5': 240}, {'5x5': 205}],
-	[ex.deadl, {'5': 250}, {'5x5': 210}],
-	[ex.rows,  {'5': 170}, {'5x5': 325}]
+	[ex.squat, {'5': 400, '5x5': 325}],
+	[ex.bench, {'5': 240, '5x5': 205}],
+	[ex.deadl, {'5': 250, '5x5': 210}],
+	[ex.rows,  {'5': 170, '5x5': 325}]
 ]);
 
 // Hybrid Advanced Madcow 5x5 with Olympic Weightlifting
