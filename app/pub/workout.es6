@@ -152,17 +152,28 @@ class WorkoutHeader {
 }
 
 class Exercise {
-	constructor(exerciseText) {
+	constructor(name, exSetArr, exComment) {
+		if (arguments.length === 1) {
+			this.parse(arguments[0]);
+		} else {
+			[this.name, this._exercises, this._comments] = arguments;
+		}
+	}
+
+	parse(exerciseText) {
 		// TEXT FORMAT: EXERCISE_NAME COMMA_SEPARATED_SETS OPTIONAL COMMENT
 		this._text = exerciseText;
 		this._sections = exerciseText.split(WHITESPACE);
 		this._name = getExerciseName(this._sections[0]);
-		this._sets = this._sections.slice(1).join(''); // TODO: parse into sets and comments
+		this._exercises = this._sections.slice(1).join(''); // TODO: parse into sets and comments
 		this._comments = '';
 	}
 
 	render() { return toHtml(this._text); }
-	isValid() { return !!this._name && !!this._sets; }
+
+	validate(text) {
+		return !!this._name && !!this._exercises;
+	}
 }
 
 class ExerciseSet {
