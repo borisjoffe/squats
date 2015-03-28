@@ -98,7 +98,7 @@ class ProgramGenerator {
 				weekOfCurrentPrs = phase.weekOfCurrentPrs;
 
 			return phase.workouts.map(workout => {
-				workout.map(exercise => {
+				var workouts = workout.map(exercise => {
 					var
 						sxr = ExerciseSet.toShortString(exercise.sets, exercise.reps),
 						lastPr = maxes[exercise.ex][sxr],
@@ -110,23 +110,24 @@ class ProgramGenerator {
 						warn('lastPr is not finite. It is', lastPr);
 					}
 
-					log('exercise:', exercise, '| sxr:', sxr, '| lastPr:', lastPr);
-
 					// 0 to numWeeks - 1
-					var weights = _.range(numWeeks).map(week => {
-						if (week <= weekOfCurrentPrs) {
+					var worksets = _.range(numWeeks).map(weekIdx => {
+						if (weekIdx <= weekOfCurrentPrs) {
 							// e.g. week 1 is 0.8 + (0 * .10) * 300lbs
-							return (weekOnePct + (week * weeklyPctJumps)) * lastPr;
+							return (weekOnePct + (weekIdx * weeklyPctJumps)) * lastPr;
 						} else {
-							return lastPr * (1 + prJumpPercent * week);
+							return lastPr * (1 + prJumpPercent * weekIdx);
 						}
 					})
 					.map(round);
 
-					log(weights);
+					return worksets;
 
-				});
-			});
+				}); // end workout map over exercises
+
+				log(workouts);
+				return workouts;
+			}); // end workouts map
 		});
 	}
 }
