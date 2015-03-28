@@ -195,7 +195,7 @@ class ExerciseSet {
 		return sets + cfg.setsByRepsDelim + reps;
 	}
 
-	static toShortString(sets, reps) {
+	toShortString(sets, reps) {
 		if (this instanceof ExerciseSet) {
 			sets = this._sets;
 			reps = this._reps;
