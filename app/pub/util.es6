@@ -1,16 +1,33 @@
 var DEBUG = 1;
 
-function round(x) {
-	const lowestPlate = 2.5;
-	var roundTo = lowestPlate * 2;
-	return Math.round(x / roundTo) * roundTo;
-}
-
+/* ====================
+     General utils
+   ==================== */
 function log() {
 	console.log(...arguments);
+	return arguments.length === 1 ? arguments[0] : _.toArray(arguments);
 }
 
 function warn() {
 	debugger;
 	console.warn(...arguments);
+	return arguments.length === 1 ? arguments[0] : _.toArray(arguments);
 }
+
+
+/* ====================
+      Workout utils
+   ==================== */
+
+/**
+ * Round num to nearestY
+ * @param {Number} nearestNum
+ * @param {Number} num
+ * @return {Number}
+ */
+function roundTo(nearestNum, num) {
+	return Math.round(num / nearestNum) * nearestNum;
+}
+
+const lowestPlate = 2.5; // TODO: get from cfg
+var round = _.curry(roundTo)(lowestPlate * 2);
