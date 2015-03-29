@@ -90,43 +90,50 @@ class ProgramGenerator {
 		return toHtml(this.phases);
 	}
 
+	getWorksetForWeek(weekIdx, exercise, maxes, options) {
+		var
+			weekOfCurrentPrs = options.weekOfCurrentPrs,
+			weekOnePct       = options.weekOnePercentOfPr,
+			prJumpPct        = options.prJumpPercent,
+
+			sxr            = ExerciseSet.toShortString(exercise.sets, exercise.reps),
+			lastPr         = maxes[exercise.ex][sxr],
+			weeklyPctJumps = (1 - weekOnePct) / (weekOfCurrentPrs - 1);
+
+		if (!isFinite(lastPr)) {
+			warn('lastPr is not finite. It is', lastPr);
+		}
+
+		if (weekIdx <= weekOfCurrentPrs) {
+			// e.g. week 1 is 0.8 + (0 * .10) * 300lbs
+			return (weekOnePct + (weekIdx * weeklyPctJumps)) * lastPr;
+		} else {
+			return lastPr * (1 + prJumpPercent * weekIdx);
+		}
+	}
+
+	getWarmupsForWorkset(workset, context) {
+	}
+
 	makePhases() {
 		var maxes = this.maxes;
 
 		return this.program.phases.map(phase => {
-			var numWeeks = phase.numWeeks,
-				weekOfCurrentPrs = phase.weekOfCurrentPrs;
+			var numWeeks = phase.numWeeks;
 
 			return phase.workouts.map(workout => {
-				var workouts = workout.map(exercise => {
-					var
-						sxr = ExerciseSet.toShortString(exercise.sets, exercise.reps),
-						lastPr = maxes[exercise.ex][sxr],
-						weekOnePct = phase.weekOnePercentOfPr,
-						weeklyPctJumps = (1 - weekOnePct) / (weekOfCurrentPrs - 1),
-						prJumpPct = phase.prJumpPercent;
+				var workoutsThisPhase = workout.map(exercise => {
+					var worksetsThisPhase =
+						_.range(numWeeks)
+						.map(_.partial(getWorksetForWeek, _, exercise, maxes, phase))
+						.map(round);
 
-					if (!isFinite(lastPr)) {
-						warn('lastPr is not finite. It is', lastPr);
-					}
-
-					// 0 to numWeeks - 1
-					var worksets = _.range(numWeeks).map(weekIdx => {
-						if (weekIdx <= weekOfCurrentPrs) {
-							// e.g. week 1 is 0.8 + (0 * .10) * 300lbs
-							return (weekOnePct + (weekIdx * weeklyPctJumps)) * lastPr;
-						} else {
-							return lastPr * (1 + prJumpPercent * weekIdx);
-						}
-					})
-					.map(round);
-
-					return worksets;
+					return worksetsThisPhase;
 
 				}); // end workout map over exercises
 
-				log(workouts);
-				return workouts;
+				log(workoutsThisPhase);
+				return workoutsThisPhase;
 			}); // end workouts map
 		});
 	}
