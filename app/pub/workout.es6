@@ -161,12 +161,14 @@ class Exercise {
 	}
 
 	parse(exerciseText) {
+		var isValid = true;
 		// TEXT FORMAT: EXERCISE_NAME COMMA_SEPARATED_SETS OPTIONAL COMMENT
 		this._text = exerciseText;
 		this._sections = exerciseText.split(WHITESPACE);
 		this._name = getExerciseName(this._sections[0]);
 		this._exercises = this._sections.slice(1).join(''); // TODO: parse into sets and comments
 		this._comments = '';
+		return isValid;
 	}
 
 	render() { return toHtml(this._text); }
@@ -174,6 +176,19 @@ class Exercise {
 	validate(text) {
 		return !!this._name && !!this._exercises;
 	}
+}
+
+class ExerciseMeta {
+	constructor (metaText) {
+		this.parse(metaText);
+	}
+
+	parse(metaText) {
+		this._text = metaText;
+		return true;
+	}
+
+	toString { return this._text; }
 }
 
 class ExerciseSet {
@@ -206,6 +221,19 @@ class ExerciseSet {
 		} else {
 			return sets + cfg.setsByRepsDelim + reps;
 		}
+	}
+}
+
+class Workset extends ExerciseSet {
+	constructor(sets, reps, weight, comments) {
+		this._sets = sets;
+		this._reps = reps;
+		this._weight = weight;
+		this._comments = new ExerciseMeta(comments);
+	}
+
+	setWeight(weight) {
+		this._weight = weight;
 	}
 }
 
