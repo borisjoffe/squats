@@ -199,7 +199,7 @@ class ExerciseMeta {
 		return true;
 	}
 
-	toString { return this._text; }
+	toString() { return this._text; }
 }
 
 class ExerciseSet {
