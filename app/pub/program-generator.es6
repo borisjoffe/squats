@@ -54,6 +54,7 @@ programs.omcadv = {
 			weekOnePercentOfPr: 0.8, // VALIDATE: 0 < x < 1
 			prJumpPercent: 0.05, // VALIDATE: percent
 			days: [DAYS.MON, DAYS.WED, DAYS.FRI, DAYS.SAT, DAYS.SUN],
+
 			// VALIDATE: days.length === workouts.length
 			workouts: [
 				// day 1
@@ -90,6 +91,9 @@ class ProgramGenerator {
 		return toHtml(this.phases);
 	}
 
+	getWarmupsForWorkset(workset, context) {
+	}
+
 	getWorksetForWeek(weekIdx, exercise, maxes, options) {
 		var
 			weekOfCurrentPrs = options.weekOfCurrentPrs,
@@ -98,7 +102,10 @@ class ProgramGenerator {
 
 			sxr            = ExerciseSet.toShortString(exercise.sets, exercise.reps),
 			lastPr         = maxes[exercise.ex][sxr],
-			weeklyPctJumps = (1 - weekOnePct) / (weekOfCurrentPrs - 1);
+			weeklyPctJumps = (1 - weekOnePct) / (weekOfCurrentPrs - 1),
+
+			workset = new Workset(exercise.sets, exercise.reps),
+			weight;
 
 		if (!isFinite(lastPr)) {
 			warn('lastPr is not finite. It is', lastPr);
@@ -106,13 +113,31 @@ class ProgramGenerator {
 
 		if (weekIdx <= weekOfCurrentPrs) {
 			// e.g. week 1 is 0.8 + (0 * .10) * 300lbs
-			return (weekOnePct + (weekIdx * weeklyPctJumps)) * lastPr;
+			weight = (weekOnePct + (weekIdx * weeklyPctJumps)) * lastPr;
 		} else {
-			return lastPr * (1 + prJumpPercent * weekIdx);
+			weight = lastPr * (1 + prJumpPercent * weekIdx);
 		}
+
+		workset.setWeight(weight);
+		return workset;
 	}
 
-	getWarmupsForWorkset(workset, context) {
+	makeWorkout(weekIdx, workoutSchema) {
+
+		return workoutSchema.map(workout => {
+			var workoutsThisPhase = workout.map(exercise => {
+				return worksetsThisPhase;
+
+			}); // end workout map over exercises
+
+			log(workoutsThisPhase);
+			return workoutsThisPhase;
+		}); // end workouts map
+
+	}
+
+	makeWorkoutsForWeek(weekIdx, workoutSchema) {
+		//.map(_.partial(getWorksetForWeek, _, exercise, maxes, phase));
 	}
 
 	makePhases() {
@@ -121,20 +146,11 @@ class ProgramGenerator {
 		return this.program.phases.map(phase => {
 			var numWeeks = phase.numWeeks;
 
-			return phase.workouts.map(workout => {
-				var workoutsThisPhase = workout.map(exercise => {
-					var worksetsThisPhase =
-						_.range(numWeeks)
-						.map(_.partial(getWorksetForWeek, _, exercise, maxes, phase))
-						.map(round);
+			var workoutsThisPhase =
+				_.range(numWeeks)
+				.map(_.partial(makeWorkoutsForWeek, _));
 
-					return worksetsThisPhase;
-
-				}); // end workout map over exercises
-
-				log(workoutsThisPhase);
-				return workoutsThisPhase;
-			}); // end workouts map
+			return workoutsThisPhase;
 		});
 	}
 }
