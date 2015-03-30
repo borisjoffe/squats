@@ -104,13 +104,22 @@ class MetaSection {
 }
 
 class Workout {
-	constructor(workoutText) {
+	constructor(header, exercises, meta) {
+		if (arguments.length === 0) { this.parse(arguments[0]); }
+		else {
+			this._header = new WorkoutHeader(header);
+			this._exercises = new ExerciseSetCollection(exercises);
+			this._meta = meta;
+		}
+	}
+
+	parse(workoutText) {
 		const EXERCISE_SEPARATOR = '\n';
 		this._chunks = workoutText.split(EXERCISE_SEPARATOR);
 		this._header = new WorkoutHeader(this._chunks[0]);
 		this._exercises = [];
 		this._chunks.slice(1).forEach(exerciseText =>
-			this._exercises.push(new Exercise(exerciseText)));
+			this._exercises.push(new ExerciseSetCollection(exerciseText)));
 	}
 
 	isValid() { return this._header.isValid(); }
@@ -151,12 +160,14 @@ class WorkoutHeader {
 	}
 }
 
-class Exercise {
+class ExerciseSetCollection {
 	constructor(name, exSetArr, exComment) {
 		if (arguments.length === 1) {
 			this.parse(arguments[0]);
 		} else {
-			[this.name, this._exercises, this._comments] = arguments;
+			this._name = name;
+			this._exercises = exSetArr.map(exSet => new ExerciseSet(exset));
+			this._comments = new ExerciseMeta(exComment);
 		}
 	}
 
