@@ -94,11 +94,11 @@ class ProgramGenerator {
 	getWarmupsForWorkset(workset, context) {
 	}
 
-	getWorksetForWeek(weekIdx, exercise, maxes, options) {
+	getWorksetForWeek(weekIdx, exercise, maxes, workoutSchema) {
 		var
-			weekOfCurrentPrs = options.weekOfCurrentPrs,
-			weekOnePct       = options.weekOnePercentOfPr,
-			prJumpPct        = options.prJumpPercent,
+			weekOfCurrentPrs = workoutSchema.weekOfCurrentPrs,
+			weekOnePct       = workoutSchema.weekOnePercentOfPr,
+			prJumpPct        = workoutSchema.prJumpPercent,
 
 			sxr            = ExerciseSet.toShortString(exercise.sets, exercise.reps),
 			lastPr         = maxes[exercise.ex][sxr],
@@ -122,22 +122,19 @@ class ProgramGenerator {
 		return workset;
 	}
 
-	makeWorkout(weekIdx, workoutSchema) {
+	makeWorkout(weekIdx, maxes, workoutSchema) {
+		var
+			workout;
 
-		return workoutSchema.map(workout => {
-			var workoutsThisPhase = workout.map(exercise => {
-				return worksetsThisPhase;
+		workout = this.getWorksetForWeek(weekIdx, exercise, maxes, workoutSchema);
 
-			}); // end workout map over exercises
-
-			log(workoutsThisPhase);
-			return workoutsThisPhase;
-		}); // end workouts map
-
+		return workout;
 	}
 
-	makeWorkoutsForWeek(weekIdx, workoutSchema) {
-		//.map(_.partial(getWorksetForWeek, _, exercise, maxes, phase));
+	makeWorkoutsForWeek(weekIdx, maxes, workoutSchema) {
+		return workoutSchema.workouts.map(
+			_.partial(this.makeWorkout, weekIdx, maxes, workoutSchema)
+		);
 	}
 
 	makePhases() {
@@ -148,7 +145,7 @@ class ProgramGenerator {
 
 			var workoutsThisPhase =
 				_.range(numWeeks)
-				.map(_.partial(makeWorkoutsForWeek, _));
+				.map(_.partial(this.makeWorkoutsForWeek, _, maxes, phase));
 
 			return workoutsThisPhase;
 		});
