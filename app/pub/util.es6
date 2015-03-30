@@ -1,6 +1,15 @@
 var DEBUG = 1;
 
 /* ====================
+         Shims
+   ==================== */
+if (!String.prototype.contains) {
+	String.prototype.contains = function (text) {
+		return this.indexOf(text) !== -1;
+	};
+};
+
+/* ====================
      General utils
    ==================== */
 function log() {
