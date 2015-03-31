@@ -74,8 +74,8 @@ class Workouts {
 			var w, m;
 			// TODO: add workout validator static method
 			// TODO: abstract this logic out to allow for more types of content
-			w = new Workout(section);
-			if (w.isValid()) {
+			w = Workout.create(section);
+			if (w instanceof Workout) {
 				sections.push(w);
 			} else {
 				m = new MetaSection(section);
@@ -164,9 +164,10 @@ class ExerciseSetCollection {
 	constructor(name, exSetArr, exComment) {
 		if (arguments.length === 1) {
 			this.parse(arguments[0]);
+			return this;
 		} else {
 			this._name = name;
-			this._exercises = exSetArr.map(exSet => new ExerciseSet(exset));
+			this._exercises = exSetArr.map(exSet => new ExerciseSet(exSet));
 			this._comments = new ExerciseMeta(exComment);
 		}
 	}
@@ -185,7 +186,8 @@ class ExerciseSetCollection {
 	render() { return toHtml(this._text); }
 
 	validate(text) {
-		return !!this._name && !!this._exercises;
+		// not sure why this is causing an Exception
+		return (typeof text === 'string' && text.trim().length > 0);
 	}
 }
 
@@ -265,5 +267,21 @@ window.WorkoutsView = class WorkoutsView {
 
 	render() { return this._html; }
 };
+
+// Mixin for object creation that validates args supplied
+// Requires validate function to be present
+var createMixin = function () {
+	if (!(this instanceof Object)) { throw new TypeError('Cannot call create on non-objects'); }
+
+	if (this.validate(...arguments)) {
+		return new this(...arguments);
+	} else {
+		return false;
+	}
+};
+
+_.each([Workout, ExerciseSet, WorkoutHeader, ExerciseSetCollection, ExerciseMeta],
+	o => { o.create = createMixin; });
+	
 
 //export {Workouts, WorkoutsView};
