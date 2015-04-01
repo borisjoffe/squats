@@ -23,6 +23,17 @@ function warn() {
 	return arguments.length === 1 ? arguments[0] : _.toArray(arguments);
 }
 
+// Build an index on an array based on an object property.
+// Assumes that arr contains objects that have unique keys
+// Updates to objects that don't modify the key will NOT invalidate the index
+// Adding / removing elements to the array or changing keys after building the index will NOT be reflected
+function buildIndex(arr, prop) {
+	return _.pluck(arr, prop)
+		.reduce(function (indexObject, currentKey, currentIndex) {
+			indexObject[currentKey] = arr[currentIndex];
+			return indexObject;
+		}}, {});
+}
 
 /* ====================
       Workout utils
