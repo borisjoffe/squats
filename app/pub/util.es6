@@ -12,15 +12,15 @@ if (!String.prototype.contains) {
 /* ====================
      General utils
    ==================== */
-function log() {
-	console.log(...arguments);
-	return arguments.length === 1 ? arguments[0] : _.toArray(arguments);
+function log(...args) {
+	console.log(...args);
+	return args.length === 1 ? args[0] : args;
 }
 
-function warn() {
-	console.warn(...arguments);
+function warn(...args) {
+	console.warn(...args);
 	debugger;
-	return arguments.length === 1 ? arguments[0] : _.toArray(arguments);
+	return args.length === 1 ? args[0] : args;
 }
 
 function err(ErrorType, ...args) {
@@ -29,7 +29,7 @@ function err(ErrorType, ...args) {
 	} else {
 		throw new ErrorType(args.join(' '));
 	}
-	return args.length === 1 ? args[0] : _.toArray(args);
+	return args.length === 1 ? args[0] : args;
 }
 
 // Build an index on an array based on an object property.
