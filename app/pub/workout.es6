@@ -105,7 +105,10 @@ class MetaSection {
 
 class Workout {
 	constructor(header, exercises, meta) {
-		if (arguments.length === 0) { this.parse(arguments[0]); }
+		if (arguments.length === 1) {
+			Workout.parse.call(this, arguments[0]);
+			return;
+		}
 		else {
 			this._header = new WorkoutHeader(header);
 			this._exercises = new ExerciseSetCollection(exercises);
@@ -113,16 +116,21 @@ class Workout {
 		}
 	}
 
-	parse(workoutText) {
+	static parse(workoutText) {
 		const EXERCISE_SEPARATOR = '\n';
+		if (typeof workoutText !== 'string') return false;
 		this._chunks = workoutText.split(EXERCISE_SEPARATOR);
 		this._header = new WorkoutHeader(this._chunks[0]);
+		if (!this._header.isValid()) return false;
 		this._exercises = [];
 		this._chunks.slice(1).forEach(exerciseText =>
 			this._exercises.push(new ExerciseSetCollection(exerciseText)));
+		return true;
 	}
 
 	isValid() { return this._header.isValid(); }
+
+	static validate(workoutText) { return Workout.parse(workoutText); }
 
 	render() {
 		return '<div class="workout">' +
@@ -163,7 +171,7 @@ class WorkoutHeader {
 class ExerciseSetCollection {
 	constructor(name, exSetArr, exComment) {
 		if (arguments.length === 1) {
-			this.parse(arguments[0]);
+			this.parse.call(this, arguments[0]);
 		} else {
 			this._name = name;
 			this._exercises = exSetArr.map(exSet => new ExerciseSet(exSet));
@@ -213,21 +221,19 @@ class ExerciseSet {
 	render() { return toHtml(this._chunks); }
 	isValid() { return true; }
 
-	toString(sets, reps) {
-		if (this instanceof ExerciseSet) {
-			sets = this._sets;
-			reps = this._reps;
-		}
-
+	static toString(sets, reps) {
 		return sets + cfg.setsByRepsDelim + reps;
 	}
 
-	toShortString(sets, reps) {
-		if (this instanceof ExerciseSet) {
-			sets = this._sets;
-			reps = this._reps;
-		}
+	static toString() {
+		return ExerciseSet.toString(this._sets, this._reps);
+	}
 
+	toShortString() {
+		return ExerciseSet.toShortString(this._sets, this._reps);
+	}
+
+	static toShortString(sets, reps) {
 		if (sets === 1) {
 			return reps;
 		} else {
