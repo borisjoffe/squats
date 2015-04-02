@@ -123,13 +123,13 @@ class ProgramGenerator {
 	}
 
 	// Each day, get workset
-	makeWorkout(day, maxes, workoutSchema) {
+	makeWorkout(day, weekIdx, maxes, workoutSchema) {
 		var
 			workout;
 
 		workout = day.map(
-			// map over each day
-			_.partial(this.getWorksetForWeek, weekIdx, _, maxes, workoutSchema)
+			// map over each exercise
+			_.bind(this.getWorksetForWeek, this, weekIdx, _, maxes, workoutSchema)
 		);
 
 		return workout;
@@ -138,7 +138,7 @@ class ProgramGenerator {
 	makeWorkoutsForWeek(weekIdx, maxes, workoutSchema) {
 		return workoutSchema.workouts.map(
 			// Map workouts for each day
-			_.partial(this.makeWorkout, _, maxes, workoutSchema)
+			_.bind(this.makeWorkout, this, _, weekIdx, maxes, workoutSchema)
 		);
 	}
 
@@ -150,7 +150,7 @@ class ProgramGenerator {
 			// Map workouts for each week
 			var workoutsThisPhase =
 				_.range(numWeeks)
-				.map(_.partial(this.makeWorkoutsForWeek, _, maxes, phase));
+				.map(_.bind(this.makeWorkoutsForWeek, this, _, maxes, phase));
 
 			return workoutsThisPhase;
 		});
