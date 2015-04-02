@@ -147,7 +147,6 @@ class ProgramGenerator {
 
 		return this.program.phases.map(phase => {
 			var numWeeks = phase.numWeeks;
-debugger;
 			// Map workouts for each week
 			var workoutsThisPhase =
 				_.range(numWeeks)

@@ -164,7 +164,6 @@ class ExerciseSetCollection {
 	constructor(name, exSetArr, exComment) {
 		if (arguments.length === 1) {
 			this.parse(arguments[0]);
-			return this;
 		} else {
 			this._name = name;
 			this._exercises = exSetArr.map(exSet => new ExerciseSet(exSet));
@@ -187,7 +186,7 @@ class ExerciseSetCollection {
 
 	validate(text) {
 		// not sure why this is causing an Exception
-		return (typeof text === 'string' && text.trim().length > 0);
+		return typeof text === 'string' && text.trim().length > 0;
 	}
 }
 
