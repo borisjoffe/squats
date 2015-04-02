@@ -15,7 +15,7 @@ JADE_ARGS=--pretty $(FLAGS)
 COFFEE=coffee
 COFFEE_ARGS=--compile $(FLAGS) --join $(APP_JS) --output $(PUB_DIR)/
 BABEL=babel
-BABEL_ARGS=--modules common --source-maps --experimental $(FLAGS) --out-file $(PUB_DIR)/$(APP_JS)
+BABEL_ARGS=--modules common --experimental $(FLAGS) --out-file $(PUB_DIR)/$(APP_JS)
 # --source-maps
 JSX=jsx
 JSX_ARGS=$(FLAGS)
