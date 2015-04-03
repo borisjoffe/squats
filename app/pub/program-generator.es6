@@ -83,6 +83,8 @@ class ProgramGenerator {
 		this.phases = this.makePhases();
 	}
 
+	getWorkouts() { return _.flatten(this.phases, true); }
+
 	static validate(program) {
 		return true;
 	}
@@ -156,12 +158,28 @@ class ProgramGenerator {
 		});
 	}
 }
+ProgramGenerator.tryCreate = createMixin;
 
 // View
-//var ProgramGeneratorView = React.createClass(ProgramGenerator);
-var ProgramGeneratorView = React.createClass({
-	render: function () {
-		var text = "World";
-		return <p>Hello {text}</p>
+class ProgramGeneratorView extends React.Component {
+	getInitialState() {
+		log('setting state from props', this.props);
+		var myProgram = ProgramGenerator.tryCreate.apply(this.props);
+		if (!myProgram) { err('Could not generate program from data'); }
+		return {
+			program: myProgram
+		};
 	}
-});
+
+	render() {
+		var workouts = this.state.program.getWorkouts();
+		return (
+			<div className='program'>
+				<h2>Your program</h2>
+				{ toHtml(workouts) }
+				<p>Hello {text}</p>
+			</div>
+		);
+	}
+}
+
