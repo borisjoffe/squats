@@ -225,7 +225,7 @@ class ExerciseSet {
 		return sets + cfg.setsByRepsDelim + reps;
 	}
 
-	static toString() {
+	toString() {
 		return ExerciseSet.toString(this._sets, this._reps);
 	}
 
@@ -253,6 +253,8 @@ class Workset extends ExerciseSet {
 	setWeight(weight) {
 		this._weight = weight;
 	}
+
+	render() { return this.toString() + ':' + this._weight; }
 }
 
 window.WorkoutsView = class WorkoutsView {

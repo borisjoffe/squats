@@ -89,6 +89,8 @@ class ProgramGenerator {
 		return true;
 	}
 
+	validate() { ProgramGenerator.validate.apply(this, arguments); }
+
 	render() {
 		return toHtml(this.phases);
 	}
@@ -162,9 +164,10 @@ ProgramGenerator.tryCreate = createMixin;
 
 // View
 class ProgramGeneratorView extends React.Component {
+	// why is this not getting called??
 	getInitialState() {
 		log('setting state from props', this.props);
-		var myProgram = ProgramGenerator.tryCreate.apply(this.props);
+		var myProgram = ProgramGenerator.tryCreate.apply(ProgramGenerator, this.props);
 		if (!myProgram) { err('Could not generate program from data'); }
 		return {
 			program: myProgram
@@ -172,12 +175,13 @@ class ProgramGeneratorView extends React.Component {
 	}
 
 	render() {
-		var workouts = this.state.program.getWorkouts();
+		var myProgram = ProgramGenerator.tryCreate.apply(ProgramGenerator, _.values(this.props));
+		if (!myProgram) { err('Could not generate program from data'); }
+		var workouts = myProgram.getWorkouts();
 		return (
 			<div className='program'>
 				<h2>Your program</h2>
-				{ toHtml(workouts) }
-				<p>Hello {text}</p>
+				{ _.invoke(workouts, 'render') }
 			</div>
 		);
 	}
