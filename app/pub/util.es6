@@ -27,6 +27,12 @@ function err(ErrorType, ...args) {
 	if (!ErrorType) {
 		console.error(...args);
 	} else {
+		// treat first arg as part of the error message (assume ErrorType is Error)
+		if (typeof ErrorType === 'string') {
+			ErrorType = Error;
+			args = [ErrorType].push(...args);
+		}
+
 		throw new ErrorType(args.join(' '));
 	}
 	return args.length === 1 ? args[0] : args;
