@@ -50,6 +50,22 @@ function buildIndexHash(arr, prop) {
 		}, {});
 }
 
+// Mixin for object creation that validates args supplied
+// Requires validate function to be present
+var createMixin = function () {
+	if (!(this instanceof Object)) { err(TypeError, 'Cannot call create on non-objects'); }
+	if (typeof this.validate !== 'function') {
+		err(TypeError, '(createMixin) validate is required on `this` (this.name =', this.name + ')');
+	}
+
+	if (this.validate(...arguments)) {
+		return new this(...arguments);
+	} else {
+		return false;
+	}
+};
+
+
 /* ====================
       Workout utils
    ==================== */

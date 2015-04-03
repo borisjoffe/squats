@@ -74,7 +74,7 @@ class Workouts {
 			var w, m;
 			// TODO: add workout validator static method
 			// TODO: abstract this logic out to allow for more types of content
-			w = Workout.create(section);
+			w = Workout.tryCreate(section);
 			if (w instanceof Workout) {
 				sections.push(w);
 			} else {
@@ -273,23 +273,8 @@ window.WorkoutsView = class WorkoutsView {
 	render() { return this._html; }
 };
 
-// Mixin for object creation that validates args supplied
-// Requires validate function to be present
-var createMixin = function () {
-	if (!(this instanceof Object)) { err(TypeError, 'Cannot call create on non-objects'); }
-	if (typeof this.validate !== 'function') {
-		err(TypeError, '(createMixin) validate is required on `this` (this.name =', this.name + ')');
-	}
-
-	if (this.validate(...arguments)) {
-		return new this(...arguments);
-	} else {
-		return false;
-	}
-};
-
 _.each([Workout, ExerciseSet, WorkoutHeader, ExerciseSetCollection, ExerciseMeta],
-	o => { o.create = createMixin; });
+	o => { o.tryCreate = createMixin; });
 	
 
 //export {Workouts, WorkoutsView};
