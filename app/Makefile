@@ -12,8 +12,6 @@ js: babel jsx
 # Programs and flags
 JADE=jade
 JADE_ARGS=--pretty $(FLAGS)
-COFFEE=coffee
-COFFEE_ARGS=--compile $(FLAGS) --join $(APP_JS) --output $(PUB_DIR)/
 BABEL=babel
 BABEL_ARGS=--modules common --experimental $(FLAGS) --out-file $(PUB_DIR)/$(APP_JS)
 # --source-maps
@@ -25,9 +23,6 @@ FLAGS=
 
 jade: $(TEMPLATE_DIR)/*.jade
 	$(JADE) $(JADE_ARGS) $^
-
-coffee: $(SCRIPT_DIR)/*.coffee
-	$(COFFEE) $(COFFEE_ARGS) $^
 
 # TODO: Replace with webpack loaders
 babel: $(SCRIPT_DIR)/*.es6
