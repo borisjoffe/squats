@@ -1,5 +1,5 @@
 const WORKOUT_SEPARATOR = '\n\n';
-const WHITESPACE = '\s';
+const WHITESPACE = /\s/;
 var cfg = window.cfg;
 
 function toHtml(text) {
@@ -107,11 +107,10 @@ class Workout {
 	constructor(header, exercises, meta) {
 		if (arguments.length === 1) {
 			Workout.parse.call(this, arguments[0]);
-			return;
 		}
 		else {
 			this._header = new WorkoutHeader(header);
-			this._exercises = new ExerciseSetCollection(exercises);
+			this._exercises = exercises.map(exercise => new ExerciseSetCollection(exercises));
 			this._meta = meta;
 		}
 	}
@@ -170,8 +169,12 @@ class WorkoutHeader {
 
 class ExerciseSetCollection {
 	constructor(name, exSetArr, exComment) {
+		var arg1 = name;
 		if (arguments.length === 1) {
-			this.parse.call(this, arguments[0]);
+			if (typeof arg1 === 'string')
+				this.parse.call(this, arguments[0]);
+			else if (Array.isArray(arg1))
+				this._exercises = arg1.map(exSet => new ExerciseSet(exSet));
 		} else {
 			this._name = name;
 			this._exercises = exSetArr.map(exSet => new ExerciseSet(exSet));
@@ -212,10 +215,14 @@ class ExerciseMeta {
 }
 
 class ExerciseSet {
-	constructor(setArray) {
+	constructor(sets, reps, weight, comments) {
 		// TEXT FORMAT: NUM_SETSxREP:WEIGHT
-		const SET_SEPARATOR = ',';
-		this._chunks = setArray;
+		if (arguments.length === 1) {
+			const SET_SEPARATOR = ',';
+			this._chunks = setArray;
+		} else {
+			[this._sets, this._reps, this._weight, this._comments] = arguments;
+		}
 	}
 
 	render() { return toHtml(this._chunks); }

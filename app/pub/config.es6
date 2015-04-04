@@ -8,7 +8,8 @@
 			pounds: 'lbs'
 		},
 
-		setsByRepsDelim: 'x'
+		setsByRepsDelim: 'x',
+		weightDelim: ':'
 	};
 
 }());

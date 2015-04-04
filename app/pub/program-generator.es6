@@ -129,12 +129,13 @@ class ProgramGenerator {
 	// Each day, get workset
 	makeWorkout(day, weekIdx, maxes, workoutSchema) {
 		var
-			workout;
-
-		workout = day.map(
-			// map over each exercise
-			_.bind(this.getWorksetForWeek, this, weekIdx, _, maxes, workoutSchema)
-		);
+			workout = new Workout(
+				"2015/04/01",
+				day.map(
+					// map over each exercise creating worksets
+					_.bind(this.getWorksetForWeek, this, weekIdx, _, maxes, workoutSchema)
+				)
+			);
 
 		return workout;
 	}
