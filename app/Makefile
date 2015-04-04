@@ -2,7 +2,7 @@ SRC=$(CURDIR)
 TEMPLATE_DIR=$(SRC)/templates
 PUB_DIR=$(SRC)/pub
 SCRIPT_DIR=$(PUB_DIR)
-SCRIPT_FILES=config.es6 util.es6 workout.es6 program-generator.es6 app.es6
+SCRIPT_FILES=config.es6 util.es6 workout.es6 parser.es6 program-generator.es6 app.es6
 APP_JS=app.js
 STYLES_DIR=$(PUB_DIR)
 
