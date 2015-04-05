@@ -139,13 +139,13 @@ class ExerciseSetCollection {
 	 */
 	constructor(name, exerciseSetArray, exerciseMeta) {
 		this._name = name;
-		this._sets = exSetArr;
+		this._sets = exerciseSetArray;
 		this._exerciseMeta = exerciseMeta;
 	}
 
 	render() {
 		return this._name + '\t' +
-		       _.invoke(this._exercises, 'render').join(', ') + ' ' +
+		       _.invoke(this._sets, 'render').join(', ') + ' ' +
 		      this._exerciseMeta.render();
 	}
 }
@@ -156,6 +156,7 @@ class ExerciseMeta {
 	}
 
 	toString() { return this._text; }
+	render() { return this._text; }
 }
 
 class ExerciseSet {
@@ -163,7 +164,7 @@ class ExerciseSet {
 		[this._sets, this._reps, this._weight, this._comments] = arguments;
 	}
 
-	render() { return toHtml(this._chunks); }
+	render() { return this.toString(); }
 	isValid() { return true; }
 
 	static toString(sets, reps) {

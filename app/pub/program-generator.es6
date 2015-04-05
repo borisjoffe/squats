@@ -130,7 +130,7 @@ class ProgramGenerator {
 	makeWorkout(day, weekIdx, maxes, workoutSchema) {
 		var
 			workout = new Workout(
-				"2015/04/01",
+				new WorkoutHeader("2015/04/01"),
 				day.map(
 					// map over each exercise creating worksets
 					_.bind(this.getWorksetForWeek, this, weekIdx, _, maxes, workoutSchema)
