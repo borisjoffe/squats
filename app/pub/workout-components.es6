@@ -20,7 +20,7 @@ class ExerciseCollectionView extends React.Component {
 
 				<span className='exercise-set-collection'>
 				{ exercises.getSets().map((set, idx) =>
-				    <ExerciseSetView key={idx} set={set} />).join(', ') }
+				    <ExerciseSetView key={idx} set={set} />) }
 				</span>
 				
 				<span className='exercise-meta'>
