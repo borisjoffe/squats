@@ -7,10 +7,8 @@ function toHtml(text) {
 		return text.map(toHtml).join('<br>')
 	else if (text !== null && text !== undefined)
 		return text.replace(/\n/g, '<br>');
-	else {
-		warn('text is null or undefined:', text);
-		return '<!-- EMPTY TEXT: ' + text + ' -->';
-	}
+	else
+		return '<!-- ' + warn('text is null or undefined:', text) + ' -->';
 }
 
 function getProp(obj, path) {
@@ -223,6 +221,6 @@ window.WorkoutsView = class WorkoutsView {
 
 _.each([Workout, ExerciseSet, WorkoutHeader, ExerciseSetCollection, ExerciseMeta],
 	o => { o.tryCreate = createMixin; });
-	
+
 
 //export {Workouts, WorkoutsView};

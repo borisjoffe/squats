@@ -122,7 +122,7 @@ class ProgramGenerator {
 			weight = lastPr * (1 + prJumpPercent * weekIdx);
 		}
 
-		workset.setWeight(weight);
+		workset.setWeight(round(weight));
 		return workset;
 	}
 
