@@ -62,22 +62,9 @@ function getUnitOfWeight(text, context) {
 var getExerciseName = _.identity;
 
 class Workouts {
-	constructor(text) {
-		this._chunks = text.split(WORKOUT_SEPARATOR);
-		this._sections = this._chunks.reduce(function (sections, section, idx) {
-			var w, m;
-			// TODO: add workout validator static method
-			// TODO: abstract this logic out to allow for more types of content
-			w = Workout.tryCreate(section);
-			if (w instanceof Workout) {
-				sections.push(w);
-			} else {
-				m = new MetaSection(section);
-				sections.push(m);
-			}
-
-			return sections;
-		}, []);
+	// input can have meta sections
+	constructor(workoutsArray) {
+		this._sections = workoutsArray;
 	}
 
 	getAll() {
@@ -99,26 +86,9 @@ class MetaSection {
 
 class Workout {
 	constructor(header, exercises, meta) {
-		if (arguments.length === 1) {
-			Workout.parse.call(this, arguments[0]);
-		}
-		else {
-			this._header = new WorkoutHeader(header);
-			this._exercises = exercises.map(exercise => new ExerciseSetCollection(exercises));
-			this._meta = meta;
-		}
-	}
-
-	static parse(workoutText) {
-		const EXERCISE_SEPARATOR = '\n';
-		if (typeof workoutText !== 'string') return false;
-		this._chunks = workoutText.split(EXERCISE_SEPARATOR);
-		this._header = new WorkoutHeader(this._chunks[0]);
-		if (!this._header.isValid()) return false;
-		this._exercises = [];
-		this._chunks.slice(1).forEach(exerciseText =>
-			this._exercises.push(new ExerciseSetCollection(exerciseText)));
-		return true;
+		this._header = header;
+		this._exercises = exercises;
+		this._meta = meta;
 	}
 
 	isValid() { return this._header.isValid(); }
@@ -162,47 +132,27 @@ class WorkoutHeader {
 }
 
 class ExerciseSetCollection {
-	constructor(name, exSetArr, exComment) {
-		var arg1 = name;
-		if (arguments.length === 1) {
-			if (typeof arg1 === 'string')
-				this.parse.call(this, arguments[0]);
-			else if (Array.isArray(arg1))
-				this._exercises = arg1.map(exSet => new ExerciseSet(exSet));
-		} else {
-			this._name = name;
-			this._exercises = exSetArr.map(exSet => new ExerciseSet(exSet));
-			this._comments = new ExerciseMeta(exComment);
-		}
+	/**
+	 * @param {String} name of exercise from enum of EXERCISES
+	 * @param {Array<ExerciseSet>} exerciseSetArray
+	 * @parm {ExerciseMeta}
+	 */
+	constructor(name, exerciseSetArray, exerciseMeta) {
+		this._name = name;
+		this._sets = exSetArr;
+		this._exerciseMeta = exerciseMeta;
 	}
 
-	parse(exerciseText) {
-		var isValid = true;
-		// TEXT FORMAT: EXERCISE_NAME COMMA_SEPARATED_SETS OPTIONAL COMMENT
-		this._text = exerciseText;
-		this._sections = exerciseText.split(WHITESPACE);
-		this._name = getExerciseName(this._sections[0]);
-		this._exercises = this._sections.slice(1).join(''); // TODO: parse into sets and comments
-		this._comments = '';
-		return isValid;
-	}
-
-	render() { return toHtml(this._text); }
-
-	validate(text) {
-		// not sure why this is causing an Exception
-		return typeof text === 'string' && text.trim().length > 0;
+	render() {
+		return this._name + '\t' +
+		       _.invoke(this._exercises, 'render').join(', ') + ' ' +
+		      this._exerciseMeta.render();
 	}
 }
 
 class ExerciseMeta {
 	constructor (metaText) {
-		this.parse(metaText);
-	}
-
-	parse(metaText) {
-		this._text = metaText;
-		return true;
+		this._text = metaText ? metaText : '';
 	}
 
 	toString() { return this._text; }
@@ -210,13 +160,7 @@ class ExerciseMeta {
 
 class ExerciseSet {
 	constructor(sets, reps, weight, comments) {
-		// TEXT FORMAT: NUM_SETSxREP:WEIGHT
-		if (arguments.length === 1) {
-			const SET_SEPARATOR = ',';
-			this._chunks = setArray;
-		} else {
-			[this._sets, this._reps, this._weight, this._comments] = arguments;
-		}
+		[this._sets, this._reps, this._weight, this._comments] = arguments;
 	}
 
 	render() { return toHtml(this._chunks); }
@@ -261,7 +205,7 @@ class Workset extends ExerciseSet {
 window.WorkoutsView = class WorkoutsView {
 	constructor(workouts) {
 		if (!(workouts instanceof Workouts)) {
-			workouts = new Workouts(workouts);
+			workouts = parseWorkouts(workouts);
 		}
 
 		var html = [];
