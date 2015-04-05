@@ -124,7 +124,7 @@ class ProgramGenerator {
 		}
 
 		workset.setWeight(round(weight));
-		exerciseSets = new ExerciseSetCollection(exercise.name, workset);
+		exerciseSets = new ExerciseSetCollection(exercise.ex, workset);
 		return exerciseSets;
 	}
 

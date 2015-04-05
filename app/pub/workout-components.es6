@@ -17,8 +17,9 @@ class ExerciseCollectionView extends React.Component {
 				<span className='exercise-name'>
 				{ exercises.getName() }
 				</span>
+				&nbsp;
 
-				<span className='exercise-set-collection'>
+				<span className='exercise-sets'>
 				{ exercises.getSets().map((set, idx) =>
 				    <ExerciseSetView key={idx} set={set} />) }
 				</span>
