@@ -9,7 +9,8 @@
 		},
 
 		setsByRepsDelim: 'x',
-		weightDelim: ':'
+		weightDelim: ':',
+		commentStart: '('
 	};
 
 }());
