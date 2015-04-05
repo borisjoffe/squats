@@ -158,7 +158,7 @@ class ExerciseSetCollection {
 	getMeta() { return this._exerciseMeta; }
 
 	render() {
-		return this._name + '\t' +
+		return this._name + ' ' +
 		       _.invoke(this._sets, 'render').join(', ') + ' ' +
 		      this._exerciseMeta.render();
 	}
@@ -181,23 +181,23 @@ class ExerciseSet {
 	render() { return this.toString(); }
 	isValid() { return true; }
 
-	static toString(sets, reps) {
-		return sets + cfg.setsByRepsDelim + reps;
+	static toString(sets, reps, weight) {
+		return sets + cfg.setsByRepsDelim + reps + (weight ? cfg.weightDelim + weight : '');
 	}
 
 	toString() {
-		return ExerciseSet.toString(this._sets, this._reps);
+		return ExerciseSet.toString(this._sets, this._reps, this._weight);
 	}
 
 	toShortString() {
-		return ExerciseSet.toShortString(this._sets, this._reps);
+		return ExerciseSet.toShortString(this._sets, this._reps, this._weight);
 	}
 
-	static toShortString(sets, reps) {
+	static toShortString(sets, reps, weight) {
 		if (sets === 1) {
-			return reps;
+			return reps + (weight ? cfg.weightDelim + weight : '');
 		} else {
-			return sets + cfg.setsByRepsDelim + reps;
+			return ExerciseSet.toString(sets, reps, weight);
 		}
 	}
 }
