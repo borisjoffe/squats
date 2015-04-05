@@ -83,11 +83,19 @@ class MetaSection {
 }
 
 class Workout {
-	constructor(header, exercises, meta) {
+	/**
+	 * @param {WorkoutHeader} header
+	 * @param {Array<ExerciseSetCollection>} exerciseSets
+	 * @param {ExerciseMeta} meta
+	 */
+	constructor(header, exerciseSets, meta) {
 		this._header = header;
-		this._exercises = exercises;
+		this._exerciseSets = exerciseSets;
 		this._meta = meta;
 	}
+
+	getHeader() { return this._header; }
+	getExerciseSets() { return this._exerciseSets; }
 
 	isValid() { return this._header.isValid(); }
 
@@ -96,7 +104,7 @@ class Workout {
 	render() {
 		return '<div class="workout">' +
 			this._header.render() +
-			toHtml(this._exercises.map(exercise => exercise.render())) +
+			toHtml(this._exerciseSets.map(exercise => exercise.render())) +
 		'</div>';
 	}
 
@@ -118,9 +126,11 @@ class WorkoutHeader {
 		return !!this._workoutDate;
 	}
 
+	toString() { return this._text; }
+
 	render() {
 		return '<div class="workout-header">' +
-			toHtml(this._text) +
+			toHtml(this.toString()) +
 		'</div>';
 	}
 
@@ -133,13 +143,16 @@ class ExerciseSetCollection {
 	/**
 	 * @param {String} name of exercise from enum of EXERCISES
 	 * @param {Array<ExerciseSet>} exerciseSetArray
-	 * @parm {ExerciseMeta}
+	 * @parm {ExerciseMeta} exerciseMeta
 	 */
 	constructor(name, exerciseSetArray, exerciseMeta) {
 		this._name = name;
 		this._sets = exerciseSetArray;
 		this._exerciseMeta = exerciseMeta;
 	}
+	getName() { return this._name; }
+	getSets() { return this._sets; }
+	getMeta() { return this._exerciseMeta; }
 
 	render() {
 		return this._name + '\t' +
