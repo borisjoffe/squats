@@ -1,7 +1,11 @@
 class ExerciseSetView extends React.Component {
 	render() {
 		var set = this.props.set;
-		return <span class='exercise-set'>set.toString()</span>;
+		return (
+			<span className='exercise-set'>
+				{ set.toString() }
+			</span>
+		);
 	}
 }
 
@@ -28,7 +32,7 @@ class ExerciseCollectionView extends React.Component {
 }
 
 class WorkoutHeaderView extends React.Component {
-	render() { return <span>this.props.header</span>; }
+	render() { return <span>{this.props.header}</span>; }
 }
 
 class WorkoutView extends React.Component {
@@ -36,9 +40,15 @@ class WorkoutView extends React.Component {
 		var workout = this.props.workout;
 		return (
 			<div className='workout'>
-				<WorkoutHeaderView header={workout.getHeader()} className='workout-header' />
+				<WorkoutHeaderView
+				    header={workout.getHeader()}
+				    className='workout-header' />
+
 				{ workout.getExerciseSets().map((exercise, idx) =>
-					<ExerciseCollectionView key={idx} exerciseSetCollection={exercise} className='exercise-sets' />) }
+					<ExerciseCollectionView
+					    key={idx}
+					    exerciseSetCollection={exercise}
+					    className='exercise-sets' />) }
 			</div>
 		);
 	}
@@ -57,7 +67,9 @@ class ProgramGeneratorView extends React.Component {
 	}
 	*/
 	render() {
-		var myProgram = ProgramGenerator.tryCreate.apply(ProgramGenerator, _.values(this.props));
+		var myProgram = ProgramGenerator.tryCreate.apply(
+		    ProgramGenerator,
+		    _.values(this.props));
 		if (!myProgram) { err('Could not generate program from data'); }
 		var workouts = myProgram.getWorkouts();
 		return (
@@ -65,7 +77,6 @@ class ProgramGeneratorView extends React.Component {
 				<h2>Your program</h2>
 				{ workouts.map((workout, idx) =>
 				    <WorkoutView key={idx} workout={workout} />) }
-				<WorkoutView />
 			</div>
 		);
 	}
