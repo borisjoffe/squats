@@ -163,28 +163,3 @@ class ProgramGenerator {
 }
 ProgramGenerator.tryCreate = createMixin;
 
-// View
-class ProgramGeneratorView extends React.Component {
-	// why is this not getting called??
-	getInitialState() {
-		log('setting state from props', this.props);
-		var myProgram = ProgramGenerator.tryCreate.apply(ProgramGenerator, this.props);
-		if (!myProgram) { err('Could not generate program from data'); }
-		return {
-			program: myProgram
-		};
-	}
-
-	render() {
-		var myProgram = ProgramGenerator.tryCreate.apply(ProgramGenerator, _.values(this.props));
-		if (!myProgram) { err('Could not generate program from data'); }
-		var workouts = myProgram.getWorkouts();
-		return (
-			<div className='program'>
-				<h2>Your program</h2>
-				{ _.invoke(workouts, 'render') }
-			</div>
-		);
-	}
-}
-
