@@ -147,6 +147,9 @@ class ExerciseSetCollection {
 	 */
 	constructor(name, exerciseSetArray, exerciseMeta) {
 		this._name = name;
+		if (exerciseSetArray instanceof ExerciseSet) {
+			exerciseSetArray = [exerciseSetArray];
+		}
 		this._sets = exerciseSetArray;
 		this._exerciseMeta = exerciseMeta;
 	}
