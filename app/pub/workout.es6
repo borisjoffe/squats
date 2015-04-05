@@ -3,15 +3,14 @@ const WHITESPACE = /\s/;
 var cfg = window.cfg;
 
 function toHtml(text) {
-	return Array.isArray(text) ?
-		text.join('<br>') :
-		text.replace(/\n/g, '<br>');
-}
-
-function chop(text, textToChop) {
-	return typeof text !== 'string' ?
-		text :
-		text.replace(textToChop, '');
+	if (Array.isArray(text))
+		return text.map(toHtml).join('<br>')
+	else if (text !== null && text !== undefined)
+		return text.replace(/\n/g, '<br>');
+	else {
+		warn('text is null or undefined:', text);
+		return '<!-- EMPTY TEXT: ' + text + ' -->';
+	}
 }
 
 function getProp(obj, path) {
@@ -61,11 +60,6 @@ function getUnitOfWeight(text, context) {
 }
 
 var getExerciseName = _.identity;
-
-/*
- * TODO: partition text / comments somehow
- */
-function splitComments(text) { return [text]; }
 
 class Workouts {
 	constructor(text) {

@@ -19,7 +19,7 @@ function log(...args) {
 
 function warn(...args) {
 	console.warn(...args);
-	debugger;
+	//debugger;
 	return args.length === 1 ? args[0] : args;
 }
 
