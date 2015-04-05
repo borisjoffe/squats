@@ -109,6 +109,7 @@ class ProgramGenerator {
 			weeklyPctJumps = (1 - weekOnePct) / (weekOfCurrentPrs - 1),
 
 			workset = new Workset(exercise.sets, exercise.reps),
+			exerciseSets,
 			weight;
 
 		if (!isFinite(lastPr)) {
@@ -123,7 +124,8 @@ class ProgramGenerator {
 		}
 
 		workset.setWeight(round(weight));
-		return workset;
+		exerciseSets = new ExerciseSetCollection(exercise.name, workset);
+		return exerciseSets;
 	}
 
 	// Each day, get workset
