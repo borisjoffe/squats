@@ -139,6 +139,39 @@ class WorkoutHeader {
 	}
 }
 
+/**
+ * @param {Number} min
+ * @param {Number} max
+ * @param {Number} numValues
+ * @return {Array<Number>} array of numValues values from min to max, including min but not max
+ */
+function getValuesBetween(min, max, numValues) {
+	if (_.reject(arguments, isFinite) > 0)
+		err(TypeError, '(getValuesBetween) min, max, and num must be finite but were:', arguments);
+	if (max <= min)
+		err(RangeError, '(getValuesBetween) max must be strictly greater than min. max:', max, '| min:', min);
+	return _.range(min, max, (max - min) / numValues)
+}
+
+function makeValueBetween(value, min, max) {
+	return Math.min(max, Math.max(value, min));
+}
+
+function getWarmupsForWorksets(worksets, warmupSchema) {
+	var
+		warmup = warmupSchema,
+		totalWorksets = _.sum(_.invoke(worksets, 'getSets')),
+
+		numWarmups = makeValueBetween(totalWorksets, warmup.min, warmup.max),
+		lowestWorksetWeight = _.min(_.invoke(worksets, 'getWeight')),
+		firstWarmupWeight = warmup.firstWarmupPct * lowestWorksetWeight,
+
+		warmups = getValuesBetween(firstWarmupWeight, lowestWorksetWeight, numWarmups)
+		          .map(weight => new ExerciseSet(warmup.sets, warmup.reps, weight));
+
+	return warmups;
+}
+
 class ExerciseSetCollection {
 	/**
 	 * @param {String} name of exercise from enum of EXERCISES
@@ -177,6 +210,11 @@ class ExerciseSet {
 	constructor(sets, reps, weight, comments) {
 		[this._sets, this._reps, this._weight, this._comments] = arguments;
 	}
+	getSets() { return this._sets; }
+	getReps() { return this._reps; }
+	getWeight() { return this._weight; }
+	getComments() { return this._comments; }
+	isWorkset() { return this._isWorkset; }
 
 	render() { return this.toString(); }
 	isValid() { return true; }
@@ -208,6 +246,7 @@ class Workset extends ExerciseSet {
 		this._reps = reps;
 		this._weight = weight;
 		this._comments = new ExerciseMeta(comments);
+		this._isWorkset = true;
 	}
 
 	setWeight(weight) {

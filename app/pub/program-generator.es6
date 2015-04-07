@@ -54,6 +54,13 @@ programs.omcadv = {
 			weekOnePercentOfPr: 0.8, // VALIDATE: 0 < x < 1
 			prJumpPercent: 0.05, // VALIDATE: percent
 			days: [DAYS.MON, DAYS.WED, DAYS.FRI, DAYS.SAT, DAYS.SUN],
+			warmups: {
+				max: 5,
+				min: 2,
+				firstWarmupPct: 0.5,
+				sets: 1,
+				reps: 5
+			},
 
 			// VALIDATE: days.length === workouts.length
 			workouts: [
@@ -93,9 +100,6 @@ class ProgramGenerator {
 
 	render() {
 		return toHtml(this.phases);
-	}
-
-	getWarmupsForWorkset(workset, context) {
 	}
 
 	getWorksetForWeek(weekIdx, exercise, maxes, workoutSchema) {
