@@ -80,5 +80,7 @@ function roundTo(nearestNum, num) {
 	return Math.round(num / nearestNum) * nearestNum;
 }
 
-const lowestPlate = 2.5; // TODO: get from cfg
+const lowestPlate = _.last(cfg.plates);
+const secondLowestPlate = cfg.plates[cfg.plates.length - 2];
 var round = _.curry(roundTo)(lowestPlate * 2);
+var roundSecondLowest = _.curry(roundTo)(secondLowestPlate * 2);
