@@ -57,9 +57,10 @@ programs.omcadv = {
 			warmups: {
 				max: 5,
 				min: 2,
-				firstWarmupPct: 0.5,
+				desiredTotalSets: 5,
 				sets: 1,
-				reps: 5
+				reps: 5,
+				firstWarmupPct: 0.5
 			},
 
 			// VALIDATE: days.length === workouts.length
