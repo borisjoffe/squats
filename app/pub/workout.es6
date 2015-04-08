@@ -150,19 +150,32 @@ function getValuesBetween(min, max, numValues) {
 		err(TypeError, '(getValuesBetween) min, max, and num must be finite but were:', arguments);
 	if (max <= min)
 		err(RangeError, '(getValuesBetween) max must be strictly greater than min. max:', max, '| min:', min);
-	return _.range(min, max, (max - min) / numValues)
+	return _.range(min, max, (max - min) / numValues);
 }
 
 function makeValueBetween(value, min, max) {
 	return Math.min(max, Math.max(value, min));
 }
 
+/**
+ * If the input is an array, return it. Otherwise return an array containing only the input
+ */
+function makeArray(valueOrArray) {
+	return Array.isArray(valueOrArray) ? valueOrArray : [valueOrArray];
+}
+
+/**
+ * @param {Workset|Array<Workset>} worksets
+ * @param {JSON} warmupSchema
+ * @return {Array<ExerciseSet>} warmup sets
+ */
 function getWarmupsForWorksets(worksets, warmupSchema) {
+	worksets = makeArray(worksets);
 	var
 		warmup = warmupSchema,
 		totalWorksets = _.sum(_.invoke(worksets, 'getSets')),
 
-		numWarmups = makeValueBetween(totalWorksets, warmup.min, warmup.max),
+		numWarmups = makeValueBetween(warmup.desiredTotalSets - totalWorksets, warmup.min, warmup.max),
 		lowestWorksetWeight = _.min(_.invoke(worksets, 'getWeight')),
 		firstWarmupWeight = warmup.firstWarmupPct * lowestWorksetWeight,
 
@@ -180,10 +193,7 @@ class ExerciseSetCollection {
 	 */
 	constructor(name, exerciseSetArray, exerciseMeta) {
 		this._name = name;
-		if (exerciseSetArray instanceof ExerciseSet) {
-			exerciseSetArray = [exerciseSetArray];
-		}
-		this._sets = exerciseSetArray;
+		this._sets = makeArray(exerciseSetArray);
 		this._exerciseMeta = exerciseMeta;
 	}
 	getName() { return this._name; }
