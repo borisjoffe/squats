@@ -9,6 +9,11 @@ if (!String.prototype.contains) {
 	};
 }
 
+// replace with lodash method
+_.sum = function (collection) {
+	return collection.reduce((sum, num) => sum + num, 0);
+};
+
 /* ====================
      General utils
    ==================== */
