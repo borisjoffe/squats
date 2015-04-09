@@ -4,6 +4,7 @@ class ExerciseSetView extends React.Component {
 		return (
 			<span className='exercise-set'>
 				{ set.toString() }
+				{ this.props.lastSet ? '' : ', ' }
 			</span>
 		);
 	}
@@ -11,7 +12,10 @@ class ExerciseSetView extends React.Component {
 
 class ExerciseCollectionView extends React.Component {
 	render() {
-		var exercises = this.props.exerciseSetCollection;
+		var exercises = this.props.exerciseSetCollection,
+			sets = exercises.getSets(),
+			lastSetIdx = sets.length - 1;
+
 		return (
 			<div className='exercise-set-collection'>
 				<span className='exercise-name'>
@@ -20,8 +24,8 @@ class ExerciseCollectionView extends React.Component {
 				&nbsp;
 
 				<span className='exercise-sets'>
-				{ exercises.getSets().map((set, idx) =>
-				    <ExerciseSetView key={idx} set={set} />) }
+				{ sets.map((set, idx) =>
+				    <ExerciseSetView key={idx} set={set} lastSet={idx === lastSetIdx}/>) }
 				</span>
 				
 				<span className='exercise-meta'>

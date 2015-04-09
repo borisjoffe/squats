@@ -180,7 +180,7 @@ function getWarmupsForWorksets(worksets, warmupSchema) {
 		firstWarmupWeight = warmup.firstWarmupPct * lowestWorksetWeight,
 
 		warmups = getValuesBetween(firstWarmupWeight, lowestWorksetWeight, numWarmups)
-		          .map(weight => new ExerciseSet(warmup.sets, warmup.reps, weight));
+		          .map(weight => new ExerciseSet(warmup.sets, warmup.reps, round(weight)));
 
 	return warmups;
 }
