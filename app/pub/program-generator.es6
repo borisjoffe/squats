@@ -114,7 +114,7 @@ class ProgramGenerator {
 			weeklyPctJumps = (1 - weekOnePct) / (weekOfCurrentPrs - 1),
 
 			workset = new Workset(exercise.sets, exercise.reps),
-			exerciseSets,
+			warmups, exerciseSets,
 			weight;
 
 		if (!isFinite(lastPr)) {
@@ -129,7 +129,9 @@ class ProgramGenerator {
 		}
 
 		workset.setWeight(round(weight));
-		exerciseSets = new ExerciseSetCollection(exercise.ex, workset);
+
+		warmups = getWarmupsForWorksets(workset, workoutSchema.warmups);
+		exerciseSets = new ExerciseSetCollection(exercise.ex, warmups.concat(workset));
 		return exerciseSets;
 	}
 
