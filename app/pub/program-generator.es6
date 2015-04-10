@@ -92,12 +92,14 @@ function getUniqueExerciseSxrs(workoutsArraySchema) {
 	.flatten() // get all values regardless of day
 	.groupBy(exSxr => toExSxrStr(exSxr.sets, exSxr.reps, undefined, exSxr.ex)) // convert to a string for comparison
 	.values() // get all the grouped values together
-	.reduce(uniqValuesToOccurrencesMap, exSxrValues => {
+	.reduce((uniqValuesToOccurrencesMap, exSxrValues) => {
 		// return map of unique exSxr string value => number of times it occurs in the workouts schema
-		uniqValuesToOccurrencesMap[toExSxrStr(_.first(exSxrValues))] = exSxrValues.length;
+		log(...arguments);
+		var exSxr = _.first(exSxrValues);
+		uniqValuesToOccurrencesMap[toExSxrStr(exSxr.sets, exSxr.reps, undefined, exSxr.ex)] = exSxrValues.length;
 		return uniqValuesToOccurrencesMap;
 	}, {})
-	.run();
+	.value();
 }
 
 // Input
