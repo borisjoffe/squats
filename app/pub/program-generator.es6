@@ -55,12 +55,12 @@ programs.omcadv = {
 			prJumpPercent: 0.05, // VALIDATE: percent
 			days: [DAYS.MON, DAYS.WED, DAYS.FRI, DAYS.SAT, DAYS.SUN],
 			warmups: {
-				max: 5,
-				min: 2,
+				max: 5,   // max num warmup sets
+				min: 2,   // min num warmup sets
 				desiredTotalSets: 5,
-				sets: 1,
-				reps: 5,
-				firstWarmupPct: 0.5
+				sets: 1,  // a warmup set for each weight has 1 set
+				reps: 5,  // each warmup is X many reps
+				firstWarmupPct: 0.5 // first warmup is X percent of lowest workset weight
 			},
 
 			// VALIDATE: days.length === workouts.length
@@ -80,6 +80,25 @@ programs.omcadv = {
 		//{}
 	]
 };
+
+/**
+ * @param {JSON} workoutsArraySchema - an array of arrays of objects
+ * where each object has an exercise ("ex" key), a number of sets ("sets"), and a number of reps ("reps")
+ * @return {Object} with keys as unique exercise sxr's and values as the number of occurrences
+ */
+function getUniqueExerciseSxrs(workoutsArraySchema) {
+	var toExSxrStr = ExerciseSet.toString;
+	return _.chain(workoutsArraySchema)
+	.flatten() // get all values regardless of day
+	.groupBy(exSxr => toExSxrStr(exSxr.sets, exSxr.reps, undefined, exSxr.ex)) // convert to a string for comparison
+	.values() // get all the grouped values together
+	.reduce(uniqValuesToOccurrencesMap, exSxrValues => {
+		// return map of unique exSxr string value => number of times it occurs in the workouts schema
+		uniqValuesToOccurrencesMap[toExSxrStr(_.first(exSxrValues))] = exSxrValues.length;
+		return uniqValuesToOccurrencesMap;
+	}, {})
+	.run();
+}
 
 // Input
 class ProgramGenerator {

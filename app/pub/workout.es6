@@ -180,6 +180,7 @@ function getWarmupsForWorksets(worksets, warmupSchema) {
 		firstWarmupWeight = warmup.firstWarmupPct * lowestWorksetWeight,
 
 		warmups = getValuesBetween(firstWarmupWeight, lowestWorksetWeight, numWarmups)
+		          // current behavior with desiredTotalSets and warmup.sets assumes that each warmup is one set
 		          .map(weight => new ExerciseSet(warmup.sets, warmup.reps, round(weight)));
 
 	return warmups;
@@ -225,20 +226,23 @@ class ExerciseSet {
 	getWeight() { return this._weight; }
 	getComments() { return this._comments; }
 	isWorkset() { return this._isWorkset; }
+	setExercise(exerciseName) { this._ex = exerciseName; }
 
 	render() { return this.toString(); }
 	isValid() { return true; }
 
-	static toString(sets, reps, weight) {
-		return sets + cfg.setsByRepsDelim + reps + (weight ? cfg.weightDelim + weight : '');
+	static toString(sets, reps, weight, exerciseName) {
+		return (exerciseName ? exerciseName + ' ' : '') +
+		    sets + cfg.setsByRepsDelim + reps +
+		    (weight ? cfg.weightDelim + weight : '');
 	}
 
 	toString() {
-		return ExerciseSet.toString(this._sets, this._reps, this._weight);
+		return ExerciseSet.toString(this._sets, this._reps, this._weight, this._ex);
 	}
 
 	toShortString() {
-		return ExerciseSet.toShortString(this._sets, this._reps, this._weight);
+		return ExerciseSet.toShortString(this._sets, this._reps, this._weight, this._ex);
 	}
 
 	static toShortString(sets, reps, weight) {
