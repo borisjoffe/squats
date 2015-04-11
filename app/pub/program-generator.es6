@@ -82,23 +82,26 @@ programs.omcadv = {
 };
 
 /**
+ * Mark each exercise set with an occurrence index for the week and a total occurrences per week
+ * to allow incrementing the weight every time a distinct exercise set occurs
  * @param {JSON} workoutsArraySchema - an array of arrays of objects
  * where each object has an exercise ("ex" key), a number of sets ("sets"), and a number of reps ("reps")
- * @return {Object} with keys as unique exercise sxr's and values as the number of occurrences
  */
-function getUniqueExerciseSxrs(workoutsArraySchema) {
+function markExerciseSxrsOccurrences(workoutsArraySchema) {
 	var toExSxrStr = ExerciseSet.toString;
+	log(workoutsArraySchema);
 	return _.chain(workoutsArraySchema)
 	.flatten() // get all values regardless of day
 	.groupBy(exSxr => toExSxrStr(exSxr.sets, exSxr.reps, undefined, exSxr.ex)) // convert to a string for comparison
 	.values() // get all the grouped values together
-	.reduce((uniqValuesToOccurrencesMap, exSxrValues) => {
-		// return map of unique exSxr string value => number of times it occurs in the workouts schema
-		log(...arguments);
-		var exSxr = _.first(exSxrValues);
-		uniqValuesToOccurrencesMap[toExSxrStr(exSxr.sets, exSxr.reps, undefined, exSxr.ex)] = exSxrValues.length;
-		return uniqValuesToOccurrencesMap;
-	}, {})
+	.map(exSxrValues => {
+		// mark values with how many times they occur after the first one in the workset
+		// note: this assumes that duplicate worksets don't exist in a single workout
+		exSxrValues.forEach((exSxr, idx) => {
+			exSxr.occurrence = idx;
+			exSxr.totalOccurrencesPerWeek = exSxrValues.length; // set total num on each exercise for easy computation
+		});
+	})
 	.value();
 }
 
@@ -133,21 +136,24 @@ class ProgramGenerator {
 			sxr            = ExerciseSet.toShortString(exercise.sets, exercise.reps),
 			lastPr         = maxes[exercise.ex][sxr],
 			weeklyPctJumps = (1 - weekOnePct) / (weekOfCurrentPrs - 1),
+			numJumps       =
+			    // (num times ex was performed in previous weeks) * this week's occurrence index
+			    (weekIdx * exercise.totalOccurrencesPerWeek) + exercise.occurrence,
 
 			workset = new Workset(exercise.sets, exercise.reps),
 			warmups, exerciseSets,
 			weight;
 
-		if (!isFinite(lastPr)) {
+		if (!isFinite(lastPr))
 			warn('lastPr is not finite. It is', lastPr);
-		}
 
 		if (weekIdx <= weekOfCurrentPrs) {
 			// e.g. week 1 is 0.8 + (0 * .10) * 300lbs
-			weight = (weekOnePct + (weekIdx * weeklyPctJumps)) * lastPr;
+			weight = (weekOnePct + (numJumps * weeklyPctJumps)) * lastPr;
 		} else {
-			weight = lastPr * (1 + prJumpPercent * weekIdx);
+			weight = lastPr * (1 + prJumpPercent * numJumps);
 		}
+		log('weekIdx:', weekIdx, '| exercise:', exercise, '| weight:', weight);
 
 		workset.setWeight(round(weight));
 
@@ -171,6 +177,8 @@ class ProgramGenerator {
 	}
 
 	makeWorkoutsForWeek(weekIdx, maxes, workoutSchema) {
+		markExerciseSxrsOccurrences(workoutSchema.workouts);
+
 		return workoutSchema.workouts.map(
 			// Map workouts for each day
 			_.bind(this.makeWorkout, this, _, weekIdx, maxes, workoutSchema)
