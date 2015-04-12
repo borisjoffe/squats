@@ -27,23 +27,6 @@ function getProp(obj, path) {
 }
 
 /**
- * Takes in text containing slash separated date e.g. 2015/03/01
- * returns first date found as unix time
- * returns null if no date found
- * TODO: adjust for timezones
- */
-function getDate(text, context) {
-	const WORKOUT_HEADER_DATE_REGEXP = /(\d+\/\d+\/\d+)\s/;
-	var dateString = getProp(text.match(WORKOUT_HEADER_DATE_REGEXP), [1]);
-	if (!dateString) {
-		return null;
-	} else {
-		dateString.replace(/\//g, '-');
-		return Date.parse(dateString);
-	}
-}
-
-/**
  * Takes in text containing unit of weight
  * returns first unit of weight found
  * returns user's default unit of weight if no date found

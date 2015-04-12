@@ -43,6 +43,60 @@ function err(ErrorType, ...args) {
 	return args.length === 1 ? args[0] : args;
 }
 
+/* ====================
+     Date utils
+   ==================== */
+
+// TODO: il8n - some locales start with monday
+var DAYS = {
+	SUN: "sun",
+	MON: "mon",
+	TUE: "tue",
+	WED: "wed",
+	THU: "thu",
+	FRI: "fri",
+	SAT: "sat"
+};
+
+var daysValues = _.values(DAYS);
+
+/**
+ * @param {String|Number} dayOfWeek - e.g. mon/Monday/monday if string or 1 if number
+ * @return {Date} date of next occurrence of day of week based on local time
+ */
+function getDateOfNextDayOfWeek(dayOfWeek) {
+	var date = new Date(),
+	    todayIdx = date.getDay(),
+	    dayIdx;
+
+	if (typeof dayOfWeek === 'string')
+		// get desired value of Date#getDay (0 is Sunday)
+		dayIdx = daysValues.indexOf(dayOfWeek.toLowerCase().substring(0, 3));
+	if (dayIdx < 0 || dayIdx > 6) err('dayIdx is not valid. dayOfWeek supplied was:', dayOfWeek)
+
+	if (todayIdx < dayIdx) date.setDate(date.getDate() + dayIdx - todayIdx);
+	if (todayIdx > dayIdx) date.setDate(date.getDate() + dayIdx - todayIdx + 7);
+
+	return date;
+}
+
+
+/**
+ * @param {String} text containing slash separated date e.g. 2015/03/01
+ * @return {Date|null} first date found or null if no date found
+ * TODO: adjust for timezones
+ */
+function getDate(text) {
+	const WORKOUT_HEADER_DATE_REGEXP = /(\d+\/\d+\/\d+)\s/;
+	var dateString = getProp(text.match(WORKOUT_HEADER_DATE_REGEXP), [1]);
+	if (!dateString) {
+		return null;
+	} else {
+		dateString.replace(/\//g, '-');
+		return new Date(Date.parse(dateString));
+	}
+}
+
 // Build an index on an array based on an object property.
 // Assumes that arr contains objects that have unique keys
 // Updates to objects that don't modify the key will NOT invalidate the index
