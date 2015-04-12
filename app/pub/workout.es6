@@ -94,15 +94,10 @@ class Workout {
 }
 
 class WorkoutHeader {
-	constructor(headerText) {
-		var txt = headerText;
-		this._text = txt;
-
-		this._workoutDate = getDate(txt);
-
-		this._workoutUnitOfWeight = getUnitOfWeight(txt);
-
-		this._meta = WorkoutHeader.getMeta(txt);
+	constructor(date, unitOfWeight, meta) {
+		this._workoutDate = date;
+		this._unitOfWeight = unitOfWeight;
+		this._meta = meta;
 	}
 
 	isValid() {
