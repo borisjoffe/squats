@@ -62,16 +62,25 @@ class WorkoutHeader {
 		return !!this._workoutDate;
 	}
 
-	toString() { return this._text; }
+	toString() {
+		if (!this.isValid()) { return this._meta; }
+		var
+			date = this._workoutDate,
+			padTwoDigits = _.partial(_.padLeft, _, 2, 0),
+			dateStr =
+				[date.getFullYear(),
+				padTwoDigits(date.getMonth() + 1),
+				padTwoDigits(date.getDate())].join('/'),
+			units = this._unitOfWeight,
+			meta = this._meta ? '(' + this._meta + ')' : '';
+
+		return [dateStr, units, meta].join(' ');
+	}
 
 	render() {
 		return '<div class="workout-header">' +
-			toHtml(this.toString()) +
+			this.toString() +
 		'</div>';
-	}
-
-	static getMeta(text) {
-		return getProp(text.match(/\(([^\)]*)\)/), [1]);
 	}
 }
 

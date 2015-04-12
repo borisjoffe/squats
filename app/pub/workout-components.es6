@@ -37,7 +37,7 @@ class ExerciseCollectionView extends React.Component {
 }
 
 class WorkoutHeaderView extends React.Component {
-	render() { return <span>{this.props.header}</span>; }
+	render() { return <span>{this.props.header.toString()}</span>; }
 }
 
 class WorkoutView extends React.Component {
