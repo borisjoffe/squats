@@ -155,8 +155,9 @@ class ProgramGenerator {
 	// Each day, get workset
 	makeWorkout(day, weekIdx, maxes, workoutSchema) {
 		var
+			workoutMeta = [workoutSchema.name, 'wk' + (weekIdx + 1)].join(' - '),
 			workout = new Workout(
-				new WorkoutHeader("2015/04/01"),
+				new WorkoutHeader(workoutSchema.startDate, workoutSchema.unitOfWeight, workoutMeta),
 				day.map(
 					// map over each exercise creating worksets
 					_.bind(this.getWorksetForWeek, this, weekIdx, _, maxes, workoutSchema)
