@@ -1,17 +1,6 @@
 // Workout programs
 window.programs = {};
 
-// TODO: il8n - some locales start with sunday
-var DAYS = {
-	MON: "mon",
-	TUE: "tue",
-	WED: "wed",
-	THU: "thu",
-	FRI: "fri",
-	SAT: "sat",
-	SUN: "sun"
-};
-
 var EXERCISES = {
 	// powerlifting
 	squat : "squat",
@@ -45,6 +34,7 @@ user.maxes = _.zipObject([
 // Hybrid Advanced Madcow 5x5 with Olympic Weightlifting
 // TODO: change from percent to functions that take in the user's historical numbers
 programs.omcadv = {
+	name: "omcadv8",
 	from5x5To1x5Percent: 1.0 - 0.075, // VALIDATE: 0 < x < 1
 	phases: [
 		// loading
@@ -60,7 +50,7 @@ programs.omcadv = {
 				desiredTotalSets: 5,
 				sets: 1,  // a warmup set for each weight has 1 set
 				reps: 5,  // each warmup is X many reps
-				firstWarmupPct: 0.5 // first warmup is X percent of lowest workset weight
+				firstWarmupPct: 0.6 // first warmup is X percent of lowest workset weight
 			},
 
 			// VALIDATE: days.length === workouts.length
@@ -189,6 +179,8 @@ class ProgramGenerator {
 		var maxes = this.maxes;
 
 		return this.program.phases.map(phase => {
+			var startDay = phase.days[0];
+
 			var numWeeks = phase.numWeeks;
 			// Map workouts for each week
 			var workoutsThisPhase =
