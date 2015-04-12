@@ -45,6 +45,43 @@ function err(ErrorType, ...args) {
 	return args.length === 1 ? args[0] : args;
 }
 
+function toHtml(text) {
+	if (Array.isArray(text))
+		return text.map(toHtml).join('<br>')
+	else if (text !== null && text !== undefined)
+		return text.replace(/\n/g, '<br>');
+	else
+		return '<!-- ' + warn('text is null or undefined:', text) + ' -->';
+}
+
+function getProp(obj, path) {
+	const PATH_DELIM = '.';
+	if (typeof path === 'string') {
+		path = path.split(PATH_DELIM);
+	}
+	var prop = obj;
+
+	while (path.length && obj && obj !== null) {
+		prop = obj[path[0]];
+		path = path.slice(1);
+	}
+
+	return prop;
+}
+
+/**
+ * Copy certain keys from one object to the other (mutates destObj)
+ * @param {Object} srcObj
+ * @param {Object} destObj
+ * @param {Array|String} keysArr - array of keys to copy or string of a single key to copy
+ * @return {Object} destObj
+ */
+function copyKeys(srcObj, destObj, keysArr) {
+	keysArr.forEach(key => { destObj[key] = srcObj[key]; });
+	return destObj;
+}
+
+
 /* ====================
      Date utils
    ==================== */
@@ -143,3 +180,18 @@ function roundTo(nearestNum, num) {
 
 const lowestPlate = _.last(cfg.plates);
 var round = _.curry(roundTo)(lowestPlate * 2);
+
+
+/**
+ * Takes in text containing unit of weight
+ * returns first unit of weight found
+ * returns user's default unit of weight if no date found
+ */
+function getUnitOfWeight(text, context) {
+	if (text.contains('lbs') || text.contains('lb'))
+		return cfg.unitOfWeight.pounds;
+	else if (text.contains('kgs') || text.contains('kg'))
+		return cfg.unitOfWeight.kilos;
+	else
+		return cfg.unitOfWeight.DEFAULT;
+}

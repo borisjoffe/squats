@@ -36,6 +36,7 @@ user.maxes = _.zipObject([
 programs.omcadv = {
 	name: "omcadv8",
 	from5x5To1x5Percent: 1.0 - 0.075, // VALIDATE: 0 < x < 1
+	unitOfWeight: cfg.unitOfWeight.pounds,
 	phases: [
 		// loading
 		{
@@ -180,7 +181,8 @@ class ProgramGenerator {
 		var maxes = this.maxes;
 
 		return this.program.phases.map(phase => {
-			var startDay = phase.days[0];
+			phase.startDate = getDateOfNextDayOfWeek(phase.days[0]);
+			copyKeys(this.program, phase, ["name", "unitOfWeight"]); // for convenience
 
 			var numWeeks = phase.numWeeks;
 			// Map workouts for each week

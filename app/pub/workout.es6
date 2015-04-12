@@ -1,46 +1,4 @@
-const WORKOUT_SEPARATOR = '\n\n';
-const WHITESPACE = /\s/;
 var cfg = window.cfg;
-
-function toHtml(text) {
-	if (Array.isArray(text))
-		return text.map(toHtml).join('<br>')
-	else if (text !== null && text !== undefined)
-		return text.replace(/\n/g, '<br>');
-	else
-		return '<!-- ' + warn('text is null or undefined:', text) + ' -->';
-}
-
-function getProp(obj, path) {
-	const PATH_DELIM = '.';
-	if (typeof path === 'string') {
-		path = path.split(PATH_DELIM);
-	}
-	var prop = obj;
-
-	while (path.length && obj && obj !== null) {
-		prop = obj[path[0]];
-		path = path.slice(1);
-	}
-
-	return prop;
-}
-
-/**
- * Takes in text containing unit of weight
- * returns first unit of weight found
- * returns user's default unit of weight if no date found
- */
-function getUnitOfWeight(text, context) {
-	if (text.contains('lbs') || text.contains('lb'))
-		return cfg.unitOfWeight.pounds;
-	else if (text.contains('kgs') || text.contains('kg'))
-		return cfg.unitOfWeight.kilos;
-	else
-		return cfg.unitOfWeight.DEFAULT;
-}
-
-var getExerciseName = _.identity;
 
 class Workouts {
 	// input can have meta sections
