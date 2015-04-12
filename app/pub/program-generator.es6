@@ -182,7 +182,7 @@ class ProgramGenerator {
 
 		return this.program.phases.map(phase => {
 			phase.startDate = getDateOfNextDayOfWeek(phase.days[0]);
-			copyKeys(this.program, phase, ["name", "unitOfWeight"]); // for convenience
+			copyProps(this.program, phase, ["name", "unitOfWeight"]); // for convenience
 
 			var numWeeks = phase.numWeeks;
 			// Map workouts for each week

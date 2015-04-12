@@ -45,6 +45,13 @@ function err(ErrorType, ...args) {
 	return args.length === 1 ? args[0] : args;
 }
 
+/**
+ * If the input is an array, return it. Otherwise return an array containing only the input
+ */
+function makeArray(valueOrArray) {
+	return Array.isArray(valueOrArray) ? valueOrArray : [valueOrArray];
+}
+
 function toHtml(text) {
 	if (Array.isArray(text))
 		return text.map(toHtml).join('<br>')
@@ -70,14 +77,16 @@ function getProp(obj, path) {
 }
 
 /**
- * Copy certain keys from one object to the other (mutates destObj)
+ * Copy certain properties from one object to another or to an array of others (mutates destObj)
  * @param {Object} srcObj
- * @param {Object} destObj
- * @param {Array|String} keysArr - array of keys to copy or string of a single key to copy
+ * @param {Object|Array<Object>} destObj - 
+ * @param {Array|String} propsArr - array of keys to copy or string of a single key to copy
  * @return {Object} destObj
  */
-function copyKeys(srcObj, destObj, keysArr) {
-	keysArr.forEach(key => { destObj[key] = srcObj[key]; });
+function copyProps(srcObj, destObj, propsArr) {
+	if (Array.isArray(destObj))
+		return destObj.map(obj => _.partial(copyProps, srcObj, _, propsArr));
+	makeArray(propsArr).forEach(key => { destObj[key] = srcObj[key]; });
 	return destObj;
 }
 
@@ -97,7 +106,7 @@ var DAYS = {
 	SAT: "sat"
 };
 
-var daysValues = _.values(DAYS);
+var DAYS_KEYS = _.invoke(_.keys(DAYS), 'toLowerCase');
 
 /**
  * @param {String|Number} dayOfWeek - e.g. mon/Monday/monday if string or 1 if number
@@ -110,7 +119,7 @@ function getDateOfNextDayOfWeek(dayOfWeek) {
 
 	if (typeof dayOfWeek === 'string')
 		// get desired value of Date#getDay (0 is Sunday)
-		dayIdx = daysValues.indexOf(dayOfWeek.toLowerCase().substring(0, 3));
+		dayIdx = DAYS_KEYS.indexOf(dayOfWeek.toLowerCase().substring(0, 3));
 	if (dayIdx < 0 || dayIdx > 6) err('dayIdx is not valid. dayOfWeek supplied was:', dayOfWeek)
 
 	if (todayIdx < dayIdx) date.setDate(date.getDate() + dayIdx - todayIdx);

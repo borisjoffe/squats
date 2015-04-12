@@ -103,13 +103,6 @@ function makeValueBetween(value, min, max) {
 }
 
 /**
- * If the input is an array, return it. Otherwise return an array containing only the input
- */
-function makeArray(valueOrArray) {
-	return Array.isArray(valueOrArray) ? valueOrArray : [valueOrArray];
-}
-
-/**
  * @param {Workset|Array<Workset>} worksets
  * @param {JSON} warmupSchema
  * @return {Array<ExerciseSet>} warmup sets
