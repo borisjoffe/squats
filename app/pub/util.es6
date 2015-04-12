@@ -33,9 +33,11 @@ function err(ErrorType, ...args) {
 		console.error(...args);
 	} else {
 		// treat first arg as part of the error message (assume ErrorType is Error)
-		if (typeof ErrorType === 'string') {
+		if (typeof ErrorType !== 'object') {
 			ErrorType = Error;
-			args = [ErrorType].push(...args);
+			var otherArgs = args;
+			args = [arguments[0]];
+			if (otherArgs.length) args.push(...otherArgs);
 		}
 
 		throw new ErrorType(args.join(' '));
