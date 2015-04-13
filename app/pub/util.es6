@@ -79,13 +79,13 @@ function getProp(obj, path) {
 /**
  * Copy certain properties from one object to another or to an array of others (mutates destObj)
  * @param {Object} srcObj
- * @param {Object|Array<Object>} destObj - 
+ * @param {Object|Array<Object>} destObj - single object to copy to or an array of objects
  * @param {Array|String} propsArr - array of keys to copy or string of a single key to copy
  * @return {Object} destObj
  */
 function copyProps(srcObj, destObj, propsArr) {
 	if (Array.isArray(destObj))
-		return destObj.map(obj => _.partial(copyProps, srcObj, _, propsArr));
+		return destObj.map(_.partial(copyProps, srcObj, _, propsArr));
 	makeArray(propsArr).forEach(key => { destObj[key] = srcObj[key]; });
 	return destObj;
 }
