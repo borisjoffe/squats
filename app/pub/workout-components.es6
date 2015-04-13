@@ -74,6 +74,7 @@ class ProgramGeneratorView extends React.Component {
 	render() {
 		var myProgram = ProgramGenerator.tryCreate(..._.values(this.props));
 		if (!myProgram) err('Could not generate program from data');
+		log(myProgram);
 		var workouts = myProgram.getWorkouts();
 		return (
 			<div className='program'>

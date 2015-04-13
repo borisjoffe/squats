@@ -159,13 +159,14 @@ class ProgramGenerator {
 		// TODO: make sure it works for duplicate days and across weeks
 		this._dayOfWeekIdx = this._dayOfWeekIdx || 0;
 		this._dayOfWeek = workoutSchema.days[this._dayOfWeekIdx % workoutSchema.days.length];
+		this._currentDate = getDateOfNextDayOfWeek(this._dayOfWeek, this._currentDate);
 		log("week", weekIdx, this._dayOfWeekIdx, this._dayOfWeek, this._currentDate);
 
 		var
 			workoutMeta = [workoutSchema.name, 'wk' + (weekIdx + 1), this._dayOfWeek + ' workout'].join(' - '),
 			workout = new Workout(
 				new WorkoutHeader(
-					getDateOfNextDayOfWeek(this._dayOfWeek, this._currentDate),
+					this._currentDate,
 					workoutSchema.unitOfWeight,
 					workoutMeta),
 				day.map(

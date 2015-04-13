@@ -92,7 +92,7 @@ function copyProps(srcObj, destObj, propsArr) {
 
 
 /* ====================
-     Date utils
+        Date utils
    ==================== */
 
 // TODO: il8n - some locales start with monday
