@@ -110,10 +110,11 @@ var DAYS_KEYS = _.invoke(_.keys(DAYS), 'toLowerCase');
 
 /**
  * @param {String|Number} dayOfWeek - e.g. mon/Monday/monday if string or 1 if number
+ * @param {Date} currentDate - (optional) defaults to today
  * @return {Date} date of next occurrence of day of week based on local time
  */
-function getDateOfNextDayOfWeek(dayOfWeek) {
-	var date = new Date(),
+function getDateOfNextDayOfWeek(dayOfWeek, currentDate) {
+	var date = currentDate || new Date(),
 	    todayIdx = date.getDay(),
 	    dayIdx;
 

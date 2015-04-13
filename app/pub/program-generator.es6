@@ -144,7 +144,7 @@ class ProgramGenerator {
 		} else {
 			weight = lastPr * (1 + prJumpPercent * numJumps);
 		}
-		log('weekIdx:', weekIdx, '| exercise:', exercise, '| weight:', weight);
+		//log('weekIdx:', weekIdx, '| exercise:', exercise, '| weight:', weight);
 
 		workset.setWeight(round(weight));
 
@@ -155,15 +155,26 @@ class ProgramGenerator {
 
 	// Each day, get workset
 	makeWorkout(day, weekIdx, maxes, workoutSchema) {
+		// track date that we're making workout for.
+		// TODO: make sure it works for duplicate days and across weeks
+		this._dayOfWeekIdx = this._dayOfWeekIdx || 0;
+		this._dayOfWeek = workoutSchema.days[this._dayOfWeekIdx % workoutSchema.days.length];
+		log("week", weekIdx, this._dayOfWeekIdx, this._dayOfWeek, this._currentDate);
+
 		var
-			workoutMeta = [workoutSchema.name, 'wk' + (weekIdx + 1)].join(' - '),
+			workoutMeta = [workoutSchema.name, 'wk' + (weekIdx + 1), this._dayOfWeek + ' workout'].join(' - '),
 			workout = new Workout(
-				new WorkoutHeader(workoutSchema.startDate, workoutSchema.unitOfWeight, workoutMeta),
+				new WorkoutHeader(
+					getDateOfNextDayOfWeek(this._dayOfWeek, this._currentDate),
+					workoutSchema.unitOfWeight,
+					workoutMeta),
 				day.map(
 					// map over each exercise creating worksets
 					_.bind(this.getWorksetForWeek, this, weekIdx, _, maxes, workoutSchema)
 				)
 			);
+
+		this._dayOfWeekIdx += 1;
 
 		return workout;
 	}
