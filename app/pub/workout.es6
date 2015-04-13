@@ -53,7 +53,9 @@ class Workout {
 
 class WorkoutHeader {
 	constructor(date, unitOfWeight, meta) {
-		this._workoutDate = new Date(date); // clone date to avoid incorrect object refs
+		this._workoutDate = date instanceof Date ?
+		    new Date(date) : // clone date to avoid incorrect object refs
+		    date;
 		this._unitOfWeight = unitOfWeight;
 		this._meta = meta;
 	}
