@@ -8,9 +8,15 @@ $.get('/workouts', function (data) {
 });
 
 React.render(
-	<ProgramGeneratorView program={programs.omcadv} user={user}/>,
-	document.getElementById('generator-section')
+	<ProgramEditorView />,
+	document.getElementById('program-editor')
 );
+
+React.render(
+	<ProgramGeneratorView program={programs.omcadv} user={user}/>,
+	document.getElementById('program-section')
+);
+
 
 var myProgram = new ProgramGenerator(programs.omcadv, user);
 log(myProgram.getWorkouts())
