@@ -18,7 +18,7 @@ class DatePicker extends React.Component {
 		return (
 			// add label text from props
 			<div className='date-picker'>
-				<input type='date' onChange={ handleChange } defaultValue={ initialDateString } />
+				<input type='date' onChange={ this.handleChange } defaultValue={ initialDateString } />
 			</div>
 		);
 	}

@@ -60,17 +60,6 @@ class WorkoutView extends React.Component {
 }
 
 class ProgramGeneratorView extends React.Component {
-	/*
-	// why is this not getting called??
-	getInitialState() {
-		log('setting state from props', this.props);
-		var myProgram = ProgramGenerator.tryCreate.apply(ProgramGenerator, this.props);
-		if (!myProgram) { err('Could not generate program from data'); }
-		return {
-			program: myProgram
-		};
-	}
-	*/
 	render() {
 		var myProgram = ProgramGenerator.tryCreate(..._.values(this.props));
 		if (!myProgram) err('Could not generate program from data');
