@@ -3,9 +3,10 @@
  * @param {Date} this.props.initialDate
  */
 class DatePicker extends React.Component {
-	handleChange() {
+	handleChange(e) {
 		// update program generator props
-		log('here', arguments);
+		log('new date', e.target.value);
+		updateProgram({startDate: e.target.value});
 	}
 
 	render() {
@@ -23,6 +24,11 @@ class DatePicker extends React.Component {
 		);
 	}
 }
+
+var updateProgram = _.curry(function (originalProgram, updatesObj) {
+	_.assign(originalProgram, updatesObj);
+	log('new program:', originalProgram);
+})(programs.omcadv);
 
 class ProgramEditorView extends React.Component {
 	render() {
