@@ -190,11 +190,16 @@ class ProgramGenerator {
 	}
 
 	makePhases() {
-		var maxes = this.maxes;
-		copyProps(this.program, this.program.phases, ["name", "unitOfWeight"]); // for convenience
+		var maxes = this.maxes,
+			program = this.program;
 
-		return this.program.phases.map(phase => {
-			phase.startDate = getDateOfNextDayOfWeek(phase.days[0]);
+		program.startDate = program.startDate || getDateOfNextDayOfWeek(program.phases[0].days[0]);
+		if (typeof program.startDate === 'string')
+			program.startDate = dateFromStr(program.startDate);
+
+		copyProps(program, program.phases, ["name", "unitOfWeight", "startDate"]); // for convenience
+
+		return program.phases.map(phase => {
 
 			var numWeeks = phase.numWeeks;
 			// Map workouts for each week
