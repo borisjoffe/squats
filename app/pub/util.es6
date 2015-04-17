@@ -109,6 +109,18 @@ var DAYS = {
 var DAYS_KEYS = _.invoke(_.keys(DAYS), 'toLowerCase');
 
 /**
+ * @param {String}
+ * @returns {Date}
+ */
+function dateFromStr(dateStr) {
+	if (typeof dateStr !== 'string')
+		err(TypeError, '(dateFromStr) dateStr must be string but was', dateStr);
+	var [year, month, day] = dateStr.split('-');
+	month = month + 1; // js months start with 0
+	return new Date(year, month, day);
+}
+
+/**
  * @param {String|Number} dayOfWeek - e.g. mon/Monday/monday if string or 1 if number
  * @param {Date} currentDate - (optional) defaults to today
  * @return {Date} date of next occurrence of day of week based on local time
