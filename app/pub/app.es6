@@ -12,13 +12,15 @@ $.get('/workouts', function (data) {
  * @param {React.Component} component
  * @param {JSON} [props=null]
  */
-var render = _.curry(function (htmlNode, component, props = null) {
+var render = _.curry(function (htmlNode, component, props) {
+	if (!props) props = null
+	log('rendering', component.name, 'to', htmlNode, 'with props:', props);
 	if (typeof htmlNode === 'string')
 		htmlNode = document.getElementById(htmlNode);
 	React.render(React.createElement(component, props), htmlNode);
 });
 
-render('program-editor')(ProgramEditorView);
+render('program-editor')(ProgramEditorView)(null);
 
 var renderProgramSection = render('program-section')(ProgramGeneratorView);
 

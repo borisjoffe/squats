@@ -28,7 +28,7 @@ class DatePicker extends React.Component {
 var updateProgram = _.curry(function (program, updatesObj) {
 	_.assign(program, updatesObj);
 	log('new program:', program);
-	//renderProgramSection({program: program, user: user});
+	renderProgramSection({program: program, user: user});
 })(programs.omcadv);
 
 class ProgramEditorView extends React.Component {
