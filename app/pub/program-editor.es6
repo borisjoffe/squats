@@ -5,7 +5,7 @@
 class DatePicker extends React.Component {
 	handleChange(e) {
 		// update program generator props
-		log('new date', e.target.value);
+		trace('new date', e.target.value);
 		updateProgram({startDate: e.target.value});
 	}
 
@@ -27,7 +27,7 @@ class DatePicker extends React.Component {
 
 var updateProgram = _.curry(function (program, updatesObj) {
 	_.assign(program, updatesObj);
-	log('new program:', program);
+	trace('new program:', program);
 	renderProgramSection({program: program, user: user});
 })(programs.omcadv);
 
