@@ -80,7 +80,7 @@ programs.omcadv = {
  */
 function markExerciseSxrsOccurrences(workoutsArraySchema) {
 	var toExSxrStr = ExerciseSet.toString;
-	log(workoutsArraySchema);
+	trace(workoutsArraySchema);
 	return _.chain(workoutsArraySchema)
 	.flatten() // get all values regardless of day
 	.groupBy(exSxr => toExSxrStr(exSxr.sets, exSxr.reps, undefined, exSxr.ex)) // convert to a string for comparison
@@ -160,7 +160,7 @@ class ProgramGenerator {
 		this._dayOfWeekIdx = this._dayOfWeekIdx || 0;
 		this._dayOfWeek = workoutSchema.days[this._dayOfWeekIdx % workoutSchema.days.length];
 		this._currentDate = getDateOfNextDayOfWeek(this._dayOfWeek, this._currentDate);
-		log("week", weekIdx, this._dayOfWeekIdx, this._dayOfWeek, this._currentDate);
+		trace("week", weekIdx, this._dayOfWeekIdx, this._dayOfWeek, this._currentDate);
 
 		var
 			workoutMeta = [workoutSchema.name, 'wk' + (weekIdx + 1), this._dayOfWeek + ' workout'].join(' - '),
@@ -196,6 +196,7 @@ class ProgramGenerator {
 		program.startDate = program.startDate || getDateOfNextDayOfWeek(program.phases[0].days[0]);
 		if (typeof program.startDate === 'string')
 			program.startDate = dateFromStr(program.startDate);
+		dbg('start:', program.startDate);
 
 		copyProps(program, program.phases, ["name", "unitOfWeight", "startDate"]); // for convenience
 

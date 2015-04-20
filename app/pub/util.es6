@@ -1,4 +1,5 @@
-var DEBUG = 1;
+// 0 is off, 1 is err, 2 is warn, 3 is log, 4 is debug, 5 is trace
+var DEBUG = 4;
 
 /* ====================
          Shims
@@ -17,20 +18,35 @@ _.sum = function (collection) {
 /* ====================
      General utils
    ==================== */
+function trace(...args) {
+	if (DEBUG >= 5)
+		console.log(...args);
+	return args.length === 1 ? args[0] : args;
+}
+
+function dbg(...args) {
+	if (DEBUG >= 4)
+		console.log(...args);
+	return args.length === 1 ? args[0] : args;
+}
+
 function log(...args) {
-	console.log(...args);
+	if (DEBUG >= 3)
+		console.log(...args);
 	return args.length === 1 ? args[0] : args;
 }
 
 function warn(...args) {
-	console.warn(...args);
+	if (DEBUG >= 2)
+		console.warn(...args);
 	//debugger;
 	return args.length === 1 ? args[0] : args;
 }
 
 function err(ErrorType, ...args) {
 	if (!ErrorType) {
-		console.error(...args);
+		if (DEBUG >= 1)
+			console.error(...args);
 	} else {
 		// treat first arg as part of the error message (assume ErrorType is Error)
 		if (typeof ErrorType !== 'object') {
@@ -40,7 +56,8 @@ function err(ErrorType, ...args) {
 			if (otherArgs.length) args.push(...otherArgs);
 		}
 
-		throw new ErrorType(args.join(' '));
+		if (DEBUG >= 1)
+			throw new ErrorType(args.join(' '));
 	}
 	return args.length === 1 ? args[0] : args;
 }
