@@ -159,7 +159,7 @@ class ProgramGenerator {
 		// TODO: make sure it works for duplicate days and across weeks
 		this._dayOfWeekIdx = this._dayOfWeekIdx || 0;
 		this._dayOfWeek = workoutSchema.days[this._dayOfWeekIdx % workoutSchema.days.length];
-		this._currentDate = getDateOfNextDayOfWeek(this._dayOfWeek, this._currentDate);
+		this._currentDate = getDateOfNextDayOfWeek(this._dayOfWeek, workoutSchema.startDate);
 		trace("week", weekIdx, this._dayOfWeekIdx, this._dayOfWeek, this._currentDate);
 
 		var
@@ -196,12 +196,10 @@ class ProgramGenerator {
 		program.startDate = program.startDate || getDateOfNextDayOfWeek(program.phases[0].days[0]);
 		if (typeof program.startDate === 'string')
 			program.startDate = dateFromStr(program.startDate);
-		dbg('start:', program.startDate);
 
 		copyProps(program, program.phases, ["name", "unitOfWeight", "startDate"]); // for convenience
 
 		return program.phases.map(phase => {
-
 			var numWeeks = phase.numWeeks;
 			// Map workouts for each week
 			var workoutsThisPhase =
