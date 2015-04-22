@@ -40,6 +40,7 @@ programs.omcadv = {
 	phases: [
 		// loading
 		{
+			phaseName: "loading",
 			numWeeks: 4,
 			weekOfCurrentPrs: 3, // VALIDATE: x < numWeeks
 			weekOnePercentOfPr: 0.8, // VALIDATE: 0 < x < 1
@@ -163,7 +164,7 @@ class ProgramGenerator {
 		trace("week", weekIdx, this._dayOfWeekIdx, this._dayOfWeek, this._currentDate);
 
 		var
-			workoutMeta = [workoutSchema.name, 'wk' + (weekIdx + 1), this._dayOfWeek + ' workout'].join(' - '),
+			workoutMeta = [workoutSchema.name, workoutSchema.phaseName + (weekIdx + 1), this._dayOfWeek + ' workout'].join(' - '),
 			workout = new Workout(
 				new WorkoutHeader(
 					this._currentDate,
