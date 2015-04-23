@@ -40,7 +40,7 @@ programs.omcadv = {
 	phases: [
 		// loading
 		{
-			phaseName: "loading",
+			phaseName: "load",
 			numWeeks: 4,
 			weekOfCurrentPrs: 3, // VALIDATE: x < numWeeks
 			weekOnePercentOfPr: 0.8, // VALIDATE: 0 < x < 1
@@ -209,6 +209,10 @@ class ProgramGenerator {
 
 			return workoutsThisPhase;
 		});
+	}
+
+	serialize() {
+		return JSON.stringify(this);
 	}
 }
 ProgramGenerator.tryCreate = createMixin;

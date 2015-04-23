@@ -8,10 +8,3 @@ $.get('/workouts', function (data) {
 });
 
 render('program-editor')(ProgramEditorView)(null);
-
-var renderProgramSection = render('program-section')(ProgramGeneratorView);
-
-renderProgramSection({
-	program: programs.omcadv,
-	user: user
-});

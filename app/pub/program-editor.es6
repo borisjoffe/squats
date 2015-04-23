@@ -9,6 +9,11 @@ class DatePicker extends React.Component {
 		updateProgram({startDate: e.target.value});
 	}
 
+	componentWillMount() {
+		// trigger initial render of program generator
+		updateProgram({});
+	}
+
 	render() {
 		var
 			initialDate = this.props.initialDate || new Date(),
@@ -25,11 +30,13 @@ class DatePicker extends React.Component {
 	}
 }
 
+var renderProgramSection = render('program-section')(ProgramGeneratorView);
+
 var updateProgram = _.curry(function (program, updatesObj) {
 	_.assign(program, updatesObj);
 	trace('new program:', program);
 	renderProgramSection({program: program, user: user});
-})(programs.omcadv);
+})(_.cloneDeep(programs.omcadv));
 
 class ProgramEditorView extends React.Component {
 	render() {
