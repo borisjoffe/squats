@@ -234,3 +234,22 @@ function getUnitOfWeight(text, context) {
 	else
 		return cfg.unitOfWeight.DEFAULT;
 }
+
+
+
+/* ====================
+      Render utils
+   ==================== */
+
+/**
+ * @param {String|HtmlNode} htmlNode - node or an id string
+ * @param {React.Component} component
+ * @param {JSON} [props=null]
+ */
+var render = _.curry(function (htmlNode, component, props) {
+	if (!props) props = null
+	log('rendering', component.name, 'to', htmlNode, 'with props:', props);
+	if (typeof htmlNode === 'string')
+		htmlNode = document.getElementById(htmlNode);
+	React.render(React.createElement(component, props), htmlNode);
+});
