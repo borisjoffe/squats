@@ -43,6 +43,7 @@ class Workout {
 	static validate(workoutText) { return Workout.parse(workoutText); }
 
 	render() {
+		debugger;
 		return '<div class="workout">' +
 			this._header.render() +
 			toHtml(this._exerciseSets.map(exercise => exercise.render())) +
@@ -207,7 +208,7 @@ class Workset extends ExerciseSet {
 		this._weight = weight;
 	}
 
-	render() { return this.toString() + ':' + this._weight; }
+	render() { return this.toString(); }
 }
 
 window.WorkoutsView = class WorkoutsView {
