@@ -74,3 +74,5 @@ class ProgramGeneratorView extends React.Component {
 		);
 	}
 }
+
+var renderProgramSection = render('program-section')(ProgramGeneratorView);

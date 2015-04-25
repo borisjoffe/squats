@@ -30,8 +30,6 @@ class DatePicker extends React.Component {
 	}
 }
 
-var renderProgramSection = render('program-section')(ProgramGeneratorView);
-
 var updateProgram = _.curry(function (program, updatesObj) {
 	_.assign(program, updatesObj);
 	trace('new program:', program);
