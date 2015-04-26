@@ -43,7 +43,6 @@ class Workout {
 	static validate(workoutText) { return Workout.parse(workoutText); }
 
 	render() {
-		debugger;
 		return '<div class="workout">' +
 			this._header.render() +
 			toHtml(this._exerciseSets.map(exercise => exercise.render())) +

@@ -8,7 +8,7 @@ const WHITESPACE = /\s/;
  */
 function parseExerciseSet(text) {
 	var [setsByReps, weight] = text.split(cfg.weightDelim);
-	var [sets, reps] = text.split(cfg.setsByRepsDelim);
+	var [sets, reps] = setsByReps.split(cfg.setsByRepsDelim);
 	var set = new ExerciseSet(sets, reps, weight);
 	return set;
 }
