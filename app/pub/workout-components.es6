@@ -76,3 +76,31 @@ class ProgramGeneratorView extends React.Component {
 }
 
 var renderProgramSection = render('program-section')(ProgramGeneratorView);
+
+class MetaSectionView extends React.Component {
+	render() {
+		return (
+			<div class="meta-section">
+				{ this.props.meta }
+			</div>);
+	}
+}
+
+class WorkoutLogView extends React.Component {
+	render() {
+		var workouts = this.props.workouts
+		if (!(workouts instanceof Workouts)) {
+			workouts = parseWorkouts(workouts);
+		}
+		log(workouts);
+		return (
+			<div className='workouts-view'>
+				<h2>Your workouts</h2>
+				{ workouts.getAll().map((workoutOrMeta, idx) => {
+					(workoutOrMeta instanceof Workout) ? 
+				    <WorkoutView key={idx} workout={workoutOrMeta} /> :
+					<MetaSectionView key={idx} meta={workoutOrMeta} />}) }
+			</div>
+		);
+	}
+}

@@ -210,7 +210,7 @@ class Workset extends ExerciseSet {
 	render() { return this.toString(); }
 }
 
-window.WorkoutsView = class WorkoutsView {
+window.WorkoutsView2 = class WorkoutsView {
 	constructor(workouts) {
 		if (!(workouts instanceof Workouts)) {
 			workouts = parseWorkouts(workouts);
