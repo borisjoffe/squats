@@ -88,7 +88,7 @@ class MetaSectionView extends React.Component {
 
 class WorkoutLogView extends React.Component {
 	render() {
-		var workouts = this.props.workouts
+		var workouts = this.props.workouts;
 		if (!(workouts instanceof Workouts)) {
 			workouts = parseWorkouts(workouts);
 		}
@@ -97,7 +97,7 @@ class WorkoutLogView extends React.Component {
 			<div className='workouts-view'>
 				<h2>Your workouts</h2>
 				{ workouts.getAll().map((workoutOrMeta, idx) => {
-					(workoutOrMeta instanceof Workout) ? 
+					(workoutOrMeta instanceof Workout) ?
 				    <WorkoutView key={idx} workout={workoutOrMeta} /> :
 					<MetaSectionView key={idx} meta={workoutOrMeta} />}) }
 			</div>
