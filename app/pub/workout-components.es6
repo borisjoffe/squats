@@ -89,9 +89,6 @@ class MetaSectionView extends React.Component {
 class WorkoutLogView extends React.Component {
 	render() {
 		var myWorkouts = this.props.workouts;
-		if (!(myWorkouts instanceof Workouts)) {
-			myWorkouts = parseWorkouts(myWorkouts);
-		}
 		log(myWorkouts);
 		return (
 			<div className='workouts-view'>
