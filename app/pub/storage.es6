@@ -5,17 +5,19 @@ var
 	toJson = JSON.parse,
 	toStr = JSON.stringify;
 
-class Storage {
-	init(name='default') {
+class Store {
+	constructor(name='default') {
 		this._name = name;
 	}
 
 	set(key, value, cb) {
-		localStore.setItem(this._name + '_' + key, toStr(value));
+		localStorage.setItem(this._name + '_' + key, toStr(value));
 	}
 
 	get(key, defaultValue, cb) {
-		var val = localStore.getItem(this._name + '_' + key);
+		var val = localStorage.getItem(this._name + '_' + key);
 		return val !== undefined ? toJson(val) : defaultValue;
 	}
 }
+
+window.Store = Store;
