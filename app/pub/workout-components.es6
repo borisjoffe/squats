@@ -42,7 +42,7 @@ class WorkoutHeaderView extends React.Component {
 
 class WorkoutView extends React.Component {
 	constructor() {
-		return {editable: false};
+		this.state = {editable: false};
 	}
 
 	handleEdit() {
@@ -56,10 +56,10 @@ class WorkoutView extends React.Component {
 			<div className='workout'>
 				<button className='edit-workout' onClick={this.handleEdit}>Edit</button>
 
-				<textarea className={this.state.editable ? '' : 'hidden' } value={ workout.toString() } />
+				<textarea className={ this.state.editable ? '' : 'hidden' } value={ workout.toString() } />
 
 				<WorkoutHeaderView
-				    header={workout.getHeader()}
+				    header={ workout.getHeader() }
 				    className={ this.state.editable ? 'hidden' : 'workout-header' } />
 
 				{ workout.getExerciseSets().map((exercise, idx) =>
