@@ -1,8 +1,9 @@
 class ExerciseSetView extends React.Component {
 	render() {
 		var set = this.props.set;
+		var isWorkset = set instanceof Workset;
 		return (
-			<span className='exercise-set'>
+			<span className={ 'exercise-set ' + isWorkset ? 'work-set' : 'warmup-set'}>
 				{ set.toString() }
 				{ this.props.lastSet ? '' : ', ' }
 			</span>
@@ -54,13 +55,14 @@ class WorkoutView extends React.Component {
 		log('state', this.state);
 		return (
 			<div className='workout'>
-				<button className='edit-workout' onClick={this.handleEdit}>Edit</button>
 
 				<textarea className={ this.state.editable ? '' : 'hidden' } value={ workout.toString() } />
 
 				<WorkoutHeaderView
 				    header={ workout.getHeader() }
 				    className={ this.state.editable ? 'hidden' : 'workout-header' } />
+
+				<button className='edit-workout' onClick={this.handleEdit}>Edit</button>
 
 				{ workout.getExerciseSets().map((exercise, idx) =>
 					<ExerciseCollectionView
