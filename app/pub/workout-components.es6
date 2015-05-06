@@ -38,7 +38,18 @@ class ExerciseCollectionView extends React.Component {
 }
 
 class WorkoutHeaderView extends React.Component {
-	render() { return <span>{this.props.header.toString()}</span>; }
+	render() {
+		var header = this.props.header;
+		return (
+			<span className='workout-header'>
+				<input type='date' className='edit-mode' defaultValue={ header.getDate() } />
+				<input type='text' className='edit-mode' defaultValue={ header.getUnitOfWeight() />
+				<input type='text' className='edit-mode' defaultValue={ header.getMeta() />
+
+				<span className='display-mode'>{header.toString()}</span>
+			</span>
+		);
+	}
 }
 
 class WorkoutView extends React.Component {
@@ -54,14 +65,11 @@ class WorkoutView extends React.Component {
 		var workout = this.props.workout;
 		log('state', this.state);
 		return (
-			<div className='workout'>
+			<div className={ 'workout' + this.state.editable ? 'show-edit-mode' : 'show-display-mode' }>
 
-				<textarea className={ this.state.editable ? '' : 'hidden' } value={ workout.toString() } />
+				<textarea className='edit-mode' value={ workout.toString() } />
 
-				<WorkoutHeaderView
-				    header={ workout.getHeader() }
-				    className={ this.state.editable ? 'hidden' : 'workout-header' }
-					editable={ this.state.editable } />
+				<WorkoutHeaderView header={ workout.getHeader() } />
 
 				<button className='edit-workout' onClick={this.handleEdit}>Edit</button>
 
@@ -69,8 +77,7 @@ class WorkoutView extends React.Component {
 					<ExerciseCollectionView
 					    key={idx}
 					    exerciseSetCollection={exercise}
-					    className={ this.state.editable ? 'hidden' : 'exercise-sets' }
-					    editable={ this.state.editable } />) }
+					    className='exercise-sets display-mode' />) }
 			</div>
 		);
 	}

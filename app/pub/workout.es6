@@ -59,6 +59,9 @@ class WorkoutHeader {
 		this._unitOfWeight = unitOfWeight;
 		this._meta = meta;
 	}
+	getDate() { return this._workoutDate; }
+	getUnitOfWeight() { return this._unitOfWeight; }
+	getMeta() { return this._meta; }
 
 	isValid() {
 		return !!this._workoutDate;
