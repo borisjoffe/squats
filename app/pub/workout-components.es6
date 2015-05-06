@@ -60,7 +60,8 @@ class WorkoutView extends React.Component {
 
 				<WorkoutHeaderView
 				    header={ workout.getHeader() }
-				    className={ this.state.editable ? 'hidden' : 'workout-header' } />
+				    className={ this.state.editable ? 'hidden' : 'workout-header' }
+					editable={ this.state.editable } />
 
 				<button className='edit-workout' onClick={this.handleEdit}>Edit</button>
 
@@ -68,7 +69,8 @@ class WorkoutView extends React.Component {
 					<ExerciseCollectionView
 					    key={idx}
 					    exerciseSetCollection={exercise}
-					    className={ this.state.editable ? 'hidden' : 'exercise-sets' }/>) }
+					    className={ this.state.editable ? 'hidden' : 'exercise-sets' }
+					    editable={ this.state.editable } />) }
 			</div>
 		);
 	}
