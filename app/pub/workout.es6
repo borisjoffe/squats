@@ -144,6 +144,11 @@ class ExerciseSetCollection {
 	getSets() { return this._sets; }
 	getMeta() { return this._exerciseMeta; }
 
+	toString() {
+		return this._name + ' ' +
+		       _.invoke(this._sets, 'toString').join(', ') + ' ' +
+		      this._exerciseMeta.toString();
+	}
 	render() {
 		return this._name + ' ' +
 		       _.invoke(this._sets, 'render').join(', ') + ' ' +

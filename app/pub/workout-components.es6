@@ -64,17 +64,15 @@ class WorkoutView extends React.Component {
 	render() {
 		var workout = this.props.workout;
 
-		// FIX: why doesn't handleEdit auto-bind to this
+		// FIX: why doesn't handleEdit auto-bind to `this` for ES6 classes?
 		var handleEdit = this.handleEdit.bind(this);
 
 		return (
 			<div className={ 'workout ' + (this.state.editable ? 'show-edit-mode' : 'show-display-mode') }>
 
-				<textarea className='edit-mode' value={ workout.toString() } />
-
 				<WorkoutHeaderView header={ workout.getHeader() } />
 
-				<button className='edit-workout' onClick={handleEdit}>Edit</button>
+				<button className='edit-workout' onClick={handleEdit}>{ this.state.editable ? 'View' : 'Edit' }</button>
 
 				{ workout.getExerciseSets().map((exercise, idx) =>
 					<ExerciseCollectionView
