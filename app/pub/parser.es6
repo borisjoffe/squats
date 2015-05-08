@@ -56,10 +56,14 @@ function parseExerciseSetCollection(originalText) {
  * @returns {WorkoutHeader}
  */
 function parseWorkoutHeader(text) {
+	if (text.startsWith('('))
+		return null;
+
 	var
 		date = getDate(text),
 		units = getUnitOfWeight(text),
 		meta = getProp(text.match(/\(([^\)]*)\)/), [1]);
+
 
 	return new WorkoutHeader(date, units, meta);
 }
@@ -75,7 +79,7 @@ function parseWorkout(text) {
 		return new MetaSection(text);
 	var [headerText, ...exerciseSetCollections]  = text.split(EXERCISE_SEPARATOR);
 	var header = parseWorkoutHeader(headerText);
-	if (!header.isValid())
+	if (!header || !header.isValid())
 		return new MetaSection(text);
 	var exercises = exerciseSetCollections.map(parseExerciseSetCollection);
 	return new Workout(header, exercises);
