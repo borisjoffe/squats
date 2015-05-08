@@ -18,6 +18,7 @@ _.sum = function (collection) {
 /* ====================
      General utils
    ==================== */
+
 function trace(...args) {
 	if (DEBUG >= 5)
 		console.log(...args);
@@ -56,8 +57,10 @@ function err(ErrorType, ...args) {
 			if (otherArgs.length) args.push(...otherArgs);
 		}
 
-		if (DEBUG >= 1)
+		if (DEBUG >= 1) {
+			writeError(ErrorType + ':', args.join(' '));
 			throw new ErrorType(args.join(' '));
+		}
 	}
 	return args.length === 1 ? args[0] : args;
 }
@@ -202,9 +205,31 @@ var createMixin = function () {
 	}
 };
 
+/* ====================
+        DOM utils
+   ==================== */
+var $msgField = $("#message-container");
+
+/**
+ * @param {String} msgType - "error", "warn", "log"
+ * @param {Anything} ...args
+ */
+function write(msgType, ..args) {
+	requestAnimationFrame(() =>
+		$msgField.prepend(
+			'<div class="message ' + msgType.toString().toLowerCase() + '">' +
+				args.join(' ') +
+			'</div>'
+		)
+	);
+}
+
+var writeError = _.partial(write, 'error');
+
+
 
 /* ====================
-      Workout utils
+     Workout utils
    ==================== */
 
 /**
