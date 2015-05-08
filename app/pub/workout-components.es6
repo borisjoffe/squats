@@ -43,8 +43,8 @@ class WorkoutHeaderView extends React.Component {
 		return (
 			<span className='workout-header'>
 				<input type='date' className='edit-mode' defaultValue={ header.getDate() } />
-				<input type='text' className='edit-mode' defaultValue={ header.getUnitOfWeight() />
-				<input type='text' className='edit-mode' defaultValue={ header.getMeta() />
+				<input type='text' className='edit-mode' defaultValue={ header.getUnitOfWeight() } />
+				<input type='text' className='edit-mode' defaultValue={ header.getMeta() } />
 
 				<span className='display-mode'>{header.toString()}</span>
 			</span>
@@ -63,15 +63,18 @@ class WorkoutView extends React.Component {
 
 	render() {
 		var workout = this.props.workout;
-		log('state', this.state);
+
+		// FIX: why doesn't handleEdit auto-bind to this
+		var handleEdit = this.handleEdit.bind(this);
+
 		return (
-			<div className={ 'workout' + this.state.editable ? 'show-edit-mode' : 'show-display-mode' }>
+			<div className={ 'workout ' + (this.state.editable ? 'show-edit-mode' : 'show-display-mode') }>
 
 				<textarea className='edit-mode' value={ workout.toString() } />
 
 				<WorkoutHeaderView header={ workout.getHeader() } />
 
-				<button className='edit-workout' onClick={this.handleEdit}>Edit</button>
+				<button className='edit-workout' onClick={handleEdit}>Edit</button>
 
 				{ workout.getExerciseSets().map((exercise, idx) =>
 					<ExerciseCollectionView

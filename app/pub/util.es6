@@ -209,12 +209,14 @@ var createMixin = function () {
         DOM utils
    ==================== */
 var $msgField = $("#message-container");
+if (!$msgField.length)
+	throw new Error("message-container does not exist");
 
 /**
  * @param {String} msgType - "error", "warn", "log"
  * @param {Anything} ...args
  */
-function write(msgType, ..args) {
+function write(msgType, ...args) {
 	requestAnimationFrame(() =>
 		$msgField.prepend(
 			'<div class="message ' + msgType.toString().toLowerCase() + '">' +
@@ -233,7 +235,7 @@ var writeError = _.partial(write, 'error');
    ==================== */
 
 /**
- * Round num to nearestY
+ * Round num to nearestNum
  * @param {Number} nearestNum
  * @param {Number} num
  * @return {Number}
