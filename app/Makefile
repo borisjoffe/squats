@@ -38,6 +38,9 @@ stylus: $(STYLES_DIR)/*.styl
 
 watch: babel jsx stylus jade
 
+serve:
+	python server.py
+
 clean:
 	rm $(TEMPLATE_DIR)/*.html
 	rm $(PUB_DIR)/$(APP_JS)
