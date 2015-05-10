@@ -129,7 +129,7 @@ var DAYS = {
 var DAYS_KEYS = _.invoke(_.keys(DAYS), 'toLowerCase');
 
 /**
- * @param {String}
+ * @param {String} dateStr
  * @returns {Date}
  */
 function dateFromStr(dateStr) {
@@ -138,6 +138,16 @@ function dateFromStr(dateStr) {
 	var [year, month, day] = dateStr.split('-');
 	month = month - 1; // js months start with 0
 	return new Date(year, month, day);
+}
+
+/**
+ * @param {Date} dateObj
+ * @returns {String}
+ */
+function strFromDate(dateObj) {
+	if (!(dateObj instanceof Date))
+		err(TypeError, '(strFromDate) dateObj must be object but was', dateObj);
+	return dateObj.toISOString().split('T')[0];
 }
 
 /**

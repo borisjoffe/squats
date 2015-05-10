@@ -17,7 +17,7 @@ class DatePicker extends React.Component {
 	render() {
 		var
 			initialDate = this.props.initialDate || new Date(),
-			initialDateString = initialDate.toISOString().split('T')[0];
+			initialDateString = strFromDate(initialDate);
 
 		// input(type=date) not supported on Firefox, mobile Firefox
 		// not sure about Chrome on Android, iOS Safari

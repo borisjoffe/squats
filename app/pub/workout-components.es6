@@ -42,7 +42,7 @@ class WorkoutHeaderView extends React.Component {
 		var header = this.props.header;
 		return (
 			<span className='workout-header'>
-				<input type='date' className='edit-mode' defaultValue={ header.getDate() } />
+				<input type='date' className='edit-mode' defaultValue={ strFromDate(header.getDate()) } />
 				<input type='text' className='edit-mode' defaultValue={ header.getUnitOfWeight() } />
 				<input type='text' className='edit-mode' defaultValue={ header.getMeta() } />
 
