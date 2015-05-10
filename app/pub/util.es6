@@ -157,7 +157,7 @@ function strFromDate(dateObj) {
  */
 function getDateOfNextDayOfWeek(dayOfWeek, currentDate) {
 	var date = currentDate || new Date(),
-	    todayIdx = date.getDay(),
+	    todayIdx = date.getUTCDay(),
 	    dayIdx;
 
 	if (typeof dayOfWeek === 'string')
@@ -165,8 +165,8 @@ function getDateOfNextDayOfWeek(dayOfWeek, currentDate) {
 		dayIdx = DAYS_KEYS.indexOf(dayOfWeek.toLowerCase().substring(0, 3));
 	if (dayIdx < 0 || dayIdx > 6) err('dayIdx is not valid. dayOfWeek supplied was:', dayOfWeek)
 
-	if (todayIdx < dayIdx) date.setDate(date.getDate() + dayIdx - todayIdx);
-	if (todayIdx > dayIdx) date.setDate(date.getDate() + dayIdx - todayIdx + 7);
+	if (todayIdx < dayIdx) date.setUTCDate(date.getUTCDate() + dayIdx - todayIdx);
+	if (todayIdx > dayIdx) date.setUTCDate(date.getUTCDate() + dayIdx - todayIdx + 7);
 
 	return date;
 }
@@ -183,8 +183,8 @@ function getDate(text) {
 	if (!dateString) {
 		return null;
 	} else {
-		dateString.replace(/\//g, '-');
-		return new Date(Date.parse(dateString));
+		var [year, month, day] = dateString.split('/');
+		return new Date(year, month - 1, day); // UTC Time, JS has zero based months
 	}
 }
 
