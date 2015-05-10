@@ -72,7 +72,7 @@ class WorkoutView extends React.Component {
 
 				<WorkoutHeaderView header={ workout.getHeader() } />
 
-				<button className='edit-workout' onClick={handleEdit}>{ this.state.editable ? 'View' : 'Edit' }</button>
+				<button className='edit-workout' onClick={handleEdit}>{ this.state.editable ? 'Cancel' : 'Edit' }</button>
 
 				{ workout.getExerciseSets().map((exercise, idx) =>
 					<ExerciseCollectionView
