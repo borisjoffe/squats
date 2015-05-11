@@ -50,7 +50,7 @@ function err(ErrorType, ...args) {
 			console.error(...args);
 	} else {
 		// treat first arg as part of the error message (assume ErrorType is Error)
-		if (typeof ErrorType !== 'object') {
+		if (typeof ErrorType !== 'function') {
 			ErrorType = Error;
 			var otherArgs = args;
 			args = [arguments[0]];
@@ -58,7 +58,7 @@ function err(ErrorType, ...args) {
 		}
 
 		if (DEBUG >= 1) {
-			writeError(ErrorType + ':', args.join(' '));
+			writeError(ErrorType.name + ':', args.join(' '));
 			throw new ErrorType(args.join(' '));
 		}
 	}
