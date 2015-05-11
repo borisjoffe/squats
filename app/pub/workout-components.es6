@@ -100,8 +100,6 @@ class ProgramGeneratorView extends React.Component {
 	}
 }
 
-var renderProgramSection = render('program-section')(ProgramGeneratorView);
-
 class MetaSectionView extends React.Component {
 	render() {
 		return (

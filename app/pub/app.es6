@@ -13,7 +13,11 @@ $.get('/workouts', function (data) {
 	storage.set('workoutLog', workouts);
 
 	//$('#workouts-section').append(view.render());
-	render('workouts-section')(WorkoutLogView)({workouts: workouts});
+	render('workouts')(WorkoutLogView)({workouts: workouts});
 });
 
+var renderProgramSection = render('program')(ProgramGeneratorView);
+
 render('program-editor')(ProgramEditorView)(null);
+
+
