@@ -288,5 +288,7 @@ var render = _.curry(function (htmlNode, component, props) {
 	log('rendering', component.name, 'to', htmlNode, 'with props:', props);
 	if (typeof htmlNode === 'string')
 		htmlNode = document.getElementById(htmlNode);
+	if (htmlNode == null)
+		err('Could not find DOM node with id:', arguments[0]);
 	React.render(React.createElement(component, props), htmlNode);
 });
