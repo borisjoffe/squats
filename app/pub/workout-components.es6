@@ -124,3 +124,32 @@ class WorkoutLogView extends React.Component {
 		);
 	}
 }
+
+class Tab extends React.Component {
+	render() {
+		var idAndName = this.props.idAndName
+		return <span className='view-switcher tab' data-id={ idAndName[0] }>{ idAndName[1] }</span>
+	}
+}
+
+class ViewSwitcher extends React.Component {
+	handleClick(e) {
+		var sectionToShow = e.target.dataset.id;
+		trace('switch to', sectionToShow, 'tab');
+		_.map($('.section'), (section => {
+			$(section).toggleClass('hidden', section.id !== sectionToShow);
+		}));
+	}
+
+	render() {
+		var tabsArr = this.props.tabs,
+			handleClick = this.handleClick.bind(this); // TODO: fix autobind
+		return (
+			<div className='view-switcher' onClick={handleClick}>
+				{ tabsArr.map((tab, tabIdx) =>
+					<Tab idx={tabIdx} idAndName={tab} />) }
+			</div>
+		);
+	}
+}
+

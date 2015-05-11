@@ -1,6 +1,43 @@
+// general
+
 .hidden
 	display: none
 
+user-select()
+	// won't work on Opera - needs extra HTML attribute
+	-webkit-user-select: arguments
+	-moz-user-select: arguments
+	-ms-user-select: arguments
+
+	// future use
+	-o-user-select: arguments
+	user-select: arguments
+	
+
+// specific sections
+#message-container
+	margin-bottom: 10px
+
+#view-switcher
+	width: 250px
+
+#program-editor
+	margin-top: 10px
+
+// fix alignment
+.view-switcher.tab
+	text-align: justify
+	cursor: default
+	text-decoration: underline
+	user-select: none
+
+.view-switcher.tab:after
+	content: '|'	
+
+.view-switcher.tab:last-child:after
+	content: ''
+
+// workout
 .edit-workout
 	margin-left: 15px
 
@@ -19,5 +56,3 @@
 .meta-section
 	color: gray
 
-#message-container
-	margin-bottom: 10px

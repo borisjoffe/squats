@@ -16,8 +16,10 @@ $.get('/workouts', function (data) {
 	render('workouts')(WorkoutLogView)({workouts: workouts});
 });
 
-var renderProgramSection = render('program')(ProgramGeneratorView);
-
+// program section
+var renderProgramSection = render('program-generator')(ProgramGeneratorView);
 render('program-editor')(ProgramEditorView)(null);
+
+render('view-switcher')(ViewSwitcher)({tabs: [['workouts', 'Workouts'], ['program', 'Edit Program']]});
 
 
