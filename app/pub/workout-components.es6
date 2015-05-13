@@ -13,24 +13,29 @@ class ExerciseSetView extends React.Component {
 
 class ExerciseCollectionView extends React.Component {
 	render() {
-		var exercises = this.props.exerciseSetCollection,
-			sets = exercises.getSets(),
+		var exerciseCollection = this.props.exerciseSetCollection,
+			sets = exerciseCollection.getSets(),
+			exerciseName = exerciseCollection.getName(),
+			exerciseMeta = exerciseCollection.getMeta(),
+			exStr = [exerciseName, _.invoke(sets, 'sets').join(', '), exerciseMeta].join(' ');
 			lastSetIdx = sets.length - 1;
 
 		return (
 			<div className='exercise-set-collection'>
-				<span className='exercise-name'>
-				{ exercises.getName() }
+				<textarea defaultValue={exerciseStr} className='edit-mode' />
+
+				<span className='exercise-name display-mode'>
+				{ exerciseName }
 				</span>
 				&nbsp;
 
-				<span className='exercise-sets'>
+				<span className='exercise-sets display-mode'>
 				{ sets.map((set, idx) =>
 				    <ExerciseSetView key={idx} set={set} lastSet={idx === lastSetIdx}/>) }
 				</span>
 				
-				<span className='exercise-meta'>
-				{ exercises.getMeta() }
+				<span className='exercise-meta display-mode'>
+				{ exerciseMeta }
 				</span>
 			</div>
 		);
