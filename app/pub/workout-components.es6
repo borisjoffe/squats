@@ -19,7 +19,7 @@ class ExerciseCollectionView extends React.Component {
 			exerciseMeta = exerciseCollection.getMeta(),
 			exerciseStr = _.compact([
 					exerciseName,
-					_.invoke(sets, 'toString').join(', '),
+					sets.join(', '),
 					exerciseMeta
 				]).join(' '),
 			lastSetIdx = sets.length - 1;
