@@ -1,5 +1,9 @@
 module.exports = {
 	entry: './pub/app.js',
+    output: {
+        path: __dirname,
+        filename: "bundle.js"
+    },
 	module: {
 		loaders: [
 			// the optional 'runtime' transformer tells babel to require the runtime
