@@ -1,4 +1,5 @@
-cfg = window.cfg;
+import cfg from 'cfg';
+
 const WORKOUT_SEPARATOR = '\n\n';
 const WHITESPACE = /\s/;
 

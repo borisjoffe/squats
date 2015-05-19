@@ -1,7 +1,7 @@
 (function () {
 	'use strict';
 
-	window.cfg = {
+	export default var cfg = {
 		unitOfWeight: {
 			DEFAULT: 'lb',
 			kilos: 'kg',

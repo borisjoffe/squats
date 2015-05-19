@@ -1,4 +1,4 @@
-//import WorkoutsView from 'WorkoutsView';
+import { parseWorkouts } from 'parser';
 
 $.get('/workouts', function (data) {
 	var hash = data.hashcode,

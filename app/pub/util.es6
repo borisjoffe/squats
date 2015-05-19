@@ -292,3 +292,5 @@ var render = _.curry(function (htmlNode, component, props) {
 		err('Could not find DOM node with id:', arguments[0]);
 	React.render(React.createElement(component, props), htmlNode);
 });
+
+export *;

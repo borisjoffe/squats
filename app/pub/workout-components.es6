@@ -1,4 +1,4 @@
-class ExerciseSetView extends React.Component {
+export class ExerciseSetView extends React.Component {
 	render() {
 		var set = this.props.set;
 		var isWorkset = set instanceof Workset;
@@ -11,7 +11,7 @@ class ExerciseSetView extends React.Component {
 	}
 }
 
-class ExerciseCollectionView extends React.Component {
+export class ExerciseCollectionView extends React.Component {
 	render() {
 		var exerciseCollection = this.props.exerciseSetCollection,
 			sets = exerciseCollection.getSets(),
@@ -46,7 +46,7 @@ class ExerciseCollectionView extends React.Component {
 	}
 }
 
-class WorkoutHeaderView extends React.Component {
+export class WorkoutHeaderView extends React.Component {
 	render() {
 		var header = this.props.header;
 		return (
@@ -61,7 +61,7 @@ class WorkoutHeaderView extends React.Component {
 	}
 }
 
-class WorkoutView extends React.Component {
+export class WorkoutView extends React.Component {
 	constructor() {
 		this.state = {editable: false};
 	}
@@ -93,7 +93,7 @@ class WorkoutView extends React.Component {
 	}
 }
 
-class ProgramGeneratorView extends React.Component {
+export class ProgramGeneratorView extends React.Component {
 	render() {
 		var myProgram = ProgramGenerator.tryCreate(..._.values(this.props));
 		if (!myProgram) err('Could not generate program from data');
@@ -109,7 +109,7 @@ class ProgramGeneratorView extends React.Component {
 	}
 }
 
-class MetaSectionView extends React.Component {
+export class MetaSectionView extends React.Component {
 	render() {
 		return (
 			<div className="meta-section">
@@ -118,7 +118,7 @@ class MetaSectionView extends React.Component {
 	}
 }
 
-class WorkoutLogView extends React.Component {
+export class WorkoutLogView extends React.Component {
 	render() {
 		var myWorkouts = this.props.workouts;
 		log(myWorkouts);
@@ -134,14 +134,14 @@ class WorkoutLogView extends React.Component {
 	}
 }
 
-class Tab extends React.Component {
+export class Tab extends React.Component {
 	render() {
 		var idAndName = this.props.idAndName
 		return <span className='view-switcher tab' data-id={ idAndName[0] }>{ idAndName[1] }</span>
 	}
 }
 
-class ViewSwitcher extends React.Component {
+export class ViewSwitcher extends React.Component {
 	handleClick(e) {
 		var sectionToShow = e.target.dataset.id;
 		trace('switch to', sectionToShow, 'tab');
@@ -161,4 +161,3 @@ class ViewSwitcher extends React.Component {
 		);
 	}
 }
-

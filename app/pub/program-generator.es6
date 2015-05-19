@@ -1,4 +1,6 @@
 // Workout programs
+import cfg from 'cfg';
+
 window.programs = {};
 
 var EXERCISES = {
