@@ -19,6 +19,8 @@ JSX=jsx
 JSX_ARGS=$(FLAGS)
 STYLUS=stylus
 STYLUS_ARGS=$(FLAGS)
+WEBPACK=webpack
+WEBPACK_ARGS=--colors --progress $(FLAGS)
 FLAGS=
 
 jade: $(TEMPLATE_DIR)/*.jade
@@ -36,7 +38,12 @@ jsx: $(SCRIPT_DIR)/app.js
 stylus: $(STYLES_DIR)/*.styl
 	$(STYLUS) $(STYLUS_ARGS) $^
 
-watch: babel jsx stylus jade
+webpack: $(SCRIPT_DIR)/*.es6
+	$(WEBPACK) $(WEBPACK_ARGS)
+
+#watch: babel jsx stylus jade
+watch:
+	make FLAGS=--watch webpack
 
 serve:
 	python server.py
@@ -46,4 +53,4 @@ clean:
 	rm $(PUB_DIR)/$(APP_JS)
 	rm $(STYLES_DIR)/*.css
 
-.PHONY: clean
+.PHONY: clean watch
