@@ -1,5 +1,5 @@
 // 0 is off, 1 is err, 2 is warn, 3 is log, 4 is debug, 5 is trace
-var DEBUG = 4;
+export var DEBUG = 4;
 
 /* ====================
          Shims
@@ -19,32 +19,32 @@ _.sum = function (collection) {
      General utils
    ==================== */
 
-function trace(...args) {
+export function trace(...args) {
 	if (DEBUG >= 5)
 		console.log(...args);
 	return args.length === 1 ? args[0] : args;
 }
 
-function dbg(...args) {
+export function dbg(...args) {
 	if (DEBUG >= 4)
 		console.log(...args);
 	return args.length === 1 ? args[0] : args;
 }
 
-function log(...args) {
+export function log(...args) {
 	if (DEBUG >= 3)
 		console.log(...args);
 	return args.length === 1 ? args[0] : args;
 }
 
-function warn(...args) {
+export function warn(...args) {
 	if (DEBUG >= 2)
 		console.warn(...args);
 	//debugger;
 	return args.length === 1 ? args[0] : args;
 }
 
-function err(ErrorType, ...args) {
+export function err(ErrorType, ...args) {
 	if (!ErrorType) {
 		if (DEBUG >= 1)
 			console.error(...args);
@@ -68,11 +68,11 @@ function err(ErrorType, ...args) {
 /**
  * If the input is an array, return it. Otherwise return an array containing only the input
  */
-function makeArray(valueOrArray) {
+export function makeArray(valueOrArray) {
 	return Array.isArray(valueOrArray) ? valueOrArray : [valueOrArray];
 }
 
-function toHtml(text) {
+export function toHtml(text) {
 	if (Array.isArray(text))
 		return text.map(toHtml).join('<br>')
 	else if (text !== null && text !== undefined)
@@ -81,7 +81,7 @@ function toHtml(text) {
 		return '<!-- ' + warn('text is null or undefined:', text) + ' -->';
 }
 
-function getProp(obj, path) {
+export function getProp(obj, path) {
 	const PATH_DELIM = '.';
 	if (typeof path === 'string') {
 		path = path.split(PATH_DELIM);
@@ -103,7 +103,7 @@ function getProp(obj, path) {
  * @param {Array|String} propsArr - array of keys to copy or string of a single key to copy
  * @return {Object} destObj
  */
-function copyProps(srcObj, destObj, propsArr) {
+export function copyProps(srcObj, destObj, propsArr) {
 	if (Array.isArray(destObj))
 		return destObj.map(_.partial(copyProps, srcObj, _, propsArr));
 	makeArray(propsArr).forEach(key => { destObj[key] = srcObj[key]; });
@@ -116,7 +116,7 @@ function copyProps(srcObj, destObj, propsArr) {
    ==================== */
 
 // TODO: il8n - some locales start with monday
-var DAYS = {
+export var DAYS = {
 	SUN: "sun",
 	MON: "mon",
 	TUE: "tue",
@@ -132,7 +132,7 @@ var DAYS_KEYS = _.invoke(_.keys(DAYS), 'toLowerCase');
  * @param {String} dateStr
  * @returns {Date}
  */
-function dateFromStr(dateStr) {
+export function dateFromStr(dateStr) {
 	if (typeof dateStr !== 'string')
 		err(TypeError, '(dateFromStr) dateStr must be string but was', dateStr);
 	var [year, month, day] = dateStr.split('-');
@@ -144,7 +144,7 @@ function dateFromStr(dateStr) {
  * @param {Date} dateObj
  * @returns {String}
  */
-function strFromDate(dateObj) {
+export function strFromDate(dateObj) {
 	if (!(dateObj instanceof Date))
 		err(TypeError, '(strFromDate) dateObj must be object but was', dateObj);
 	return dateObj.toISOString().split('T')[0];
@@ -155,7 +155,7 @@ function strFromDate(dateObj) {
  * @param {Date} currentDate - (optional) defaults to today
  * @return {Date} date of next occurrence of day of week based on local time
  */
-function getDateOfNextDayOfWeek(dayOfWeek, currentDate) {
+export function getDateOfNextDayOfWeek(dayOfWeek, currentDate) {
 	var date = currentDate || new Date(),
 	    todayIdx = date.getUTCDay(),
 	    dayIdx;
@@ -177,7 +177,7 @@ function getDateOfNextDayOfWeek(dayOfWeek, currentDate) {
  * @return {Date|null} first date found or null if no date found
  * TODO: adjust for timezones
  */
-function getDate(text) {
+export function getDate(text) {
 	const WORKOUT_HEADER_DATE_REGEXP = /(\d+\/\d+\/\d+)\s/;
 	var dateString = getProp(text.match(WORKOUT_HEADER_DATE_REGEXP), [1]);
 	if (!dateString) {
@@ -192,7 +192,7 @@ function getDate(text) {
 // Assumes that arr contains objects that have unique keys
 // Updates to objects that don't modify the key will NOT invalidate the index
 // Adding / removing elements to the array or changing keys after building the index will NOT be reflected
-function buildIndexHash(arr, prop) {
+export function buildIndexHash(arr, prop) {
 	return _.pluck(arr, prop)
 		.reduce(function (indexObject, currentKey, currentIndex) {
 			indexObject[currentKey] = arr[currentIndex];
@@ -202,7 +202,7 @@ function buildIndexHash(arr, prop) {
 
 // Mixin for object creation that validates args supplied
 // Requires validate function to be present
-var createMixin = function () {
+export var createMixin = function () {
 	if (!(this instanceof Object)) { err(TypeError, 'Cannot call create on non-objects'); }
 	if (typeof this.validate !== 'function') {
 		err(TypeError, '(createMixin) validate is required on `this` (this.name =', this.name + ')');
@@ -226,7 +226,7 @@ if (!$msgField.length)
  * @param {String} msgType - "error", "warn", "log"
  * @param {Anything} ...args
  */
-function write(msgType, ...args) {
+export function write(msgType, ...args) {
 	requestAnimationFrame(() =>
 		$msgField.prepend(
 			'<div class="message ' + msgType.toString().toLowerCase() + '">' +
@@ -236,7 +236,7 @@ function write(msgType, ...args) {
 	);
 }
 
-var writeError = _.partial(write, 'error');
+export var writeError = _.partial(write, 'error');
 
 
 
@@ -250,12 +250,12 @@ var writeError = _.partial(write, 'error');
  * @param {Number} num
  * @return {Number}
  */
-function roundTo(nearestNum, num) {
+export function roundTo(nearestNum, num) {
 	return Math.round(num / nearestNum) * nearestNum;
 }
 
 const lowestPlate = _.last(cfg.plates);
-var round = _.curry(roundTo)(lowestPlate * 2);
+export var round = _.curry(roundTo)(lowestPlate * 2);
 
 
 /**
@@ -263,7 +263,7 @@ var round = _.curry(roundTo)(lowestPlate * 2);
  * returns first unit of weight found
  * returns user's default unit of weight if no date found
  */
-function getUnitOfWeight(text, context) {
+export function getUnitOfWeight(text, context) {
 	if (text.contains('lbs') || text.contains('lb'))
 		return cfg.unitOfWeight.pounds;
 	else if (text.contains('kgs') || text.contains('kg'))
@@ -283,7 +283,7 @@ function getUnitOfWeight(text, context) {
  * @param {React.Component} component
  * @param {JSON} [props=null]
  */
-var render = _.curry(function (htmlNode, component, props) {
+export var render = _.curry(function (htmlNode, component, props) {
 	if (!props) props = null
 	log('rendering', component.name, 'to', htmlNode, 'with props:', props);
 	if (typeof htmlNode === 'string')
@@ -292,5 +292,3 @@ var render = _.curry(function (htmlNode, component, props) {
 		err('Could not find DOM node with id:', arguments[0]);
 	React.render(React.createElement(component, props), htmlNode);
 });
-
-export *;
