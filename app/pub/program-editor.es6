@@ -36,7 +36,7 @@ var updateProgram = _.curry(function (program, updatesObj) {
 	renderProgramSection({program: program, user: user});
 })(_.cloneDeep(programs.omcadv));
 
-class ProgramEditorView extends React.Component {
+export default class ProgramEditorView extends React.Component {
 	render() {
 		return (
 			<DatePicker />

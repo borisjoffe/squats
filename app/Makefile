@@ -53,4 +53,4 @@ clean:
 	rm $(PUB_DIR)/$(APP_JS)
 	rm $(STYLES_DIR)/*.css
 
-.PHONY: clean watch
+.PHONY: clean webpack watch

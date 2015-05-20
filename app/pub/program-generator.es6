@@ -219,3 +219,4 @@ class ProgramGenerator {
 }
 ProgramGenerator.tryCreate = createMixin;
 
+export default ProgramGenerator;
