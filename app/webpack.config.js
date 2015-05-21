@@ -11,6 +11,7 @@ module.exports = {
 			{
 				test: /\.es6?$/,
 				exclude: /(node_modules|bower_components)/,
+				include: 'pub',
 				loader: 'babel-loader?optional[]=runtime'
 			}
 		]

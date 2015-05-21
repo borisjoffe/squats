@@ -1,4 +1,5 @@
-import cfg from 'cfg';
+import { cfg } from 'cfg';
+//var cfg = require('cfg');
 
 const WORKOUT_SEPARATOR = '\n\n';
 const WHITESPACE = /\s/;
