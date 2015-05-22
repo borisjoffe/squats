@@ -1,4 +1,4 @@
-export default cfg = {
+var cfg = {
 	unitOfWeight: {
 		DEFAULT: 'lb',
 		kilos: 'kg',
@@ -14,3 +14,5 @@ export default cfg = {
 
 // user settings
 cfg.plates = cfg.lbPlates;
+
+export default cfg;
