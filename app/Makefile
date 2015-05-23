@@ -13,7 +13,8 @@ js: babel jsx
 JADE=jade
 JADE_ARGS=--pretty $(FLAGS)
 BABEL=babel
-BABEL_ARGS=--modules common --experimental $(FLAGS) --out-file $(PUB_DIR)/$(APP_JS)
+BABEL_OUTFILE_ARGS=--out-file $(PUB_DIR)/$(APP_JS)
+BABEL_ARGS=--modules system --experimental $(FLAGS) $(BABEL_OUTFILE_ARGS)
 # --source-maps
 JSX=jsx
 JSX_ARGS=$(FLAGS)
