@@ -1,5 +1,5 @@
-import { parseWorkouts } from './parser';
-import { render } from 'util';
+//import { parseWorkouts } from './parser';
+//import { render } from 'util';
 //import { Store } from 'storage';
 //import ProgramGeneratorView from 'program-generator';
 //import ProgramEditorView from 'program-editor';

@@ -15,6 +15,7 @@ JADE_ARGS=--pretty $(FLAGS)
 BABEL=babel
 BABEL_OUTFILE_ARGS=--out-file $(PUB_DIR)/$(APP_JS)
 BABEL_ARGS=--modules system --experimental $(FLAGS) $(BABEL_OUTFILE_ARGS)
+BABEL_ARGS=$(FLAGS) $(BABEL_OUTFILE_ARGS)
 # --source-maps
 JSX=jsx
 JSX_ARGS=$(FLAGS)
