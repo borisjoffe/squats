@@ -16,4 +16,4 @@ var cfg = {
 cfg.plates = cfg.lbPlates;
 
 window.cfg = cfg;
-//export default cfg;
+export default cfg;

@@ -15,5 +15,9 @@ module.exports = {
 				loader: 'babel-loader?optional[]=runtime&modules=system'
 			}
 		]
+	},
+	resolve: {
+		// you can now require('file') instead of require('file.coffee')
+		extensions: ['', '.js', '.json', '.es6']
 	}
 };
