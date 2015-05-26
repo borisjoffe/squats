@@ -1,5 +1,5 @@
 module.exports = {
-	entry: './pub/app.js',
+	entry: './pub/app.es6',
     output: {
         path: __dirname,
         filename: 'pub/bundle.js'
