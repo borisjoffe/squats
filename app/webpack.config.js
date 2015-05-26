@@ -9,10 +9,11 @@ module.exports = {
 			// the optional 'runtime' transformer tells babel to require the runtime
 			// instead of inlining it.
 			{
-				test: /\.es6?$/,
+				test: /\.es6$/,
 				exclude: /(node_modules|bower_components)/,
 				include: 'pub',
-				loader: 'babel-loader?optional[]=runtime&modules=system'
+				loader: 'babel-loader?optional[]=runtime'
+				//loader: 'babel-loader?optional[]=runtime&modules=system'
 			}
 		]
 	},
