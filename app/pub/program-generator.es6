@@ -1,5 +1,5 @@
 // Workout programs
-import cfg from 'cfg';
+import cfg from 'config';
 
 window.programs = {};
 
