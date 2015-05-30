@@ -5,7 +5,7 @@ var
 	toJson = JSON.parse,
 	toStr = JSON.stringify;
 
-export class Store {
+export default class Store {
 	constructor(name='default') {
 		this._name = name;
 	}
