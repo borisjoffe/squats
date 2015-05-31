@@ -1,5 +1,5 @@
 import { render } from 'util';
-import Store from 'storage';
+import { Store } from 'storage';
 //import ProgramGeneratorView from 'program-generator';
 //import ProgramEditorView from 'program-editor';
 //import { ViewSwitcher } from 'workout-components';

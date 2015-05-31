@@ -5,7 +5,7 @@ var
 	toJson = JSON.parse,
 	toStr = JSON.stringify;
 
-export default class Store {
+class Store {
 	constructor(name='default') {
 		this._name = name;
 	}
@@ -19,3 +19,6 @@ export default class Store {
 		return val !== undefined ? toJson(val) : defaultValue;
 	}
 }
+
+export Store;
+export var test = 5;
