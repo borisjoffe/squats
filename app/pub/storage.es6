@@ -5,7 +5,7 @@ var
 	toJson = JSON.parse,
 	toStr = JSON.stringify;
 
-class Store {
+export class Store {
 	constructor(name='default') {
 		this._name = name;
 	}
@@ -20,5 +20,4 @@ class Store {
 	}
 }
 
-export Store;
 export var test = 5;
