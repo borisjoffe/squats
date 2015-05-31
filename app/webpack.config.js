@@ -1,8 +1,8 @@
 module.exports = {
 	entry: './pub/app.es6',
     output: {
-        path: __dirname,
-        filename: './pub/bundle.js'
+        path: __dirname + '/pub/',
+        filename: 'bundle.js'
     },
 	module: {
 		loaders: [
