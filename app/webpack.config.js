@@ -19,5 +19,6 @@ module.exports = {
 	resolve: {
 		// you can now require('file') instead of require('file.coffee')
 		extensions: ['', '.js', '.json', '.es6']
+		//extensions: ['.es6']
 	}
 };
