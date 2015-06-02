@@ -19,5 +19,3 @@ export class Store {
 		return val !== undefined ? toJson(val) : defaultValue;
 	}
 }
-
-export var test = 5;

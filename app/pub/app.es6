@@ -1,8 +1,8 @@
-import { render } from './util';
-import { Store } from './storage';
-//import ProgramGeneratorView from 'program-generator';
-//import ProgramEditorView from 'program-editor';
-//import { ViewSwitcher } from 'workout-components';
+import { render } from 'util';
+import { Store } from 'storage';
+import ProgramGeneratorView from 'program-generator';
+import ProgramEditorView from 'program-editor';
+import { ViewSwitcher } from 'workout-components';
 
 $.get('/workouts', function (data) {
 	var hash = data.hashcode,

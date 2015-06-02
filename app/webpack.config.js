@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 var path = require('path');
 
 module.exports = {
