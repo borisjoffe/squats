@@ -22,8 +22,8 @@ JSX_ARGS=$(FLAGS)
 STYLUS=stylus
 STYLUS_ARGS=$(FLAGS)
 WEBPACK=webpack
-WEBPACK_ARGS=--colors --progress $(FLAGS)
-WEBPACK_DEBUG_ARGS=$(WEBPACK_ARGS) --debug --display-error-details -v --display-origins --display-modules --display-cached --labeled-modules
+WEBPACK_ARGS=--colors --progress --display-error-details --display-origins --labeled-modules --display-cached $(FLAGS)
+WEBPACK_DEBUG_ARGS=--colors --progress --debug --display-error-details -v --display-origins --display-modules --display-cached --labeled-modules $(FLAGS)
 FLAGS=
 
 jade: $(TEMPLATE_DIR)/*.jade
@@ -42,7 +42,7 @@ stylus: $(STYLES_DIR)/*.styl
 	$(STYLUS) $(STYLUS_ARGS) $^
 
 webpack: $(SCRIPT_DIR)/*.es6
-	$(WEBPACK) $(WEBPACK_DEBUG_ARGS)
+	$(WEBPACK) $(WEBPACK_ARGS)
 
 #watch: babel jsx stylus jade
 watch:
