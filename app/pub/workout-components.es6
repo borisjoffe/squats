@@ -63,6 +63,7 @@ export class WorkoutHeaderView extends React.Component {
 
 export class WorkoutView extends React.Component {
 	constructor() {
+		super();
 		this.state = {editable: false};
 	}
 
