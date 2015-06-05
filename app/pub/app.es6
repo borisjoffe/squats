@@ -17,7 +17,7 @@ $.get('/workouts', function (data) {
 	storage.set('workoutLog', workouts);
 
 	//$('#workouts-section').append(view.render());
-	render('workouts')(WorkoutLogView)({workouts: workouts});
+	render('workouts')(WorkoutLogView)({ workouts });
 });
 
 // program section
