@@ -1,7 +1,8 @@
 // Workout programs
 import cfg from 'config';
+import { DAYS, getDateOfNextDayOfWeek, createMixin } from 'util';
 
-window.programs = {};
+export var programs = {};
 
 var EXERCISES = {
 	// powerlifting
@@ -20,8 +21,8 @@ var EXERCISES = {
 
 var ex = EXERCISES;
 
-window.users = [];
-window.user = {};
+export var users = [];
+export var user = {};
 users.push(user);
 
 user.maxes = {

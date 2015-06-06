@@ -1,4 +1,4 @@
-import cfg from 'hello';
+import cfg from 'config';
 //import cfg from './config';
 //var cfg = require('config');
 

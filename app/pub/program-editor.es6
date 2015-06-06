@@ -1,3 +1,6 @@
+import { trace, render } from 'util';
+import { user, programs } from 'program-generator';
+import ProgramGeneratorView from 'program-generator';
 
 /**
  * @param {Date} this.props.initialDate
@@ -29,6 +32,8 @@ class DatePicker extends React.Component {
 		);
 	}
 }
+
+var renderProgramSection = render('program-generator')(ProgramGeneratorView);
 
 var updateProgram = _.curry(function (program, updatesObj) {
 	_.assign(program, updatesObj);

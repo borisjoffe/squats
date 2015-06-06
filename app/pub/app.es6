@@ -1,6 +1,5 @@
 import { render } from 'util';
 import { Store } from 'storage';
-import ProgramGeneratorView from 'program-generator';
 import ProgramEditorView from 'program-editor';
 import { ViewSwitcher } from 'workout-components';
 
@@ -21,7 +20,6 @@ $.get('/workouts', function (data) {
 });
 
 // program section
-var renderProgramSection = render('program-generator')(ProgramGeneratorView);
 render('program-editor')(ProgramEditorView)(null);
 
 render('view-switcher')(ViewSwitcher)({tabs: [['workouts', 'Workouts'], ['program', 'Edit Program']]});
