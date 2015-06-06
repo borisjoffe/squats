@@ -1,3 +1,5 @@
+import cfg from 'config';
+
 // 0 is off, 1 is err, 2 is warn, 3 is log, 4 is debug, 5 is trace
 export var DEBUG = 4;
 
