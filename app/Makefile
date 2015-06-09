@@ -7,7 +7,8 @@ APP_JS=app.js
 STYLES_DIR=$(PUB_DIR)
 
 all: js stylus jade
-js: babel jsx
+#js: babel jsx
+js: webpack
 
 # Programs and flags
 JADE=jade
