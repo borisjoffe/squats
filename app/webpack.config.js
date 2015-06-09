@@ -14,6 +14,7 @@ module.exports = {
 				test: /\.es6?$/,
 				exclude: /(node_modules|bower_components)/,
 				loader: 'babel-loader?optional[]=runtime&stage=0'
+				// sourceMaps=both
 			}
 		]
 	},

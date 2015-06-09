@@ -204,6 +204,7 @@ class ExerciseSet {
 
 class Workset extends ExerciseSet {
 	constructor(sets, reps, weight, comments) {
+		super();
 		this._sets = sets;
 		this._reps = reps;
 		this._weight = weight;

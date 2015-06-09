@@ -101,7 +101,7 @@ function markExerciseSxrsOccurrences(workoutsArraySchema) {
 }
 
 // Input
-class ProgramGenerator {
+export class ProgramGenerator {
 	constructor(program, user) {
 		this.maxes = user.maxes;
 		this.program = program;
@@ -217,7 +217,7 @@ class ProgramGenerator {
 	serialize() {
 		return JSON.stringify(this);
 	}
-}
-ProgramGenerator.tryCreate = createMixin;
 
-export default ProgramGenerator;
+	tryCreate() { return createMixin.apply(null, arguments); }
+}
+
