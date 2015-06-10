@@ -1,6 +1,7 @@
 // Workout programs
 import cfg from 'config';
-import { DAYS, getDateOfNextDayOfWeek, createMixin } from 'util';
+import { DAYS, getDateOfNextDayOfWeek, createMixin, copyProps } from 'util';
+import { ExerciseSet } from 'workout';
 
 export var programs = {};
 
@@ -218,6 +219,6 @@ export class ProgramGenerator {
 		return JSON.stringify(this);
 	}
 
-	tryCreate() { return createMixin.apply(null, arguments); }
+	static tryCreate() { return createMixin.apply(ProgramGenerator, arguments); }
 }
 

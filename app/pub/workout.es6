@@ -1,6 +1,6 @@
 var cfg = window.cfg;
 
-class Workouts {
+export class Workouts {
 	// input can have meta sections
 	constructor(workoutsArray) {
 		this._sections = workoutsArray;
@@ -11,7 +11,7 @@ class Workouts {
 	}
 }
 
-class MetaSection {
+export class MetaSection {
 	constructor(sectionText) {
 		this._meta = sectionText;
 	}
@@ -23,7 +23,7 @@ class MetaSection {
 	}
 }
 
-class Workout {
+export class Workout {
 	/**
 	 * @param {WorkoutHeader} header
 	 * @param {Array<ExerciseSetCollection>} exerciseSets
@@ -51,7 +51,7 @@ class Workout {
 
 }
 
-class WorkoutHeader {
+export class WorkoutHeader {
 	constructor(date, unitOfWeight, meta) {
 		this._workoutDate = date instanceof Date ?
 		    new Date(date) : // clone date to avoid incorrect object refs
@@ -129,7 +129,7 @@ function getWarmupsForWorksets(worksets, warmupSchema) {
 	return warmups;
 }
 
-class ExerciseSetCollection {
+export class ExerciseSetCollection {
 	/**
 	 * @param {String} name of exercise from enum of EXERCISES
 	 * @param {Array<ExerciseSet>} exerciseSetArray
@@ -156,7 +156,7 @@ class ExerciseSetCollection {
 	}
 }
 
-class ExerciseMeta {
+export class ExerciseMeta {
 	constructor (metaText) {
 		this._text = metaText ? metaText : '';
 	}
@@ -165,7 +165,7 @@ class ExerciseMeta {
 	render() { return this._text; }
 }
 
-class ExerciseSet {
+export class ExerciseSet {
 	constructor(sets, reps, weight, comments) {
 		[this._sets, this._reps, this._weight, this._comments] = arguments;
 	}
@@ -202,7 +202,7 @@ class ExerciseSet {
 	}
 }
 
-class Workset extends ExerciseSet {
+export class Workset extends ExerciseSet {
 	constructor(sets, reps, weight, comments) {
 		super();
 		this._sets = sets;
@@ -219,6 +219,7 @@ class Workset extends ExerciseSet {
 	render() { return this.toString(); }
 }
 
+/*
 window.WorkoutsView2 = class WorkoutsView {
 	constructor(workouts) {
 		if (!(workouts instanceof Workouts)) {
@@ -236,9 +237,8 @@ window.WorkoutsView2 = class WorkoutsView {
 
 	render() { return this._html; }
 };
+*/
 
 _.each([Workout, ExerciseSet, WorkoutHeader, ExerciseSetCollection, ExerciseMeta],
 	o => { o.tryCreate = createMixin; });
 
-
-//export {Workouts, WorkoutsView};

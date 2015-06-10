@@ -1,6 +1,6 @@
 import { trace, render } from 'util';
 import { user, programs } from 'program-generator';
-import ProgramGeneratorView from 'program-generator';
+import { ProgramGeneratorView } from 'workout-components';
 
 /**
  * @param {Date} this.props.initialDate

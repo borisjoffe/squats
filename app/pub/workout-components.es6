@@ -1,3 +1,5 @@
+import { ProgramGenerator } from 'program-generator';
+
 export class ExerciseSetView extends React.Component {
 	render() {
 		var set = this.props.set;
