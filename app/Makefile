@@ -2,7 +2,9 @@ SRC=$(CURDIR)
 TEMPLATE_DIR=$(SRC)/templates
 PUB_DIR=$(SRC)/pub
 SCRIPT_DIR=$(PUB_DIR)
-SCRIPT_FILES=config.es6 util.es6 storage.es6 workout.es6 parser.es6 program-generator.es6 workout-components.es6 program-editor.es6 app.es6
+#SCRIPT_FILES=config.es6 util.es6 storage.es6 workout.es6 parser.es6 program-generator.es6 workout-components.es6 program-editor.es6 app.es6
+#COMPILED_JS_FILES=$(patsubst %.es6,%.js,$(wildcard *.es6))
+COMPILED_JS_FILES=$(patsubst %.es6,%.js,$(wildcard $(SCRIPT_DIR)/*.es6))
 APP_JS=app.js
 STYLES_DIR=$(PUB_DIR)
 
@@ -52,9 +54,15 @@ watch:
 serve:
 	python server.py
 
-clean:
-	rm $(TEMPLATE_DIR)/*.html
-	rm $(PUB_DIR)/$(APP_JS)
+cleanjs:
+	rm $(PUB_DIR)/$(APP_JS); \
+	rm $(COMPILED_JS_FILES); \
+	rm $(SCRIPT_DIR)/*.map
+
+cleanother:
+	rm $(TEMPLATE_DIR)/*.html; \
 	rm $(STYLES_DIR)/*.css
+
+clean: cleanjs cleanother
 
 .PHONY: clean webpack watch
