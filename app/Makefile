@@ -8,7 +8,7 @@ COMPILED_JS_FILES=$(patsubst %.es6,%.js,$(wildcard $(SCRIPT_DIR)/*.es6))
 APP_JS=app.js
 STYLES_DIR=$(PUB_DIR)
 
-all: js stylus jade
+all: js css jade
 #js: babel jsx
 js: webpack
 
@@ -41,13 +41,13 @@ babel: $(SCRIPT_DIR)/*.es6
 jsx: $(SCRIPT_DIR)/app.js
 	$(JSX) $(JSX_ARGS) $(PUB_DIR) $(PUB_DIR)
 
-stylus: $(STYLES_DIR)/*.styl
+css: $(STYLES_DIR)/*.styl
 	$(STYLUS) $(STYLUS_ARGS) $^
 
 webpack: $(SCRIPT_DIR)/*.es6
 	$(WEBPACK) $(WEBPACK_ARGS)
 
-#watch: babel jsx stylus jade
+#watch: babel jsx css jade
 watch:
 	make FLAGS=--watch webpack
 
