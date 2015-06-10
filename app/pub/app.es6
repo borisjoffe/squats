@@ -1,7 +1,9 @@
 import { render } from 'util';
 import { Store } from 'storage';
+import { Workouts } from 'workout';
+import { parseWorkouts } from 'parser';
 import ProgramEditorView from 'program-editor';
-import { ViewSwitcher } from 'workout-components';
+import { WorkoutLogView, ViewSwitcher } from 'workout-components';
 
 $.get('/workouts', function (data) {
 	var hash = data.hashcode,

@@ -1,4 +1,5 @@
-var cfg = window.cfg;
+import cfg from 'config';
+import { createMixin, makeArray, round } from 'util';
 
 export class Workouts {
 	// input can have meta sections
@@ -112,7 +113,7 @@ function makeValueBetween(value, min, max) {
  * @param {JSON} warmupSchema
  * @return {Array<ExerciseSet>} warmup sets
  */
-function getWarmupsForWorksets(worksets, warmupSchema) {
+export function getWarmupsForWorksets(worksets, warmupSchema) {
 	worksets = makeArray(worksets);
 	var
 		warmup = warmupSchema,

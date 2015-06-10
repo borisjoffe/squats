@@ -1,6 +1,6 @@
 import cfg from 'config';
-//import cfg from './config';
-//var cfg = require('config');
+import { getDate, getUnitOfWeight, getProp } from 'util';
+import { ExerciseSet, ExerciseMeta, ExerciseSetCollection, Workset, WorkoutHeader, Workout, Workouts, MetaSection } from 'workout';
 
 const WORKOUT_SEPARATOR = '\n\n';
 const WHITESPACE = /\s/;
@@ -92,7 +92,7 @@ function parseWorkout(text) {
  * @param {String} text e.g. multiple Workouts and/or MetaSections
  * @returns {Workouts}
  */
-function parseWorkouts(text) {
+export function parseWorkouts(text) {
 	var workouts = text.split(WORKOUT_SEPARATOR).map(parseWorkout);
 	return new Workouts(workouts);
 }

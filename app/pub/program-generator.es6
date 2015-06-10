@@ -1,7 +1,7 @@
 // Workout programs
 import cfg from 'config';
-import { DAYS, getDateOfNextDayOfWeek, createMixin, copyProps } from 'util';
-import { ExerciseSet } from 'workout';
+import { trace, log, warn, DAYS, round, getDateOfNextDayOfWeek, dateFromStr, createMixin, copyProps } from 'util';
+import { getWarmupsForWorksets, ExerciseSet, ExerciseSetCollection, Workset, WorkoutHeader, Workout } from 'workout';
 
 export var programs = {};
 
