@@ -8,7 +8,7 @@ COMPILED_JS_FILES=$(patsubst %.es6,%.js,$(wildcard $(SCRIPT_DIR)/*.es6))
 APP_JS=app.js
 STYLES_DIR=$(PUB_DIR)
 
-all: js css jade
+all: js css html
 #js: babel jsx
 js: webpack
 
@@ -29,7 +29,7 @@ WEBPACK_ARGS=--colors --progress --display-error-details --display-origins --lab
 WEBPACK_DEBUG_ARGS=--colors --progress --debug --display-error-details -v --display-origins --display-modules --display-cached --labeled-modules $(FLAGS)
 FLAGS=
 
-jade: $(TEMPLATE_DIR)/*.jade
+html: $(TEMPLATE_DIR)/*.jade
 	$(JADE) $(JADE_ARGS) $^
 
 # TODO: Replace with webpack loaders
@@ -47,7 +47,7 @@ css: $(STYLES_DIR)/*.styl
 webpack: $(SCRIPT_DIR)/*.es6
 	$(WEBPACK) $(WEBPACK_ARGS)
 
-#watch: babel jsx css jade
+#watch: babel jsx css html
 watch:
 	make FLAGS=--watch webpack
 
