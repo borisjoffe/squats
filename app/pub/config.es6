@@ -1,4 +1,5 @@
 var cfg = {
+	production: false,
 	unitOfWeight: {
 		DEFAULT: 'lb',
 		kilos: 'kg',

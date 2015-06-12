@@ -46,6 +46,27 @@ export function warn(...args) {
 	return args.length === 1 ? args[0] : args;
 }
 
+/**
+ * @param {String} msgType - "error", "warn", "log"
+ * @param {Anything} ...args
+ */
+function write(msgType, ...args) {
+	requestAnimationFrame(() =>
+		var $msgField = $("#message-container");
+
+		if (!$msgField.length)
+			return warn("(write) message-container does not exist");
+
+		$msgField.prepend(
+			'<div class="message ' + msgType.toString().toLowerCase() + '">' +
+				args.join(' ') +
+			'</div>'
+		)
+	);
+}
+
+var writeError = _.partial(write, 'error');
+
 export function err(ErrorType, ...args) {
 	if (!ErrorType) {
 		if (DEBUG >= 1)
@@ -216,30 +237,6 @@ export var createMixin = function () {
 		return false;
 	}
 };
-
-/* ====================
-        DOM utils
-   ==================== */
-var $msgField = $("#message-container");
-if (!$msgField.length)
-	throw new Error("message-container does not exist");
-
-/**
- * @param {String} msgType - "error", "warn", "log"
- * @param {Anything} ...args
- */
-export function write(msgType, ...args) {
-	requestAnimationFrame(() =>
-		$msgField.prepend(
-			'<div class="message ' + msgType.toString().toLowerCase() + '">' +
-				args.join(' ') +
-			'</div>'
-		)
-	);
-}
-
-export var writeError = _.partial(write, 'error');
-
 
 
 /* ====================
