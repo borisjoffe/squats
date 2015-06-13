@@ -9,7 +9,7 @@ export class ExerciseSetView extends React.Component {
 		return (
 			<span className={ 'exercise-set ' + isWorkset ? 'work-set' : 'warmup-set'}>
 				{ set.toString() }
-				{ this.props.lastSet ? '' : ', ' }
+				{ this.props.lastSet ? ' ' : ', ' }
 			</span>
 		);
 	}
