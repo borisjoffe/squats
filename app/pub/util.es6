@@ -51,7 +51,7 @@ export function warn(...args) {
  * @param {Anything} ...args
  */
 function write(msgType, ...args) {
-	requestAnimationFrame(() =>
+	requestAnimationFrame(() => {
 		var $msgField = $("#message-container");
 
 		if (!$msgField.length)
@@ -62,7 +62,7 @@ function write(msgType, ...args) {
 				args.join(' ') +
 			'</div>'
 		)
-	);
+	});
 }
 
 var writeError = _.partial(write, 'error');
