@@ -1,5 +1,5 @@
 import cfg from 'config';
-import { createMixin, makeArray, round } from 'util';
+import { toHtml, createMixin, makeArray, round } from 'util';
 
 export class Workouts {
 	// input can have meta sections
@@ -17,11 +17,7 @@ export class MetaSection {
 		this._meta = sectionText;
 	}
 
-	render() {
-		return '<div class="meta-section">' +
-			toHtml(this._meta) +
-		'</div>';
-	}
+	toString() { return this._meta; }
 }
 
 export class Workout {

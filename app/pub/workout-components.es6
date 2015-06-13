@@ -1,4 +1,4 @@
-import { log, trace, warn, err, strFromDate } from 'util';
+import { log, trace, warn, err, toHtml, strFromDate } from 'util';
 import { ExerciseSet, ExerciseMeta, ExerciseSetCollection, Workset, WorkoutHeader, Workout, Workouts, MetaSection } from 'workout';
 import { ProgramGenerator } from 'program-generator';
 
@@ -116,9 +116,15 @@ export class ProgramGeneratorView extends React.Component {
 
 export class MetaSectionView extends React.Component {
 	render() {
+		// safely replace text linebreaks with <br>
+		var metaLinesArr = this.props.meta.toString().split('\n'),
+		lastLine = metaLinesArr.length - 1;
+
 		return (
 			<div className="meta-section">
-				{ this.props.meta }
+				{ metaLinesArr.map((line, lineIdx) => {
+					return line + (lineIdx !== lastLine ? '<br>' : '' );
+				})}
 			</div>);
 	}
 }
