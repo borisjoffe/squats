@@ -1,5 +1,5 @@
 import cfg from 'config';
-import { toHtml, createMixin, makeArray, round } from 'util';
+import { toHtml, friendlyStrFromDate, createMixin, makeArray, round } from 'util';
 
 export class Workouts {
 	// input can have meta sections
@@ -67,12 +67,7 @@ export class WorkoutHeader {
 	toString() {
 		if (!this.isValid()) { return this._meta; }
 		var
-			date = this._workoutDate,
-			padTwoDigits = _.partial(_.padLeft, _, 2, 0),
-			dateStr =
-				[date.getFullYear(),
-				padTwoDigits(date.getMonth() + 1),
-				padTwoDigits(date.getDate())].join('/'),
+			dateStr = friendlyStrFromDate(this._workoutDate),
 			units = this._unitOfWeight,
 			meta = this._meta ? '(' + this._meta + ')' : '';
 

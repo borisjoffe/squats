@@ -173,6 +173,21 @@ export function strFromDate(dateObj) {
 	return dateObj.toISOString().split('T')[0];
 }
 
+export var padLeadingZero = _.partial(_.padLeft, _, 2, 0);
+
+/**
+ * @param {Date} dateObj
+ * @param {String} delimiter for year/month/day (optional, default is '/')
+ * @returns {String} e.g. '2015/12/30'
+ */
+export function friendlyStrFromDate(dateObj, delimiter='/') {
+	if (!(dateObj instanceof Date))
+		err(TypeError, '(workoutStrFromDate) dateObj must be object but was', dateObj);
+
+	return [dateObj.getFullYear(), padLeadingZero(dateObj.getMonth() + 1), padLeadingZero(dateObj.getDate())]
+		.join(delimiter);
+}
+
 /**
  * @param {String|Number} dayOfWeek - e.g. mon/Monday/monday if string or 1 if number
  * @param {Date} currentDate - (optional) defaults to today
