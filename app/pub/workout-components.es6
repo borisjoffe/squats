@@ -116,16 +116,9 @@ export class ProgramGeneratorView extends React.Component {
 
 export class MetaSectionView extends React.Component {
 	render() {
-		// safely replace text linebreaks with <br>
-		var metaLinesArr = this.props.meta.toString().split('\n'),
-		lastLine = metaLinesArr.length - 1;
-
-		return (
-			<div className="meta-section">
-				{ metaLinesArr.map((line, lineIdx) => {
-					return line + (lineIdx !== lastLine ? '<br>' : '' );
-				})}
-			</div>);
+		return <div className="meta-section">
+			{ this.props.meta.toString() }]
+		</div>;
 	}
 }
 
