@@ -61,7 +61,7 @@ function write(msgType, ...args) {
 			'<div class="message ' + msgType.toString().toLowerCase() + '">' +
 				args.join(' ') +
 			'</div>'
-		)
+		);
 	});
 }
 
@@ -97,7 +97,7 @@ export function makeArray(valueOrArray) {
 
 export function toHtml(text) {
 	if (Array.isArray(text))
-		return text.map(toHtml).join('<br>')
+		return text.map(toHtml).join('<br>');
 	else if (text !== null && text !== undefined)
 		return text.replace(/\n/g, '<br>');
 	else
@@ -201,7 +201,9 @@ export function getDateOfNextDayOfWeek(dayOfWeek, currentDate) {
 	if (typeof dayOfWeek === 'string')
 		// get desired value of Date#getDay (0 is Sunday)
 		dayIdx = DAYS_KEYS.indexOf(dayOfWeek.toLowerCase().substring(0, 3));
-	if (dayIdx < 0 || dayIdx > 6) err('dayIdx is not valid. dayOfWeek supplied was:', dayOfWeek)
+
+	if (dayIdx < 0 || dayIdx > 6)
+		err('dayIdx is not valid. dayOfWeek supplied was:', dayOfWeek);
 
 	if (todayIdx < dayIdx) date.setUTCDate(date.getUTCDate() + dayIdx - todayIdx);
 	if (todayIdx > dayIdx) date.setUTCDate(date.getUTCDate() + dayIdx - todayIdx + 7);
@@ -298,7 +300,7 @@ export function getUnitOfWeight(text, context) {
  * @param {JSON} [props=null]
  */
 export var render = _.curry(function (htmlNode, component, props) {
-	if (!props) props = null
+	if (!props) props = null;
 	log('rendering', component.name, 'to', htmlNode, 'with props:', props);
 	if (typeof htmlNode === 'string')
 		htmlNode = document.getElementById(htmlNode);
