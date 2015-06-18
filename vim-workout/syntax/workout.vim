@@ -1,7 +1,7 @@
 " Vim syntax file
 " Language: Workout file
 " Maintainer: Boris Joffe
-" Latest Revision: 30 July 2014
+" Latest Revision: 17 June 2015
 
 if exists("b:current_syntax")
   finish
@@ -10,9 +10,13 @@ endif
 " Keywords
 setlocal iskeyword+=/
 setlocal iskeyword+=+
-syn keyword commentElementKeyword SETUP NOTATION INSIGHT TODO NEXT FOCUS nextgroup=syntaxElement2
-syn keyword exerciseElementKeyword squat fsquat bench press rows snatch nextgroup=syntaxElement2
-syn keyword exerciseElementKeyword dead/l c+j c+pj nextgroup=syntaxElement2
+syn keyword commentElementKeyword SETUP NOTATION INSIGHT TODO NEXT FOCUS TECHNIQUE WORKON INJURY LOOKUP NOTE nextgroup=syntaxElement2
+" Powerlifting (and assistance)
+syn keyword exerciseElementKeyword squat bench dead/l sumodl press rows goodm dead/c nextgroup=syntaxElement2
+" Olympic Weightlifting and main assistance
+syn keyword exerciseElementKeyword snatch c+j c+pj pc+pcj clean fsquat pjerk jerk  nextgroup=syntaxElement2
+" Olympic Weightlifting assistance
+syn keyword exerciseElementKeyword snpull hsnpull hpsn hhpsn vhpsn hhsn vhsn hsnatch psnatch pdsn dsnatch osquat sots hpclean pulls hpull hcpull ppress nextgroup=syntaxElement2
 
 " Matches
 syn match date '\d\{4}\/\d\{2}\/\d\{2}'
