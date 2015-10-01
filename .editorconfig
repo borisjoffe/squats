@@ -1,0 +1,10 @@
+# http://editorconfig.org
+root = true
+
+[*]
+charset = utf-8
+trim_trailing_whitespace = true
+
+[*.js,*.es6,*.jsx,*.json,*.md,*.adoc,*.html,*.css,*.styl,Makefile]
+indent_style = tab
+indent_size = 4
