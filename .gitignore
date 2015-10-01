@@ -1,5 +1,10 @@
-*.pyc
+app/pub/*.js
+app/pub/*.css
 *.html
+
+node_modules
+.module-cache
+*.pyc
 
 # Config
 .env
