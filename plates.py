@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python2.7
 # -*- coding: utf-8 -*-
 
 import sys, os, string, re, datetime;
@@ -57,15 +57,15 @@ DEFAULT_PLATE = PL_PLATE
 DEFAULT_PLATES_ARR = pl_plates
 NO_MEAS_SPECIFIED = False
 
-def main():	
+def main():
 	# for every arg (which is a weight) except the last one
 	weights = sys.argv
-	
+
 	del weights[0]						# Remove first arg (filename)
 	if not NO_MEAS_SPECIFIED: del weights[len(sys.argv)-1]		# Remove last arg (measurement system) if meas system specified
-	
+
 	print calcplatearr(weights, 1, True, MEAS)
-		
+
 # Input array of weights to calculate and it will output the plates needed
 # 	Arguments: weight array, 1??, whether to use multiple lines per weight or to compactly display it all on one line, measurement system
 def calcplatearr(weights, i = 0, compact=True, SYS=DEFAULT_MEAS):
@@ -81,73 +81,73 @@ def calcplatearr(weights, i = 0, compact=True, SYS=DEFAULT_MEAS):
 			print "Error: 'plates.py' - 'compact' specification in calcplatearr incorrect"
 			return
 	return arrstr[:-1]
-	
+
 # Calculate the plates for a specfied weight
 # 'i' is the set number
 # If verbose is off, only display one line of concise plate output
 def calcplates(weight, i = 0, compact=True, SYS=DEFAULT_MEAS):
 		if set_program( check_sys(string.lower(SYS)) ) == -1:
 			ErrF("'plates.py' - Setting program to Oly or PL failed.")
-			
+
 		oneline = ""
 		if MEAS == METRIC:			# Lowercase 'p' for Oly
 			PLATE_ABBR = 'p'
 		elif MEAS == IMPERIAL:		# Uppercase 'P' for PL
 			PLATE_ABBR = 'P'
-		
+
 		rTotal = float(weight)
 		if (DBG): Dbg('rtotal', rTotal)
-		
+
 		# Reject input that is not divisible by the plates we're using
-		if rTotal % (smallest_plate*2) != 0: 
+		if rTotal % (smallest_plate*2) != 0:
 			oneline += "Skipping:", weight, MEAS, "due to not being divisible by the plates we're using"
-		
+
 		if compact:
 			if i != 0:		# UNDO - was "if 1 != 0:"
 				oneline += ''.join(["Set #", `i`, " = ", `intround(rTotal)`, MEAS, '\n'])
 			else:
 				oneline += ''.join(["Current set", " = ", `intround(rTotal)`, MEAS, '\n'])
-		
-		# Weight is the weight on each side of the bar and 
+
+		# Weight is the weight on each side of the bar and
 		# gets subtracted after the amount of each plate is calculated
 		weight = (rTotal-BAR)/2.0
 		if (DBG): Dbg('weight', weight)
-		
+
 		# ONLY HALF THE WEIGHT IS CONSIDERED AFTER THIS POINT!!!
-		
+
 		# Do integer arithmetic to calculate number of plates
 		plates  = int(weight) / PLATE
-		
+
 		if plates != 0:
 			#mystr = ''.join([str(plates), PLATE_ABBR])
 			strplates = str(plates)
-			if plates == 1: 
+			if plates == 1:
 				strplates = ""
 			oneline += ''.join([strplates, PLATE_ABBR, ', '])
 
 		# Subtract highest plates
 		weight -= plates*PLATE
 		#print weight, MEAS, "on each side (not incl plates)"
-		
+
 		# Go through plates_arr and calculate how many of each plate necessary
 		for j in range( 0, len(plates_arr) ):	# skip first plate for now
 			curr_num = int(weight / plates_arr[j])
 
 			if curr_num != 0:
 				weight -= curr_num * plates_arr[j]
-			
+
 				if curr_num != 1:
 					oneline = ''.join([oneline, `curr_num`, "x", `plates_arr[j]`, ", "])
 				else: 	# Shorten plates str if there's only 1 quantity of the plate
 					oneline = ''.join([oneline, `plates_arr[j]`, ", "])
 
 		oneline = oneline[:-2]		# Remove trailing comma and one whitespace
-		
+
 		# Some string formatting stuff
 		#if oneline[0] = ","
 		return oneline
 
-		
+
 # Set program to olympic lifting or power lifting
 # Returns -1 if there is an error
 def set_program(prog):
@@ -162,13 +162,13 @@ def set_program(prog):
 		BAR = PL_BAR
 		PLATE = PL_PLATE
 		MEAS = IMPERIAL
-		plates_arr = pl_plates	
+		plates_arr = pl_plates
 	else:
 		if (DBG): Dbg('plates.py - set_program(prog) failed. prog', prog)
 		return -1;
-		
+
 	smallest_plate = plates_arr[ len(plates_arr) - 1 ]
-	
+
 # Check arguments to decide whether to set to oly or pl lifts
 def check_args():
 	if len(sys.argv) < 2 or sys.argv[1] == "-h": 	# No args => print usage
@@ -186,7 +186,7 @@ Usage:\t./plates [space separated list of weights] [either 'kg' or 'lbs']\n\
 		if my_workout == -1:
 			#workout_date = workoutlog.get_workout_date( my_workout[0] )
 
-			print "No weights found for your next workout.\n\nIt looks like you began writing your workout but have not added any weights for your exercises. \nPlease add some weights for each exercise such as this example: \n\tsquat\t1x5:405\nThis means one set of five reps of squats at a weight of 405.\nOnce we see this, we will calculate what plates to load for each weight.\nThanks!" 
+			print "No weights found for your next workout.\n\nIt looks like you began writing your workout but have not added any weights for your exercises. \nPlease add some weights for each exercise such as this example: \n\tsquat\t1x5:405\nThis means one set of five reps of squats at a weight of 405.\nOnce we see this, we will calculate what plates to load for each weight.\nThanks!"
 		elif my_workout == -2:
 			print "Sorry, no workouts found in the beginning of", workoutlog.main_file, "within the next", workoutlog.max_future_days, "days\nPlease update your workout file and try again"
 		else:
@@ -196,7 +196,7 @@ Usage:\t./plates [space separated list of weights] [either 'kg' or 'lbs']\n\
 			# TODO - change !=-1 to something better like have an is error function
 			if workout_date != -1: # if the date on the line is in the next few days
 				print "==== NEXT WORKOUT on", workout_date, "====";
-				workout_meas = check_sys(firstline); # get lbs or kg for system 
+				workout_meas = check_sys(firstline); # get lbs or kg for system
 
 				weights = [];
 				for j in range(1, len(my_workout)): # every line of workout, line 0 is the date so skip it
@@ -217,7 +217,7 @@ Usage:\t./plates [space separated list of weights] [either 'kg' or 'lbs']\n\
 							m = re.search(weight_regexp, set);
 							if m:
 								weights.append(m.group());
-						
+
 						if weights:		# if weights were found on the line
 							if DBG: Dbg('weight[]',weights);
 							plates_list.append(calcplatearr(weights, 1, True, workout_meas));	# add plates calculation for the current line
@@ -239,23 +239,23 @@ Usage:\t./plates [space separated list of weights] [either 'kg' or 'lbs']\n\
 	if set_program( check_sys(string.lower(lastarg), True) ) == -1:
 		Err("'plates.py' - Please specify last argument to be 'lbs' or 'kg'.")
 		lastarg = DEFAULT_MEAS
-		
+
 # Round num to round_to - DEPRECATED
 def my_round(round_to, num):
 	return round_to * round(float(num)/round_to)
-	
+
 # Round to twice the smallest plate - DEPRECATED
 def round_small(num):
 	return my_round(smallest_plate*2, num)
-	
+
 # Round to the smallest plate - DEPRECATED
 def round_small2(num):
-	return my_round(smallest_plate, num)	
-	
+	return my_round(smallest_plate, num)
+
 # Is an integer?
 def is_int(num):
 	return int(num)==num
-	
+
 # Truncate decimal if is_int
 def intround(num):
 	if is_int(num): return int(num)
