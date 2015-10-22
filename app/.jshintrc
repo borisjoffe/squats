@@ -1,3 +1,4 @@
 {
-	"esnext": true
+    "esnext" : true,
+    "eqnull" : false     // true : Require triple equals (===) for comparison
 }
