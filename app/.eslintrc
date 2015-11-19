@@ -1,0 +1,31 @@
+{
+    "globals": {
+        "_"     : true,
+        "$"     : true,
+        "React" : true
+    },
+    "rules": {
+		"comma-dangle": [0, "always-multiline"],
+        "indent": [0, "tab"],
+        //"indent": [2, "tab", {"VariableDeclarator": 0}],
+        "quotes": [2, "single"],
+        "linebreak-style": [2, "unix"],
+		"no-mixed-spaces-and-tabs": [2, "smart-tabs"],
+        "semi": [2, "always"]
+    },
+    "env": {
+        "es6": true,
+        "browser": true
+    },
+    "extends": "eslint:recommended",
+    "ecmaFeatures": {
+        "arrowFunctions": true,
+        "destructuring": true,
+        "jsx": true,
+        "modules": true,
+        "experimentalObjectRestSpread": true
+    },
+    "plugins": [
+        "react"
+    ]
+}

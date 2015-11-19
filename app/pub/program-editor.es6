@@ -1,4 +1,4 @@
-import { log, warn, err, trace, render, strFromDate } from 'util';
+import { /*log, warn, err, */trace, render, strFromDate } from 'util';
 import { user, programs } from 'program-generator';
 import { ProgramGeneratorView } from 'workout-components';
 

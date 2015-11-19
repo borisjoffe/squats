@@ -158,7 +158,7 @@ export class ExerciseMeta {
 }
 
 export class ExerciseSet {
-	constructor(sets, reps, weight, comments) {
+	constructor() {
 		[this._sets, this._reps, this._weight, this._comments] = arguments;
 	}
 	getSets() { return this._sets; }

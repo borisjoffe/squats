@@ -1,3 +1,5 @@
+/*eslint no-console: 0*/
+
 import cfg from 'config';
 
 // 0 is off, 1 is err, 2 is warn, 3 is log, 4 is debug, 5 is trace
@@ -52,10 +54,10 @@ export function warn(...args) {
  */
 function write(msgType, ...args) {
 	requestAnimationFrame(() => {
-		var $msgField = $("#message-container");
+		var $msgField = $('#message-container');
 
 		if (!$msgField.length)
-			return warn("(write) message-container does not exist");
+			return warn('(write) message-container does not exist');
 
 		$msgField.prepend(
 			'<div class="message ' + msgType.toString().toLowerCase() + '">' +
@@ -140,13 +142,13 @@ export function copyProps(srcObj, destObj, propsArr) {
 
 // TODO: il8n - some locales start with monday
 export var DAYS = {
-	SUN: "sun",
-	MON: "mon",
-	TUE: "tue",
-	WED: "wed",
-	THU: "thu",
-	FRI: "fri",
-	SAT: "sat"
+	SUN: 'sun',
+	MON: 'mon',
+	TUE: 'tue',
+	WED: 'wed',
+	THU: 'thu',
+	FRI: 'fri',
+	SAT: 'sat'
 };
 
 var DAYS_KEYS = _.invoke(_.keys(DAYS), 'toLowerCase');

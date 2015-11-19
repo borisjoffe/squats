@@ -1,5 +1,5 @@
-import { log, trace, warn, err, toHtml, strFromDate } from 'util';
-import { ExerciseSet, ExerciseMeta, ExerciseSetCollection, Workset, WorkoutHeader, Workout, Workouts, MetaSection } from 'workout';
+import { log, trace, /*warn, */err, /*toHtml, */strFromDate } from 'util';
+import { /*ExerciseSet, ExerciseMeta, ExerciseSetCollection, */Workset, /*WorkoutHeader, */Workout, /*Workouts, MetaSection */} from 'workout';
 import { ProgramGenerator } from 'program-generator';
 
 export class ExerciseSetView extends React.Component {
@@ -41,7 +41,7 @@ export class ExerciseCollectionView extends React.Component {
 				{ sets.map((set, idx) =>
 				    <ExerciseSetView key={idx} set={set} lastSet={idx === lastSetIdx}/>) }
 				</span>
-				
+
 				<span className='exercise-meta display-mode'>
 				{ exerciseMeta }
 				</span>
@@ -132,7 +132,7 @@ export class WorkoutLogView extends React.Component {
 				{ myWorkouts.getAll().map((workoutOrMeta, idx) => {
 					return (workoutOrMeta instanceof Workout) ?
 				    <WorkoutView key={idx} workout={workoutOrMeta} /> :
-					<MetaSectionView key={idx} meta={workoutOrMeta} /> }) }
+					<MetaSectionView key={idx} meta={workoutOrMeta} />; }) }
 			</div>
 		);
 	}
@@ -140,8 +140,8 @@ export class WorkoutLogView extends React.Component {
 
 export class Tab extends React.Component {
 	render() {
-		var idAndName = this.props.idAndName
-		return <span className='view-switcher tab' data-id={ idAndName[0] }>{ idAndName[1] }</span>
+		var idAndName = this.props.idAndName;
+		return <span className='view-switcher tab' data-id={ idAndName[0] }>{ idAndName[1] }</span>;
 	}
 }
 

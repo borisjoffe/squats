@@ -7,17 +7,17 @@ export var programs = {};
 
 var EXERCISES = {
 	// powerlifting
-	squat : "squat",
-	bench : "bench",
-	deadl : "dead/l",
-	press : "press",
-	rows  : "rows",
+	squat : 'squat',
+	bench : 'bench',
+	deadl : 'dead/l',
+	press : 'press',
+	rows  : 'rows',
 
 	// oly
-	cj  : "c+j",
-	sn  : "snatch",
-	cpj : "c+pj",
-	fsq : "fsquat"
+	cj  : 'c+j',
+	sn  : 'snatch',
+	cpj : 'c+pj',
+	fsq : 'fsquat'
 };
 
 var ex = EXERCISES;
@@ -38,13 +38,13 @@ user.maxes = {
 // Hybrid Advanced Madcow 5x5 with Olympic Weightlifting
 // TODO: change from percent to functions that take in the user's historical numbers
 programs.omcadv = {
-	name: "omcadv8",
+	name: 'omcadv8',
 	from5x5To1x5Percent: 1.0 - 0.075, // VALIDATE: 0 < x < 1
 	unitOfWeight: cfg.unitOfWeight.pounds,
 	phases: [
 		// loading
 		{
-			phaseName: "load",
+			phaseName: 'load',
 			numWeeks: 4,
 			weekOfCurrentPrs: 3, // VALIDATE: x < numWeeks
 			weekOnePercentOfPr: 0.8, // VALIDATE: 0 < x < 1
@@ -113,7 +113,7 @@ export class ProgramGenerator {
 
 	getWorkouts() { return _.flatten(this.phases, true); }
 
-	static validate(program) {
+	static validate(/*program*/) {
 		return true;
 	}
 
@@ -165,7 +165,7 @@ export class ProgramGenerator {
 		this._dayOfWeekIdx = this._dayOfWeekIdx || 0;
 		this._dayOfWeek = workoutSchema.days[this._dayOfWeekIdx % workoutSchema.days.length];
 		this._currentDate = getDateOfNextDayOfWeek(this._dayOfWeek, workoutSchema.startDate);
-		trace("week", weekIdx, this._dayOfWeekIdx, this._dayOfWeek, this._currentDate);
+		trace('week', weekIdx, this._dayOfWeekIdx, this._dayOfWeek, this._currentDate);
 
 		var
 			workoutMeta = [workoutSchema.name, workoutSchema.phaseName + (weekIdx + 1), this._dayOfWeek + ' workout'].join(' - '),
@@ -202,7 +202,7 @@ export class ProgramGenerator {
 		if (typeof program.startDate === 'string')
 			program.startDate = dateFromStr(program.startDate);
 
-		copyProps(program, program.phases, ["name", "unitOfWeight", "startDate"]); // for convenience
+		copyProps(program, program.phases, ['name', 'unitOfWeight', 'startDate']); // for convenience
 
 		return program.phases.map(phase => {
 			var numWeeks = phase.numWeeks;
