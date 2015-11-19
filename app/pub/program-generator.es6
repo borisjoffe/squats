@@ -1,6 +1,6 @@
 // Workout programs
 import cfg from 'config';
-import { trace, log, warn, DAYS, round, getDateOfNextDayOfWeek, dateFromStr, createMixin, copyProps } from 'util';
+import { trace, /*log, */warn, toHtml, DAYS, round, getDateOfNextDayOfWeek, dateFromStr, createMixin, copyProps } from 'util';
 import { getWarmupsForWorksets, ExerciseSet, ExerciseSetCollection, Workset, WorkoutHeader, Workout } from 'workout';
 
 export var programs = {};
@@ -147,7 +147,7 @@ export class ProgramGenerator {
 			// e.g. week 1 is 0.8 + (0 * .10) * 300lbs
 			weight = (weekOnePct + (numJumps * weeklyPctJumps)) * lastPr;
 		} else {
-			weight = lastPr * (1 + prJumpPercent * numJumps);
+			weight = lastPr * (1 + prJumpPct * numJumps);
 		}
 		//log('weekIdx:', weekIdx, '| exercise:', exercise, '| weight:', weight);
 

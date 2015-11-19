@@ -6,7 +6,7 @@ import ProgramEditorView from 'program-editor';
 import { WorkoutLogView, ViewSwitcher } from 'workout-components';
 
 $.get('/workouts', function (data) {
-	var hash = data.hashcode,
+	var //hash = data.hashcode,
 		workouts = data.workouts;
 		//view = new WorkoutsView(data.workouts);
 

@@ -1,6 +1,6 @@
 import cfg from 'config';
 import { getDate, getUnitOfWeight, getProp } from 'util';
-import { ExerciseSet, ExerciseMeta, ExerciseSetCollection, Workset, WorkoutHeader, Workout, Workouts, MetaSection } from 'workout';
+import { ExerciseSet, ExerciseMeta, ExerciseSetCollection, /*Workset, */WorkoutHeader, Workout, Workouts, MetaSection } from 'workout';
 
 const WORKOUT_SEPARATOR = '\n\n';
 const WHITESPACE = /\s/;

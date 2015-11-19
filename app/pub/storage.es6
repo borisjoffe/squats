@@ -10,11 +10,11 @@ export class Store {
 		this._name = name;
 	}
 
-	set(key, value, cb) {
+	set(key, value/*, cb*/) {
 		localStorage.setItem(this._name + '_' + key, toStr(value));
 	}
 
-	get(key, defaultValue, cb) {
+	get(key, defaultValue/*, cb*/) {
 		var val = localStorage.getItem(this._name + '_' + key);
 		return val !== undefined ? toJson(val) : defaultValue;
 	}

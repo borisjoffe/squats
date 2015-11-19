@@ -1,5 +1,5 @@
 import cfg from 'config';
-import { toHtml, friendlyStrFromDate, createMixin, makeArray, round } from 'util';
+import { err, toHtml, friendlyStrFromDate, createMixin, makeArray, round } from 'util';
 
 export class Workouts {
 	// input can have meta sections

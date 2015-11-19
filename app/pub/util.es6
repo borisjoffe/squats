@@ -279,7 +279,7 @@ export var round = _.curry(roundTo)(lowestPlate * 2);
  * returns first unit of weight found
  * returns user's default unit of weight if no date found
  */
-export function getUnitOfWeight(text, context) {
+export function getUnitOfWeight(text/*, context*/) {
 	if (text.contains('lbs') || text.contains('lb'))
 		return cfg.unitOfWeight.pounds;
 	else if (text.contains('kgs') || text.contains('kg'))
