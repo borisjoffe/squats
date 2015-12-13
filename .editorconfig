@@ -5,6 +5,30 @@ root = true
 charset = utf-8
 trim_trailing_whitespace = true
 
-[*.js,*.es6,*.jsx,*.json,*.md,*.adoc,*.html,*.css,*.styl,Makefile]
+[*.json]
+indent_style = tab
+indent_size = 4
+
+[*.{adoc,md}]
+indent_style = tab
+indent_size = 4
+
+[*.{js,es6,jsx,ts}]
+indent_style = tab
+indent_size = 4
+
+[.{jshintrc,eslintrc}]
+indent_style = space
+indent_size = 4
+
+[*.{html,jade}]
+indent_style = tab
+indent_size = 4
+
+[*.{css,sass,less,styl,stylus}]
+indent_style = tab
+indent_size = 4
+
+[*Makefile*]
 indent_style = tab
 indent_size = 4

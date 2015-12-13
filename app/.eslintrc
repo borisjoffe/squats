@@ -5,12 +5,12 @@
         "React" : true
     },
     "rules": {
-		"comma-dangle": [0, "always-multiline"],
+        "comma-dangle": [0, "always-multiline"],
         "indent": [0, "tab"],
         //"indent": [2, "tab", {"VariableDeclarator": 0}],
         "quotes": [2, "single"],
         "linebreak-style": [2, "unix"],
-		"no-mixed-spaces-and-tabs": [2, "smart-tabs"],
+        "no-mixed-spaces-and-tabs": [2, "smart-tabs"],
         "semi": [2, "always"]
     },
     "env": {
