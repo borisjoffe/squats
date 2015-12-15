@@ -113,7 +113,7 @@ export function getProp(obj, path) {
 	}
 	var prop = obj;
 
-	while (path.length && obj && obj !== null) {
+	while (path.length && obj) {
 		prop = obj[path[0]];
 		path = path.slice(1);
 	}
