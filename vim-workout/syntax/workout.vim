@@ -10,7 +10,7 @@ endif
 " Keywords
 setlocal iskeyword+=/
 setlocal iskeyword+=+
-syn keyword commentElementKeyword SETUP NOTATION INSIGHT TODO NEXT FOCUS TECHNIQUE WORKON INJURY LOOKUP NOTE nextgroup=syntaxElement2
+syn keyword commentElementKeyword SETUP NOTATION INSIGHT TODO NEXT N FOCUS TECHNIQUE WORKON INJURY LOOKUP NOTE nextgroup=syntaxElement2
 " Powerlifting (and assistance)
 syn keyword exerciseElementKeyword squat bench dead/l sumodl press rows goodm dead/c nextgroup=syntaxElement2
 " Olympic Weightlifting and main assistance
