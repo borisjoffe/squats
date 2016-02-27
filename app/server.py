@@ -1,12 +1,12 @@
 #!/usr/bin/env python
 
 import sys
-import string
 import json
 from hashlib import sha512
-#from future import *
+# from future import *
 
-from flask import Flask, Blueprint, render_template, url_for, request, redirect, session, g, Response
+from flask import Flask, Blueprint, render_template, session, Response
+# from flask import url_for, request, redirect, g
 pub = Blueprint('pub', __name__, static_folder='pub')
 app = Flask(__name__)
 app.register_blueprint(pub)
@@ -22,20 +22,20 @@ from workoutlist import WorkoutList
 def workouts():
 	workoutlist = WorkoutList(0)
 	data = '\n'.join(workoutlist.take(50))
-	hashcode = sha512(data).hexdigest()
+	hashcode = sha512(data.encode('utf-8')).hexdigest()
 	# figure out how to return json
 	return Response(json.dumps({ "workouts": data, "hashcode": hashcode }), mimetype='text/json')
 
 # ==== Helpers ====
 
-def logged_in(session):
+def is_logged_in(session) -> int:
 	return True
 
 # ==== HTML API ====
 
 @app.route('/')
 def index():
-	if logged_in(session):
+	if is_logged_in(session):
 		return render_template('index.html')
 	else:
 		return "ERROR: NOT LOGGED IN"
