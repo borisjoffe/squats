@@ -124,5 +124,5 @@ This takes no arguments as of now and just finds your next workout in the next 2
 
 License
 -------
-Copyright Boris Joffe 2011-2016 
+Copyright Boris Joffe 2011-2016  
 Licensed under the AGPL Version 3.0
