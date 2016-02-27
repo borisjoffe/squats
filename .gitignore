@@ -1,4 +1,5 @@
-app/pub/*.js
+app/pub/lib/*.js
+app/pub/bundle.js
 app/pub/*.css
 *.html
 

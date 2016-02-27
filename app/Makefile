@@ -2,9 +2,8 @@ SRC=$(CURDIR)
 TEMPLATE_DIR=$(SRC)/templates
 PUB_DIR=$(SRC)/pub
 SCRIPT_DIR=$(PUB_DIR)
-#SCRIPT_FILES=config.es6 util.es6 storage.es6 workout.es6 parser.es6 program-generator.es6 workout-components.es6 program-editor.es6 app.es6
-#COMPILED_JS_FILES=$(patsubst %.es6,%.js,$(wildcard *.es6))
-COMPILED_JS_FILES=$(patsubst %.es6,%.js,$(wildcard $(SCRIPT_DIR)/*.es6))
+#SCRIPT_FILES=config.js util.js storage.js workout.js parser.js program-generator.js workout-components.js program-editor.js app.js
+COMPILED_JS_FILES=$(filter-out $(SCRIPT_DIR)/bundle.js, $(wildcard $(SCRIPT_DIR)/*.js))
 APP_JS=app.js
 STYLES_DIR=$(PUB_DIR)
 
@@ -33,7 +32,7 @@ html: $(TEMPLATE_DIR)/*.jade
 	$(JADE) $(JADE_ARGS) $^
 
 # TODO: Replace with webpack loaders
-babel: $(SCRIPT_DIR)/*.es6
+babel: $(SCRIPT_DIR)/*[^bundle].js
 	#$(BABEL) $(BABEL_ARGS) $^
 	cd $(PUB_DIR); \
 	$(BABEL) $(BABEL_ARGS) $(SCRIPT_FILES)
@@ -44,7 +43,7 @@ jsx: $(SCRIPT_DIR)/app.js
 css: $(STYLES_DIR)/*.styl
 	$(STYLUS) $(STYLUS_ARGS) $^
 
-webpack: $(SCRIPT_DIR)/*.es6
+webpack: $(SCRIPT_DIR)/*[^bundle].js
 	$(WEBPACK) $(WEBPACK_ARGS)
 
 #watch: babel jsx css html
