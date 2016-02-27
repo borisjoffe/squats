@@ -1,6 +1,5 @@
 var Qty = [Number, 'BW', null];
 var Unit = ['POUNDS', 'KILOS'];
-Qty; Unit;
 
 function validWeightQty(qty) {
 	return isFinite(qty) || (qty.toLowerCase() === 'BW') || qty === null ? qty : false;
