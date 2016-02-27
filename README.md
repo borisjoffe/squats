@@ -1,4 +1,4 @@
-Squats 
+Squats
 =====
 Create, Track, and Analyze Powerlifting and Olympic Weightlifting workouts
 -----
@@ -99,13 +99,13 @@ An example case is shown here:
 		pclean	1x5:65, 1x5:85, 1x5:115, 1x5:135, 1x5:165
 
 	2013/03/30 lbs (mon workout)
-			P, 10, 5  /  2P, 5  /  2P, 35  /  3P, 2x10  /  4P, 10  / 
+			P, 10, 5  /  2P, 5  /  2P, 35  /  3P, 2x10  /  4P, 10  /
 		squat	1x5:165, 1x5:235, 1x5:295, 1x5:355, 1x5:425
 
-			25  /  P  /  P, 2x10  /  P, 35, 5  /  2P, 10, 5  / 
+			25  /  P  /  P, 2x10  /  P, 35, 5  /  2P, 10, 5  /
 		bench	1x5:95, 1x5:135, 1x5:175, 1x5:215, 1x5:255
 
-			10  /  2x10  /  35  /  P  /  P, 10, 5  / 
+			10  /  2x10  /  35  /  P  /  P, 10, 5  /
 		pclean	1x5:65, 1x5:85, 1x5:115, 1x5:135, 1x5:165
 
 
@@ -116,15 +116,13 @@ workoutlog.py
 ------------
 This takes no arguments as of now and just finds your next workout in the next 2 days (if applicable) and prints it out so you don't have to open the file. It also has some helper functions that `plates.py` uses
 
-	$ workoutlog 
-	2013/03/30	lbs (restart2 - deload wk2 - wed workout)
-		c+j		1x3:45, 1x3:95, 1x2:115, 1x2:135, 1x3L:150 (FOCUS: good hole position, lower elbows prior to jerk)
-		press	1x5:95, 1x5:115, 1x5:125 (restart2 stall 1, try 2, FOCUS: breathing, upper back)
-		dead/l	1x5:185, 1x5:245, 1x5:295 (FOCUS: straight back, weight evenly distributed on heels)
-		fsquat	1x3:155, 1x3:165 (optional)
+	$ workoutlog
+	2013/03/30	lbs (madcow2 - load wk2 - wed workout)
+		squat	1x5:165, 1x5:235, 1x5:295, 1x5:355, 1x5:425
+		bench	1x5:95, 1x5:135, 1x5:175, 1x5:215, 1x5:255
+		pclean	1x5:65, 1x5:85, 1x5:115, 1x5:135, 1x5:165
 
 License
 -------
-Copyright Boris Joffe 2011-2015
-
+Copyright Boris Joffe 2011-2016 
 Licensed under the AGPL Version 3.0
