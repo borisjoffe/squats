@@ -16,7 +16,7 @@ filename = 'sl5x5.txt';
 main_file = os.path.join(dir, filename);
 
 date_regexp = '\d{4}/\d{2}/\d{2}';
-max_read_lines = 250; max_lines_workout = 50; max_future_days = 3;
+max_read_lines = 250; max_lines_workout = 50; max_future_days = 2;
 next_days = []; workout = []; workout_meas = DEFAULT_MEAS;
 
 # Create list of next days from today (inclusive) to max_future_days ahead
