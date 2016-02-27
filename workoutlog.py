@@ -46,16 +46,16 @@ def get_next_workout(filename=main_file, Verbose=False):
 		filename = main_file
 	f = open(filename, 'r');
 	i = j = 0; found = False;
-	workout = []; 
+	workout = [];
 	next_days = make_list_of_next_days(max_future_days);
 
 	while i < max_read_lines and not found:
 		line = f.readline();
-		workout_date = get_workout_date(line);	
+		workout_date = get_workout_date(line);
 
 		if workout_date != -1 and workout_date in next_days: # if the date on the line is in the next few days
 			found = True; # found date workout header that is coming up in the next few days
-			workout_meas = check_sys(line); # get lbs or kg for system 
+			workout_meas = check_sys(line); # get lbs or kg for system
 			workout.append(line);
 
 			for j in range(max_lines_workout): # every line of workout
@@ -81,7 +81,7 @@ def get_next_workout(filename=main_file, Verbose=False):
 
 	return workout
 
-		
+
 def main():
 	arglen = len(sys.argv)
 
