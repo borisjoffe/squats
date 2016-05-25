@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# $ squats search ex fsq
+# $ squats search all NOTATION:
+
+if [ -z $1 ]; then
+	echo only 'search ex' is currently supported
+	exit
+fi
+
+if [ "$1" == 'search' -o "$1" == 's' ]; then
+	defaultLines=5
+	if [ $4 ]; then
+		defaultLines=$4
+	fi
+
+	if [ -z "$2" ]; then
+		echo -e search for what? use 's ex' for examples or 's a' for any other search
+		exit
+	elif [ -z "$3" ]; then
+		echo Please specify search term like squat or bench
+		exit
+	elif [ "$2" == 'example' -o "$2" == 'ex' ] ; then
+		echo -e "`awk '/\t'$3'/ { print NR,$0 }' ~/fitness/sl5x5.txt|head -$defaultLines`"
+	elif [ "$2" == 'all' -o "$2" == 'a' ]; then
+		echo -e "`awk '/'$3'/ { print NR,$0 }' ~/fitness/sl5x5.txt|head -$defaultLines`"
+	fi
+fi
