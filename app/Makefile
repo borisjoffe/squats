@@ -3,7 +3,7 @@ TEMPLATE_DIR=$(SRC)/templates
 PUB_DIR=$(SRC)/pub
 SCRIPT_DIR=$(PUB_DIR)
 #SCRIPT_FILES=config.js util.js storage.js workout.js parser.js program-generator.js workout-components.js program-editor.js app.js
-COMPILED_JS_FILES=$(filter-out $(SCRIPT_DIR)/bundle.js, $(wildcard $(SCRIPT_DIR)/*.js))
+JS_FILES=$(filter-out $(SCRIPT_DIR)/bundle.js, $(wildcard $(SCRIPT_DIR)/*.js))
 APP_JS=app.js
 STYLES_DIR=$(PUB_DIR)
 
@@ -53,15 +53,10 @@ watch:
 serve:
 	python server.py
 
-cleanjs:
-	rm $(PUB_DIR)/$(APP_JS); \
-	rm $(COMPILED_JS_FILES); \
-	rm $(SCRIPT_DIR)/*.map
-
 cleanother:
 	rm $(TEMPLATE_DIR)/*.html; \
 	rm $(STYLES_DIR)/*.css
 
-clean: cleanjs cleanother
+clean: cleanother
 
 .PHONY: clean webpack watch
