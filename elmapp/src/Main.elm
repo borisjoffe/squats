@@ -6,6 +6,10 @@ import Html.Events exposing (onClick, onInput)
 import Html.Attributes exposing (..)
 import Time
 
+import Parse
+import Weight
+import Workout
+
 
 main : Program Never
 main =
@@ -29,11 +33,12 @@ type alias Model =
 
 init : (Model, Cmd msg)
 init =
-  (Model 0 0 "It works!" [] "", Cmd.none)
+  (Model 0 0 "It works!" [] "12", Cmd.none)
 
 
 -- UPDATE
 
+parseAndPrint = Weight.print << Parse.weight
 
 type Msg = ParseTextWorkout String | Increment | Decrement | Tick | Alert | ChangeAlertText String | Log String
 
@@ -93,7 +98,7 @@ view model =
         [ textarea [ onInput ParseTextWorkout ] [ text model.workout ]
         , br [] []
         , br [] []
-        , text <| model.workout
+        , text <| parseAndPrint model.workout
         ]
     , div [ style boxStyle ]
         [ h2 [] [ text "Counter" ]
