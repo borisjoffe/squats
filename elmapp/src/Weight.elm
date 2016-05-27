@@ -2,20 +2,20 @@ module Weight exposing
     (..)
 
 -- Model
-type WeightValue v = Float v | Unknown
+type Value v = Float v | Unknown
 
-type WeightUnit = Kg | Lbs
+type Unit = Kg | Lbs
 
 type alias Weight w =
-    { units : WeightUnit
-    , value : WeightValue w
+    { units : Unit
+    , value : Value w
     }
 
 -- Curried constructors
-weightLbs : WeightValue w -> Weight w
+weightLbs : Value w -> Weight w
 weightLbs = Weight Lbs
 
-weightKg : WeightValue w -> Weight w
+weightKg : Value w -> Weight w
 weightKg = Weight Kg
 
 
