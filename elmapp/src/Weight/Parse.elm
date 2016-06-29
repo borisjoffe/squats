@@ -1,4 +1,4 @@
-module Parse exposing (..)
+module Weight.Parse exposing (..)
 
 import String
 
@@ -16,6 +16,7 @@ weightValue weightStr =
         Nothing -> Weight.Unknown
 
 
+-- TODO: implement parsing kg or lbs
 weightUnit : String -> Weight.Unit
 weightUnit weightStr =
     case weightStr of

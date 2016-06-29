@@ -6,7 +6,6 @@ import Html.Events exposing (onClick, onInput)
 import Html.Attributes exposing (..)
 import Time
 
-import Parse
 import Weight
 import Workout
 
@@ -38,7 +37,7 @@ init =
 
 -- UPDATE
 
-parseAndPrint = Weight.print << Parse.weight
+parseAndPrint = Weight.print << Workout.parse
 
 type Msg = ParseTextWorkout String | Increment | Decrement | Tick | Alert | ChangeAlertText String | Log String
 

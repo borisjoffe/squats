@@ -1,10 +1,10 @@
 module Workout exposing
     (..)
 
-import Parse
 import Weight
+import Weight.Parse
 
 
-parse = Parse.weight
+parse = Weight.Parse.weight
 
 print = Weight.print
